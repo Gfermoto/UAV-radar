@@ -6,6 +6,8 @@ Acoustic listening for **UAVs** on DIY hardware — and an open RTSP microphone 
 
 Hardware: Seeed XIAO ESP32-S3 + XMOS XVF3800.
 
+**Coming soon:** enclosure, DIY build guide, flash guide, and a signed NEVOD sensor binary — see [Coming soon](#coming-soon) / [Скоро](#скоро).
+
 ---
 
 <a id="english"></a>
@@ -19,10 +21,23 @@ Inside you will find:
 
 | Piece | What you get |
 |-------|----------------|
-| **Open mic firmware** (this tree, [MIT](LICENSE)) | Capture → Opus → RTSP + WebUI. Flash it and stream audio on your LAN. |
-| **NEVOD sensor firmware** | Detection stays closed-source. A signed `.bin` will appear in GitHub Releases for people building a node. |
+| **Open mic firmware** (this tree, [MIT](LICENSE)) | Capture → Opus → RTSP + WebUI. Flash it and stream audio on your LAN. Available now — [Releases](https://github.com/Gfermoto/UAV-radar/releases). |
+| **NEVOD node kit** | Enclosure, assembly + flash docs, signed sensor `.bin` — **coming soon** (detection stays closed-source). |
 
 If you only need a networked mic — for birds, a garden, Home Assistant, an NVR — the open firmware is enough. Detection of UAVs is the NEVOD path.
+
+### Coming soon
+
+Not published yet — landing here when ready:
+
+| Item | Status |
+|------|--------|
+| Outdoor / node **enclosure** (CAD / print files) | Coming soon |
+| **Assembly** guide (board + mic + case) | Coming soon |
+| **Flash** guide for the NEVOD sensor binary | Coming soon |
+| Signed **NEVOD sensor `.bin`** (GitHub Releases) | Coming soon |
+
+Open mic sources and the RTSP Mic `v0.3.0` binary are already in the repo / Releases. Watch [Releases](https://github.com/Gfermoto/UAV-radar/releases) for the rest.
 
 ![MIC DEV GUI](./gui.jpg)
 
@@ -84,10 +99,23 @@ RGB DoA ring on the mic (via XVF) and a separate Wi‑Fi status LED on the XIAO.
 
 | Часть | Что даёт |
 |-------|----------|
-| **Открытая прошивка микрофона** (это дерево, [MIT](LICENSE)) | Захват → Opus → RTSP и WebUI. Прошили — слушаете поток в LAN. |
-| **Прошивка датчика NEVOD** | Детекция закрыта. Подписанный `.bin` появится в GitHub Releases для сборки узла. |
+| **Открытая прошивка микрофона** (это дерево, [MIT](LICENSE)) | Захват → Opus → RTSP и WebUI. Уже можно прошить — [Releases](https://github.com/Gfermoto/UAV-radar/releases). |
+| **Комплект узла NEVOD** | Корпус, инструкция по сборке и прошивке, подписанный `.bin` датчика — **скоро** (детекция остаётся закрытой). |
 
 Нужен только сетевой микрофон — птицы, сад, Home Assistant, регистратор — достаточно открытой прошивки. Детекция БПЛА — путь NEVOD.
+
+### Скоро
+
+Пока не выложено — появится здесь:
+
+| Что | Статус |
+|-----|--------|
+| **Корпус** узла (CAD / для печати) | Скоро |
+| Инструкция по **сборке** (плата + mic + корпус) | Скоро |
+| Инструкция по **прошивке** датчика NEVOD | Скоро |
+| Подписанный **`.bin` датчика NEVOD** (GitHub Releases) | Скоро |
+
+Открытый mic и бинарник RTSP Mic `v0.3.0` уже в репозитории / Releases. Остальное — в новых [Releases](https://github.com/Gfermoto/UAV-radar/releases).
 
 ![MIC DEV GUI](./gui.jpg)
 
