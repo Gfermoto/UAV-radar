@@ -1,0 +1,10 @@
+Index:
+  Background: Skip
+
+If:
+  PathExclude:
+    - .pio/**
+    - test/**
+
+Diagnostics:
+  Suppress: '*'
