@@ -156,6 +156,7 @@ Levels, direction of arrival (DoA), MEL, beam, Wi‑Fi — configured in the bro
 
 | Material | Where |
 |----------|-------|
+| Landing | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
 | DIY node parts list | [docs/BOM.md](docs/BOM.md) |
 | Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) · [release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0) |
 | Full DIY guide (flash + assembly) | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
