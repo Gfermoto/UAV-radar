@@ -315,6 +315,11 @@ a:hover {
 .join {
   text-align: left;
 }
+#depin .note {
+  color: var(--fog-dim);
+  font-size: 1.05rem;
+}
+
 .join .note {
   margin: 1.25rem 0 0;
   color: var(--fog-dim);
