@@ -7,8 +7,9 @@
 ### Как помочь сильнее всего (без кода)
 
 1. **Собрать узел** по [DIY_GUIDE.md](docs/DIY_GUIDE.md) и рассказать в [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](../../issues/new/choose)
-2. Привести соседа / второй угол — плотность = сила сети
-3. Улучшить инструкцию: фото, неоднозначные шаги, битые ссылки, устаревшие релизы
+2. Следить за новостями проекта в Telegram: [t.me/UAV_radar](https://t.me/UAV_radar)
+3. Привести соседа / второй угол — плотность = сила сети
+4. Улучшить инструкцию: фото, неоднозначные шаги, битые ссылки, устаревшие релизы
 
 ### Что открыто для PR
 
@@ -38,8 +39,9 @@ Thanks for looking at **UAV-radar / NEVOD** — a distributed DePIN network of a
 ### Highest-leverage help (no code)
 
 1. **Build a node** with [DIY_GUIDE.md](docs/DIY_GUIDE.md) and share in [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](../../issues/new/choose) issue
-2. Recruit a neighbor / second angle — density is the product
-3. Patch the guide: photos, ambiguous steps, dead links, stale releases
+2. Follow project news on Telegram: [t.me/UAV_radar](https://t.me/UAV_radar)
+3. Recruit a neighbor / second angle — density is the product
+4. Patch the guide: photos, ambiguous steps, dead links, stale releases
 
 ### Welcome PRs
 
