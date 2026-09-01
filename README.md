@@ -1,11 +1,13 @@
 # UAV-radar · NEVOD
 
-**[Русский](#русский)** · **[English](#english)**
+**[Русский](#русский)** · **[English](#english)** · **[Landing](https://gfermoto.github.io/UAV-radar/)**
 
 ---
 
 <a id="русский"></a>
 ## Русский
+
+**Лендинг:** [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/)
 
 Открытая прошивка сетевого микрофона ([MIT](LICENSE)) и материалы для акустического узла **NEVOD** на Seeed XIAO ESP32-S3 и XMOS XVF3800. Открытый mic — Opus, RTSP и WebUI: птицы, природный звук, [BirdNET](https://github.com/kahst/BirdNET-Analyzer). Прошивка датчика — подписанный бинарник с распознанием трёх классов БПЛА на плате.
 
@@ -48,6 +50,7 @@
 
 | Материал | Где |
 |----------|-----|
+| Лендинг | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
 | Смета узла DIY | [docs/BOM.md](docs/BOM.md) |
 | Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) · [релиз](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0) |
 | Полная инструкция DIY (прошивка + сборка) | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
@@ -109,6 +112,8 @@ pio device monitor -e rtsp_mic
 
 <a id="english"></a>
 ## English
+
+**Landing:** [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/)
 
 Open networked mic firmware ([MIT](LICENSE)) and NEVOD acoustic node materials for Seeed XIAO ESP32-S3 + XMOS XVF3800. Open mic: Opus, RTSP, WebUI — birds, nature, [BirdNET](https://github.com/kahst/BirdNET-Analyzer). Sensor firmware: signed binary with on-device recognition of three UAV classes.
 
