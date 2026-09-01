@@ -375,7 +375,7 @@ TPU‑прокладку (и резиновый уплотнитель / O‑rin
 
 ### Поддержка
 
-[Issues](https://github.com/Gfermoto/UAV-radar/issues).  
+[Issues](https://github.com/Gfermoto/UAV-radar/issues) · новости: [Telegram @UAV_radar](https://t.me/UAV_radar).  
 Логика детекции и облака — в закрытом бинарнике. Открытый RTSP Mic в репозитории — MIT.
 
 ---
