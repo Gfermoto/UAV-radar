@@ -4,18 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NEVOD · DePIN акустический радар — DIY-узел дронов</title>
-  <meta name="description" content="Соберите свой DePIN-узел слуха: нейросеть на плате, пеленг, Home Assistant. Локально или в народном радаре NEVOD. Смета ≈ ₽9 800. MIT mic + подписанный датчик." />
+  <meta name="description" content="Соберите DIY DePIN-узел: нейросеть на плате, пеленг, Home Assistant. Локальная акустика или народный радар NEVOD. Смета ≈ ₽9 800." />
   <meta name="keywords" content="DePIN, NEVOD, DIY, drone detection, acoustic sensing, ESP32-S3, XVF3800, Home Assistant, MQTT, people’s radar" />
   <meta name="theme-color" content="#0a1210" />
   <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/" />
   <meta property="og:title" content="NEVOD · DePIN acoustic DIY drone nodes" />
-  <meta property="og:description" content="Own the hardware. Hear your yard. Optionally join the people’s radar. ESP32-S3 + XVF3800." />
+  <meta property="og:description" content="Own the hardware. Monitor your yard locally. Opt in to the people’s radar for shared early warning. ESP32-S3 + XVF3800." />
   <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/gui.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NEVOD · DePIN acoustic DIY drone nodes" />
-  <meta name="twitter:description" content="Build a node at home. Local-first. Network when ready." />
+  <meta name="twitter:description" content="Build a node at home. Acoustics locally — or the people’s radar when ready." />
   <meta name="twitter:image" content="https://gfermoto.github.io/UAV-radar/assets/gui.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -49,8 +49,8 @@
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-inner">
         <p class="hero-brand">NEVOD<em>.</em></p>
-        <h1 class="hero-title" data-i18n="hero.title">Свой узел. Своя сеть.</h1>
-        <p class="hero-lead" data-i18n="hero.lead">DePIN-слух без камеры: нейросеть на плате, пеленг, WebUI. Сначала — двор и Home Assistant. Когда готовы — народный радар.</p>
+        <h1 class="hero-title" data-i18n="hero.title">Свой акустический узел. Раннее оповещение.</h1>
+        <p class="hero-lead" data-i18n="hero.lead">DIY DePIN: нейросеть на плате, пеленг, WebUI. Сначала — двор и Home Assistant. Когда готовы — народный радар.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="#start" data-i18n="hero.cta1">Собрать узел</a>
           <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="hero.cta2">Полная инструкция</a>
@@ -75,7 +75,7 @@
     <section class="section" id="paths">
       <div class="reveal">
         <h2 data-i18n="paths.h">Два пути одного узла</h2>
-        <p class="lead" data-i18n="paths.p">Сначала — свой двор. Народный радар — когда готовы поделиться слухом с сетью.</p>
+        <p class="lead" data-i18n="paths.p">Сначала — свой двор. Народный радар — когда готовы включить узел в общую сеть раннего оповещения.</p>
       </div>
       <div class="paths reveal">
         <article class="path-card">
@@ -86,7 +86,7 @@
         <article class="path-card">
           <span class="tag" data-i18n="paths.net.tag">Сеть</span>
           <h3 data-i18n="paths.net.h">Народный радар</h3>
-          <p data-i18n="paths.net.p">Токен из кабинета и координаты установки — узел входит в общую сеть раннего оповещения. Люди получают шанс среагировать. Облако не публикует координаты нод; владельцам нод — преференции сервиса.</p>
+          <p data-i18n="paths.net.p">Токен из кабинета и координаты установки — узел входит в общую сеть раннего оповещения. Больше людей получают шанс среагировать. Облако не публикует координаты нод; владельцам нод — преференции от сервиса.</p>
         </article>
       </div>
     </section>
@@ -94,15 +94,15 @@
     <section class="section" id="depin">
       <div class="reveal">
         <h2 data-i18n="depin.h">Почему это DePIN</h2>
-        <p class="lead" data-i18n="depin.p">Физическая сеть слуха растёт узлом за узлом — у людей дома, не в чужом облаке.</p>
+        <p class="lead" data-i18n="depin.p">Распределённая акустическая сеть: узлы у людей дома, не в чужом дата‑центре.</p>
       </div>
       <ul class="feat-list reveal">
-        <li data-i18n-html="d1"><strong>Железо ваше</strong> — купили, собрали, повесили. Никто не отключает двор по подписке</li>
-        <li data-i18n-html="d2"><strong>Локально по умолчанию</strong> — детекция на плате; MQTT / HA без облака NEVOD</li>
-        <li data-i18n-html="d3"><strong>Сеть — opt-in</strong> — токен + координаты; облако не публикует позиции нод</li>
-        <li data-i18n-html="d4"><strong>Плотность = сила</strong> — каждый новый двор закрывает слепую зону для всех в сети</li>
+        <li data-i18n-html="d1"><strong>Железо ваше</strong> — купили, собрали, повесили. Двор не отключают по подписке</li>
+        <li data-i18n-html="d2"><strong>Локально по умолчанию</strong> — детекция на ESP32-S3; MQTT / HA без облака NEVOD</li>
+        <li data-i18n-html="d3"><strong>Сеть — opt-in</strong> — токен и координаты; позиции нод облако не публикует</li>
+        <li data-i18n-html="d4"><strong>Плотность = сила</strong> — каждый новый узел закрывает слепую зону для сети</li>
       </ul>
-      <p class="note reveal" style="margin-top: 1.5rem" data-i18n="depin.cost">Ядро сметы ≈ ₽9 800 (снимок). Один узел — один сектор. Соседи и второй угол — меньше дыр.</p>
+      <p class="note reveal" style="margin-top: 1.5rem" data-i18n="depin.cost">Смета ядра ≈ ₽9 800. Один узел — один сектор. Соседи и второй угол — меньше слепых зон.</p>
     </section>
 
     <section class="section join" id="start">
@@ -129,7 +129,7 @@
     <section class="section" id="trust">
       <div class="reveal">
         <h2 data-i18n="trust.h">Что открыто, что закрыто</h2>
-        <p class="lead" data-i18n="trust.p">Честная модель для DIY: открытое железо и mic, подписанный датчик.</p>
+        <p class="lead" data-i18n="trust.p">Честная модель DIY / DePIN: открытое железо и mic, подписанный датчик.</p>
       </div>
       <ul class="trust-list reveal">
         <li data-i18n-html="t1"><strong>Открыто (MIT)</strong> — прошивка RTSP Mic, WebUI API, BOM, STL корпуса, эта инструкция</li>
@@ -156,8 +156,8 @@
           "nav.depin": "DePIN",
           "nav.start": "Сборка",
           "nav.trust": "Доверие",
-          "hero.title": "Свой узел. Своя сеть.",
-          "hero.lead": "DePIN-слух без камеры: нейросеть на плате, пеленг, WebUI. Сначала — двор и Home Assistant. Когда готовы — народный радар.",
+          "hero.title": "Свой акустический узел. Раннее оповещение.",
+          "hero.lead": "DIY DePIN: нейросеть на плате, пеленг, WebUI. Сначала — двор и Home Assistant. Когда готовы — народный радар.",
           "hero.cta1": "Собрать узел",
           "hero.cta2": "Полная инструкция",
           "hero.cta3": "GitHub ★",
@@ -168,20 +168,20 @@
           "f3": "<strong>Home Assistant</strong> — MQTT Auto Discovery: сущности появляются сами",
           "f4": "<strong>Две прошивки на одном железе</strong> — NEVOD DIY (датчик) или открытый RTSP Mic (сад / BirdNET)",
           "paths.h": "Два пути одного узла",
-          "paths.p": "Сначала — свой двор. Народный радар — когда готовы поделиться слухом с сетью.",
+          "paths.p": "Сначала — свой двор. Народный радар — когда готовы включить узел в общую сеть раннего оповещения.",
           "paths.local.tag": "Локально",
           "paths.local.h": "Двор и Home Assistant",
           "paths.local.p": "Прошейте, настройте Wi‑Fi, подключите MQTT / HA. Алерты у вас дома. Облако NEVOD не обязательно.",
           "paths.net.tag": "Сеть",
           "paths.net.h": "Народный радар",
-          "paths.net.p": "Токен из кабинета и координаты установки — узел входит в общую сеть раннего оповещения. Люди получают шанс среагировать. Облако не публикует координаты нод; владельцам нод — преференции сервиса.",
+          "paths.net.p": "Токен из кабинета и координаты установки — узел входит в общую сеть раннего оповещения. Больше людей получают шанс среагировать. Облако не публикует координаты нод; владельцам нод — преференции от сервиса.",
           "depin.h": "Почему это DePIN",
-          "depin.p": "Физическая сеть слуха растёт узлом за узлом — у людей дома, не в чужом облаке.",
-          "d1": "<strong>Железо ваше</strong> — купили, собрали, повесили. Никто не отключает двор по подписке",
-          "d2": "<strong>Локально по умолчанию</strong> — детекция на плате; MQTT / HA без облака NEVOD",
-          "d3": "<strong>Сеть — opt-in</strong> — токен + координаты; облако не публикует позиции нод",
-          "d4": "<strong>Плотность = сила</strong> — каждый новый двор закрывает слепую зону для всех в сети",
-          "depin.cost": "Ядро сметы ≈ ₽9 800 (снимок). Один узел — один сектор. Соседи и второй угол — меньше дыр.",
+          "depin.p": "Распределённая акустическая сеть: узлы у людей дома, не в чужом дата‑центре.",
+          "d1": "<strong>Железо ваше</strong> — купили, собрали, повесили. Двор не отключают по подписке",
+          "d2": "<strong>Локально по умолчанию</strong> — детекция на ESP32-S3; MQTT / HA без облака NEVOD",
+          "d3": "<strong>Сеть — opt-in</strong> — токен и координаты; позиции нод облако не публикует",
+          "d4": "<strong>Плотность = сила</strong> — каждый новый узел закрывает слепую зону для сети",
+          "depin.cost": "Смета ядра ≈ ₽9 800. Один узел — один сектор. Соседи и второй угол — меньше слепых зон.",
           "start.h": "Как собрать",
           "s1": "Закажите детали по <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">смете</a> и распечатайте <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0\">корпус</a>",
           "s2": "Прошейте чип и XIAO по <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">полной инструкции DIY</a> — подписанный <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.16.25-ota\">.bin</a>",
@@ -195,7 +195,7 @@
           "start.cta2": "Смета",
           "start.cta3": "Рассказать о сборке",
           "trust.h": "Что открыто, что закрыто",
-          "trust.p": "Честная модель для DIY и DePIN: открытое железо и mic, подписанный датчик.",
+          "trust.p": "Честная модель DIY / DePIN: открытое железо и mic, подписанный датчик.",
           "t1": "<strong>Открыто (MIT)</strong> — прошивка RTSP Mic, WebUI API, BOM, STL корпуса, эта инструкция",
           "t2": "<strong>Закрыто</strong> — веса и логика детекции БПЛА внутри подписанного <code>nevod-diy-*.bin</code>",
           "t3": "<strong>Проверка</strong> — sha256 в <code>manifest.json</code> релиза; подпись <code>.sig</code> рядом с бинарником",
@@ -208,8 +208,8 @@
           "nav.depin": "DePIN",
           "nav.start": "Build",
           "nav.trust": "Trust",
-          "hero.title": "Your node. Your network.",
-          "hero.lead": "Camera-free DePIN hearing: on-device net, bearing, WebUI. Start with your yard and Home Assistant. Join the people’s radar when ready.",
+          "hero.title": "Your acoustic node. Early warning.",
+          "hero.lead": "DIY DePIN: on-device neural net, bearing, WebUI. Start with your yard and Home Assistant. Join the people’s radar when ready.",
           "hero.cta1": "Build a node",
           "hero.cta2": "Full guide",
           "hero.cta3": "GitHub ★",
@@ -220,19 +220,19 @@
           "f3": "<strong>Home Assistant</strong> — MQTT Auto Discovery entities appear on their own",
           "f4": "<strong>Two firmwares, one board</strong> — NEVOD DIY (sensor) or open RTSP Mic (garden / BirdNET)",
           "paths.h": "Two paths, one node",
-          "paths.p": "Start with your yard. Join the people’s radar when you are ready to share hearing with the network.",
+          "paths.p": "Start with your yard. People’s radar — when you are ready to put the node on the shared early-warning network.",
           "paths.local.tag": "Local",
           "paths.local.h": "Yard &amp; Home Assistant",
           "paths.local.p": "Flash, join Wi‑Fi, enable MQTT / HA. Alerts stay at home. NEVOD cloud is optional.",
           "paths.net.tag": "Network",
           "paths.net.h": "People’s radar",
-          "paths.net.p": "Cabinet token + install coordinates put the node on the shared early-warning network so people can react. The cloud does not publish node coordinates; node owners get service preferences.",
+          "paths.net.p": "Cabinet token and install coordinates put the node on the shared early-warning network so more people can react. The cloud does not publish node coordinates; node owners get preferences from the service.",
           "depin.h": "Why this is DePIN",
-          "depin.p": "A physical hearing mesh grows node by node — in people’s homes, not someone else’s data center.",
-          "d1": "<strong>Hardware you own</strong> — buy, build, hang. Nobody turns off your yard with a subscription switch",
+          "depin.p": "A distributed acoustic network: nodes in people’s homes, not someone else’s data center.",
+          "d1": "<strong>Hardware you own</strong> — buy, build, mount. Your yard is not switched off by subscription",
           "d2": "<strong>Local by default</strong> — on-device detection; MQTT / HA without NEVOD cloud",
           "d3": "<strong>Network is opt-in</strong> — token + coordinates; cloud does not publish node positions",
-          "d4": "<strong>Density is power</strong> — each new yard closes a blind spot for everyone on the mesh",
+          "d4": "<strong>Density is power</strong> — each new node closes a blind spot for the network",
           "depin.cost": "Core BOM ≈ ₽9,800 (snapshot). One node covers a sector. Neighbors and a second angle fill the gaps.",
           "start.h": "How to build",
           "s1": "Order parts from the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> and print the <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0\">enclosure</a>",
@@ -247,7 +247,7 @@
           "start.cta2": "BOM",
           "start.cta3": "Share your build",
           "trust.h": "Open vs closed",
-          "trust.p": "Honest DIY / DePIN model: open hardware + mic, signed sensor.",
+          "trust.p": "Honest DIY / DePIN model: open hardware and mic, signed sensor.",
           "t1": "<strong>Open (MIT)</strong> — RTSP Mic firmware, WebUI API, BOM, enclosure STL, this page",
           "t2": "<strong>Closed</strong> — UAV detection weights and logic inside signed <code>nevod-diy-*.bin</code>",
           "t3": "<strong>Verify</strong> — sha256 in release <code>manifest.json</code>; <code>.sig</code> next to the binary",
