@@ -20,7 +20,7 @@ STL для печати корпуса узла NEVOD DIY (XIAO ESP32-S3 + XVF38
 |------|--------|----------|
 | `nevod-diy-body-v0.1.0.stl` | корпус (низ) | ASA (смета) или PETG |
 | `nevod-diy-lid-v0.1.0.stl` | крышка | ASA или PETG |
-| `nevod-diy-gasket-v0.1.0.stl` | прокладка | **TPU** |
+| `nevod-diy-gasket-v0.1.0.stl` | прокладка | **TPU** (альтернатива: резиновая прокладка / O‑ring того же размера; перед сборкой — силиконовая смазка) |
 | `nevod-diy-led-ring-v0.1.0.stl` | кольцо LED | прозрачный / матовый просвечивающийся ASA или PETG (**тот же состав**, что body/lid) |
 
 Слой 0.2 мм — разумный старт. Infill / supports — по слайсеру.
@@ -29,7 +29,7 @@ STL для печати корпуса узла NEVOD DIY (XIAO ESP32-S3 + XVF38
 
 1. Впаять закладные втулки **до** химии.  
 2. Изнутри прокапать отверстия под LED, затем сгладить **снаружи** паром: **ASA** — ацетон; **PETG** — пар ТГФ, прокапывание LED‑отверстий изнутри **хлористым метиленом**.  
-3. Отлёжка **≥ 24 ч**, потом сборка. TPU не обрабатывать растворителями.  
+3. Отлёжка **≥ 24 ч**, потом сборка. TPU / резиновый уплотнитель растворителями не обрабатывать; **перед сборкой** смазать **силиконовой смазкой**.  
 Вытяжка / перчатки; пары токсичны.
 
 Полная сборка (с фото): [DIY_GUIDE.md](DIY_GUIDE.md) §7. Метизы: [BOM](BOM.md).
@@ -52,7 +52,7 @@ efb9811aa72d92917db2e4675d3f1c93c0f4480cf7b29eb6c0801c0f765672bf  nevod-diy-gask
 |------|------|----------------|
 | `nevod-diy-body-v0.1.0.stl` | body (bottom) | ASA (BOM) or PETG |
 | `nevod-diy-lid-v0.1.0.stl` | lid (top) | ASA or PETG |
-| `nevod-diy-gasket-v0.1.0.stl` | gasket | **TPU** |
+| `nevod-diy-gasket-v0.1.0.stl` | gasket | **TPU** (or rubber gasket / O‑ring of matching size; **silicone grease** before assembly) |
 | `nevod-diy-led-ring-v0.1.0.stl` | LED ring | clear / matte translucent ASA or PETG (**same polymer** as body/lid) |
 
 Layer 0.2 mm is a reasonable start. Infill / supports: your slicer.
@@ -63,7 +63,7 @@ Layer 0.2 mm is a reasonable start. Infill / supports: your slicer.
 
 1. Heat-set inserts **before** chemistry.  
 2. Pre-drip LED holes from the inside, then vapor-smooth **outside**: **ASA** — acetone; **PETG** — THF vapor, LED holes dripped with **methylene chloride**.  
-3. Rest **≥ 24 h**, then assemble. Do not solvent-treat TPU. Ventilate; fumes are hazardous.
+3. Rest **≥ 24 h**, then assemble. Do not solvent-treat TPU / rubber seals; coat with **silicone grease** before assembly. Ventilate; fumes are hazardous.
 
 Full assembly (with photos): [DIY_GUIDE.md](DIY_GUIDE.md) §7. Fasteners: [BOM](BOM.md).
 

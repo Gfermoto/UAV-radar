@@ -258,7 +258,7 @@ USB-прошивка из Releases остаётся запасным путём 
 
 > **Безопасность.** Пары ацетона, ТГФ и хлористого метилена токсичны и огнеопасны. Работайте только с **вытяжкой**, в **перчатках**, без открытого огня и нагревателей рядом. Не делайте химическое сглаживание, если нет опыта и нормальной вентиляции — можно оставить корпус «как с принтера».
 
-Печатайте body / lid из **ASA** или **PETG**; **LED‑ring** — из **прозрачного** или **матового просвечивающегося** филамента **того же состава**, что и корпус (ASA к ASA, PETG к PETG); прокладку — **TPU** (химией не обрабатывают).
+Печатайте body / lid из **ASA** или **PETG**; **LED‑ring** — из **прозрачного** или **матового просвечивающегося** филамента **того же состава**, что и корпус (ASA к ASA, PETG к PETG); уплотнитель между корпусом и крышкой — **TPU** (химией не обрабатывают) **либо** резиновая прокладка / **O‑ring** того же посадочного размера вместо печати.
 
 1. **Закладные втулки** (heat‑set) впаяйте **до** химической обработки — после пара/растворителя посадка хуже и деталь уже «мягче».
 2. **Отверстия под LED** (изнутри корпуса): перед паровой обработкой **прокапайте** их изнутри подходящим растворителем (см. ниже) — так канал/кромка проясняется и не «зарастает» при сглаживании снаружи.
@@ -271,7 +271,7 @@ USB-прошивка из Releases остаётся запасным путём 
 
 4. После химии корпус должен **отлежаться не меньше суток**, и только потом — полная сборка с платой (п. 7.1+).
 
-TPU‑прокладку и электронику в камеру с парами **не** кладите.
+TPU‑прокладку (и резиновый уплотнитель / O‑ring) и электронику в камеру с парами **не** кладите.
 
 #### 7.1. Подготовка платы
 
@@ -301,7 +301,7 @@ TPU‑прокладку и электронику в камеру с парам
 **б)** Прикрутите плату **тремя винтами** (втулки/винты M2 из BOM / комплекта корпуса).  
 **в) Опционально — внешняя антенна Wi‑Fi (SMA):**  
 разверните отверстие в корпусе сверлом; снаружи **O‑ring 6 мм**; установите разъём SMA; кабель U.FL/IPEX подключите к XIAO, **сняв заводской антенный джампер** на модуле.  
-**г)** Установите уплотнитель **TPU** (прокладка из печати), предварительно слегка смазав **силиконовой смазкой**.  
+**г)** Установите уплотнитель между корпусом и крышкой: **TPU** из печати **или** резиновую прокладку / **O‑ring** соответствующего размера. **Перед сборкой** слегка обработайте кольцо или прокладку **силиконовой смазкой** (и печатный TPU, и резину).  
 **д)** Положите внутрь маленький пакетик **силикагеля**.
 
 Перед закрытием крышки ещё раз проверьте WebUI / хлопок по Wi‑Fi.
@@ -349,7 +349,7 @@ TPU‑прокладку и электронику в камеру с парам
 - [ ] Для народного радара: свой Cloud‑токен + широта/долгота/высота  
 - [ ] Втулки впаяны **до** химии; ASA/PETG обработаны; отлёжка ≥ суток  
 - [ ] Жидкая изолента + клейкие «колечки» 1.5 мм / отверстия корпуса ~2 мм  
-- [ ] Плата на трёх винтах, TPU со смазкой, силикагель внутри  
+- [ ] Плата на трёх винтах; уплотнитель TPU **или** резиновый O‑ring / прокладка — со **силиконовой смазкой**; силикагель внутри  
 - [ ] 8 винтов крышки M3×19 + гайки M3, сетки IP65, USB‑C (O‑ring 5 мм), антенна (O‑ring 6 мм)  
 - [ ] Летняя ветрозащита (салфетки для робота‑мойщика окон)  
 - [ ] Верх корпуса и ветрозащита — водоотталкивающий спрей для замши  
@@ -478,7 +478,7 @@ Assembled node (what you are aiming for):
 
 ![Assembled NEVOD DIY mic — view 2](../img/mic1_ok.jpg)
 
-**7.0 Print / chemical finish** (body/lid: **ASA** or **PETG**; **LED‑ring**: **clear** or **matte translucent** filament of the **same polymer** as the body — ASA with ASA, PETG with PETG; gasket stays **TPU**, no solvent).
+**7.0 Print / chemical finish** (body/lid: **ASA** or **PETG**; **LED‑ring**: **clear** or **matte translucent** filament of the **same polymer** as the body — ASA with ASA, PETG with PETG; lid seal = printed **TPU** gasket **or** a rubber gasket / **O‑ring** of matching seat size; no solvent on elastomers).
 
 > **Safety.** Acetone, THF, and methylene chloride fumes are toxic and flammable. Use **ventilation**, **gloves**, no open flame. Skip vapor smoothing if you lack experience — as-printed parts are fine.
 
@@ -509,7 +509,7 @@ Stick the rings over the mic ports so the channel stays sealed.
 **7.2 Inside**  
 (a) Seat the PCB with no offset (tape holds alignment). (b) Three screws.  
 (c) Optional SMA Wi‑Fi: enlarge hole, **6 mm** O‑ring outside, remove stock XIAO antenna jumper, fit U.FL pigtail.  
-(d) TPU gasket with a light **silicone grease**. (e) Small **silica gel** pack inside. Recheck WebUI / clap before closing.
+(d) Fit the lid seal: printed **TPU** gasket **or** a rubber gasket / **O‑ring** of matching size. **Before assembly**, lightly coat the ring or gasket with **silicone grease** (both TPU and rubber). (e) Small **silica gel** pack inside. Recheck WebUI / clap before closing.
 
 **7.3 Outside**  
 (a) Lid + **8 screws**. (b) IP65 mesh stickers over mic ports:
