@@ -1,215 +1,208 @@
 # UAV-radar · NEVOD
 
-**[Русский](#русский)** · **[English](#english)** · **[Landing](https://gfermoto.github.io/UAV-radar/)**
+[![MIT](https://img.shields.io/badge/license-MIT-c8e84a?labelColor=0a1210)](LICENSE)
+[![ESP32-S3](https://img.shields.io/badge/MCU-ESP32--S3-8fa094?labelColor=0a1210)](platformio.ini)
+[![XVF3800](https://img.shields.io/badge/DSP-XMOS%20XVF3800-8fa094?labelColor=0a1210)](https://www.seeedstudio.com/)
+[![Pages](https://img.shields.io/badge/site-landing-c8e84a?labelColor=0a1210)](https://gfermoto.github.io/UAV-radar/)
+[![Release](https://img.shields.io/github/v/release/Gfermoto/UAV-radar?include_prereleases&label=latest&labelColor=0a1210&color=c8e84a)](https://github.com/Gfermoto/UAV-radar/releases)
+
+**Свой акустический узел. Своя сеть. Без камеры.**  
+DIY DePIN: железо у вас дома → слух локально или в народном радаре.
+
+**[Landing](https://gfermoto.github.io/UAV-radar/)** ·
+**[DIY guide](docs/DIY_GUIDE.md)** ·
+**[BOM ≈ ₽9 800](docs/BOM.md)** ·
+**[Releases](https://github.com/Gfermoto/UAV-radar/releases)** ·
+**[Discussions](https://github.com/Gfermoto/UAV-radar/discussions)**
+
+**[Русский](#русский)** · **[English](#english)**
 
 ---
 
 <a id="русский"></a>
 ## Русский
 
-**Лендинг:** [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/)
+### Зачем это DePIN
 
-Открытая прошивка сетевого микрофона ([MIT](LICENSE)) и материалы для акустического узла **NEVOD** на Seeed XIAO ESP32-S3 и XMOS XVF3800. Открытый mic — Opus, RTSP и WebUI: птицы, природный звук, [BirdNET](https://github.com/kahst/BirdNET-Analyzer). Прошивка датчика — подписанный бинарник с распознанием трёх классов БПЛА на плате.
+**NEVOD** — физическая сеть слуха: каждый узел принадлежит человеку, который его собрал. Нет подписки «чтобы слышать свой двор». Облако — **opt-in** для общего раннего оповещения; координаты нод **не публикуются**; владельцам — преференции сервиса.
 
-Сборка в домашних условиях. Узел можно вести **только локально** (WebUI / MQTT / Home Assistant). Чтобы участвовать в **народном радаре** — общем раннем оповещении — нужны Cloud‑токен и координаты; облако не публикует координаты нод, владельцам нод даёт преференции сервиса.
+| Ступень | Что делаете | Что получаете |
+|---------|-------------|----------------|
+| **1. Смотрите** | Landing + этот README | Понимание за 2 минуты |
+| **2. Пробуете железо** | Открытый **RTSP Mic** ([MIT](LICENSE)) | Opus / RTSP / WebUI — сад, птицы, [BirdNET](https://github.com/kahst/BirdNET-Analyzer) |
+| **3. Собираете узел** | [Смета](docs/BOM.md) + [корпус](docs/ENCLOSURE.md) + `nevod-diy-*.bin` | Детекция 3 классов БПЛА на плате, DoA, MQTT / Home Assistant |
+| **4. Усиливаете сеть** | Cloud‑токен + координаты | Народный радар — больше узлов = меньше слепых зон |
 
-### Что это
+Каждый новый двор — новый сенсор в общей ткани. Органический рост = DIY, не дата‑центр.
 
-**NEVOD** — распределённая акустическая сеть узлов без оптической камеры. Узел можно собрать самостоятельно и подключить к общей сети наблюдения, а не ограничиваться локальным воспроизведением в плеере.
-
-В репозитории две прошивки — не смешивайте:
+### Две прошивки — не смешивайте
 
 | Часть | Что даёт |
 |-------|----------|
-| **Открытая прошивка микрофона** ([MIT](LICENSE), исходники здесь) | Звук → Opus → RTSP и WebUI. Собрали, прошили, открыли `rtsp://…:554/` в плеере или Home Assistant. [Releases](https://github.com/Gfermoto/UAV-radar/releases) · `rtsp-mic-0.3.0.bin`. |
-| **Узел NEVOD (датчик)** | Смета [docs/BOM.md](docs/BOM.md), корпус [docs/ENCLOSURE.md](docs/ENCLOSURE.md), подписанный `.bin` — [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases), полная инструкция DIY [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) (прошивка, настройка, корпус, ветрозащита). Код модели не открыт, но **три класса БПЛА уже распознаются в бинарнике**. |
+| **Открытый mic** ([MIT](LICENSE), исходники здесь) | Звук → Opus → RTSP и WebUI. [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) · `rtsp-mic-0.3.0.bin` |
+| **NEVOD DIY (датчик)** | Подписанный `.bin` с распознанием **трёх классов БПЛА** на ESP32-S3. [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) · полная сборка [DIY_GUIDE.md](docs/DIY_GUIDE.md) |
 
-Для записи птиц, сада, видеорегистратора или [BirdNET](https://github.com/kahst/BirdNET-Analyzer) достаточно открытой прошивки. Для акустического мониторинга БПЛА в сети NEVOD — прошивка из релиза `nevod-diy-*`.
+Железо одно (XIAO ESP32-S3 + XVF3800). Сценарий выбираете прошивкой.
+
+### Старт за вечер
+
+1. **Смета ядра ≈ ₽9 793** (снимок) — [docs/BOM.md](docs/BOM.md)
+2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0)
+3. **Прошивка + настройка + ветер / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md)
+4. Собрали? Опишите опыт — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose)
+
+Локально достаточно WebUI / MQTT / Home Assistant. Народный радар — когда готовы: [кабинет](https://nevod.endorphine.agency).
 
 ### Визуализация
 
-**Датчик NEVOD — три класса БПЛА**
+**Три класса БПЛА (датчик)**
 
 ![Три класса БПЛА, распознаваемые бинарником NEVOD DIY](img/tri_klassa.png)
 
-Что видит прошивка **`nevod-diy-*`**: три класса механического звука в воздухе. Веса и логика детекции в подписанном `.bin` на Releases, не в git.
-
-**Открытый mic — пение птицы на MEL**
+**MEL открытого mic — птица**
 
 ![Пример MEL-спектрограммы: пение птицы](img/bird.jpg)
-
-Живой MEL в WebUI открытой прошивки — пример спектрограммы птицы на той же аппаратной платформе.
 
 **WebUI**
 
 ![Интерфейс WebUI: уровни, пеленг, MEL, DSP](img/gui.jpg)
 
-Настройка в браузере: уровень, направление (DoA), MEL, луч, Wi‑Fi.
-
-### Что уже можно взять
+### Материалы
 
 | Материал | Где |
 |----------|-----|
 | Лендинг | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
-| Смета узла DIY | [docs/BOM.md](docs/BOM.md) |
-| Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) · [релиз](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0) |
-| Полная инструкция DIY (прошивка + сборка) | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
-| Бинарник датчика (3 класса БПЛА внутри) | [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
-| Открытый mic (код + `.bin`) | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
+| Смета | [docs/BOM.md](docs/BOM.md) |
+| Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
+| Полная инструкция DIY | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
+| Бинарник датчика | [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
+| Открытый mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Фото сборки | [`img/`](img/) |
+| Участие | [CONTRIBUTING.md](CONTRIBUTING.md) |
 
 ### История
 
-Проект начался со стриминга звука неба по RTSP для наблюдения птиц. Позже ту же платформу применили для акустического мониторинга БПЛА: аппаратная часть прежняя, изменились прошивка и сценарий использования. Название UAV-radar отражает этот вектор развития.
+Сначала — RTSP‑слух неба для птиц. Затем та же плата — акустический мониторинг БПЛА. Имя **UAV-radar** — про этот вектор; **NEVOD** — про сеть узлов.
 
 ### Смежные проекты
 
-| Проект | Ссылка | Назначение |
-|--------|--------|------------|
-| **BirdLense Hub** | [Gfermoto/BirdLense-Hub](https://github.com/Gfermoto/BirdLense-Hub) | Наблюдение птиц и кормушка — другой канал данных |
-| **BirdNET** | [kahst/BirdNET-Analyzer](https://github.com/kahst/BirdNET-Analyzer) · [Cornell](https://birdnet.cornell.edu/) | Распознавание видов по аудиопотоку с mic |
+| Проект | Ссылка | Зачем |
+|--------|--------|-------|
+| **BirdLense Hub** | [Gfermoto/BirdLense-Hub](https://github.com/Gfermoto/BirdLense-Hub) | Птицы / кормушка — другой канал |
+| **BirdNET** | [kahst/BirdNET-Analyzer](https://github.com/kahst/BirdNET-Analyzer) | Виды по аудио с mic |
 
-### Открытый mic — возможности
+### Открытый mic — кратко
 
-- 16 kHz mono, XVF3800: пеленг (DoA), луч, MEL
-- Opus и локальный RTSP (`:554`)
-- SPL (A-weighted), WebUI (`:80`), по желанию MQTT / Home Assistant
-- Wi‑Fi; опционально Ethernet (W5500)
-
-### Быстрый старт (открытая прошивка)
-
-```bash
-pio run -e rtsp_mic
-pio run -e rtsp_mic -t upload
-pio device monitor -e rtsp_mic
-```
-
-- WebUI: `http://<ip>/` — пароль по умолчанию `rtsp-mic-change-me` (**смените**)
-- Поток: `rtsp://<ip>:554/`
-
-Пины и сборка: [BUILD.md](BUILD.md). Как устроено внутри: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-### Кольцо светодиодов
-
-На микрофоне — RGB-кольцо с пеленгом (через XVF), на XIAO — свой LED статуса Wi‑Fi. Вкл/выкл кольца в WebUI или `POST /api/system/led` — [docs/LED.md](docs/LED.md).
+- 16 kHz mono, XVF3800: DoA, луч, MEL  
+- Opus + RTSP `:554`, WebUI `:80`, опционально MQTT / HA  
+- Сборка: `pio run -e rtsp_mic` · `pio run -e rtsp_mic -t upload` — детали в [BUILD.md](BUILD.md)
 
 ### Документация
 
 | Файл | О чём |
 |------|--------|
 | [BUILD.md](BUILD.md) | Сборка, прошивка, пины, тесты |
-| [docs/BOM.md](docs/BOM.md) | Смета узла DIY |
-| [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Корпус — STL и печать |
-| [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Полная инструкция DIY: прошивка, настройка, корпус |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Что открыто для PR, что нет |
-| [SECURITY.md](SECURITY.md) | Сообщения об уязвимостях |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Ядра, звук, задачи |
+| [docs/BOM.md](docs/BOM.md) | Смета узла |
+| [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Корпус |
+| [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Полный DIY |
+| [docs/LED.md](docs/LED.md) | Кольцо DoA / статус |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Ядра, аудио, задачи |
 | [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | MQTT, NVS, команды |
 | [openapi-webui.yaml](openapi-webui.yaml) | HTTP API |
-| [tools/hil/README.md](tools/hil/README.md) | Проверки на плате |
+| [SECURITY.md](SECURITY.md) | Уязвимости |
+| [tools/hil/README.md](tools/hil/README.md) | Проверки на устройстве |
 
 ---
 
 <a id="english"></a>
 ## English
 
-**Landing:** [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/)
+### Why this is DePIN
 
-Open networked mic firmware ([MIT](LICENSE)) and NEVOD acoustic node materials for Seeed XIAO ESP32-S3 + XMOS XVF3800. Open mic: Opus, RTSP, WebUI — birds, nature, [BirdNET](https://github.com/kahst/BirdNET-Analyzer). Sensor firmware: signed binary with on-device recognition of three UAV classes.
+**NEVOD** is a physical hearing network: every node is owned by the person who built it. No subscription just to listen to your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; owners get service preferences.
 
-Home assembly. The node can run **locally only** (WebUI / MQTT / Home Assistant). To join the **people’s radar** — shared early warning — add a Cloud token and install coordinates; the cloud does **not** publish node coordinates; node owners get service preferences.
+| Step | You do | You get |
+|------|--------|---------|
+| **1. Browse** | Landing + this README | Clarity in two minutes |
+| **2. Try the board** | Open **RTSP Mic** ([MIT](LICENSE)) | Opus / RTSP / WebUI — garden, birds, [BirdNET](https://github.com/kahst/BirdNET-Analyzer) |
+| **3. Build a node** | [BOM](docs/BOM.md) + [enclosure](docs/ENCLOSURE.md) + `nevod-diy-*.bin` | On-device 3-class UAV detect, DoA, MQTT / Home Assistant |
+| **4. Grow the mesh** | Cloud token + coordinates | People’s radar — more nodes, fewer blind spots |
 
-### What this is
+Growth is DIY density, not a data center.
 
-**NEVOD** is a distributed acoustic network without optical cameras. You can build a node yourself and join a wider monitoring network instead of limiting use to local playback.
-
-Two firmware images in this repo — do not mix them:
+### Two firmwares — do not mix
 
 | Piece | What you get |
 |-------|----------------|
-| **Open mic firmware** ([MIT](LICENSE), sources here) | Audio → Opus → RTSP + WebUI. Build, flash, open `rtsp://…:554/` in a player or Home Assistant. [Releases](https://github.com/Gfermoto/UAV-radar/releases) · `rtsp-mic-0.3.0.bin`. |
-| **NEVOD node (sensor)** | Parts list [docs/BOM.md](docs/BOM.md), enclosure [docs/ENCLOSURE.md](docs/ENCLOSURE.md), signed `.bin` — [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases), full DIY guide [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) (flash, setup, enclosure, wind screen). Model code is not open, but **three UAV classes are already recognized in the binary**. |
+| **Open mic** ([MIT](LICENSE), sources here) | Audio → Opus → RTSP + WebUI. [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) · `rtsp-mic-0.3.0.bin` |
+| **NEVOD DIY (sensor)** | Signed `.bin` with **three UAV classes** on ESP32-S3. [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) · full build [DIY_GUIDE.md](docs/DIY_GUIDE.md) |
 
-Birds, garden, NVR, or [BirdNET](https://github.com/kahst/BirdNET-Analyzer) — the open mic is enough. UAV acoustic monitoring in the NEVOD network — `nevod-diy-*` firmware from Releases.
+Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
+
+### Start tonight
+
+1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md)  
+2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0)  
+3. **Flash + setup + wind / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md)  
+4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
+
+Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet](https://nevod.endorphine.agency).
 
 ### Gallery
 
-**NEVOD sensor — three UAV classes**
+**Three UAV classes (sensor)**
 
 ![Three UAV classes recognized by the NEVOD DIY binary](img/tri_klassa.png)
 
-What **`nevod-diy-*`** listens for: three classes of mechanical sound in the air. Weights and detection logic ship in the signed `.bin` on Releases, not in git.
-
-**Open mic — bird song on MEL**
+**Open-mic MEL — bird**
 
 ![MEL spectrogram example: bird song](img/bird.jpg)
-
-Live MEL in the open firmware WebUI — bird spectrogram on the same hardware platform.
 
 **WebUI**
 
 ![RTSP mic WebUI: levels, DoA, MEL, DSP](img/gui.jpg)
 
-Levels, direction of arrival (DoA), MEL, beam, Wi‑Fi — configured in the browser.
-
-### What's already here
+### Materials
 
 | Material | Where |
 |----------|-------|
 | Landing | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
-| DIY node parts list | [docs/BOM.md](docs/BOM.md) |
-| Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) · [release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0) |
-| Full DIY guide (flash + assembly) | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
-| Sensor `.bin` (3 UAV classes inside) | [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
-| Open mic (sources + `.bin`) | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
-| Assembly photos | [`img/`](img/) |
+| BOM | [docs/BOM.md](docs/BOM.md) |
+| Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
+| Full DIY guide | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
+| Sensor binary | [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
+| Open mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
+| Build photos | [`img/`](img/) |
+| Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |
 
 ### History
 
-The project started with RTSP streaming of overhead sound for bird watching. The same board was later used for UAV acoustic monitoring — same hardware, different firmware and use case. The name UAV-radar reflects that direction.
+Started as RTSP sky-listening for birds. Same board later for UAV acoustic monitoring. **UAV-radar** names the direction; **NEVOD** names the node network.
 
 ### Related projects
 
 | Project | Link | Purpose |
 |---------|------|---------|
-| **BirdLense Hub** | [Gfermoto/BirdLense-Hub](https://github.com/Gfermoto/BirdLense-Hub) | Bird watching and feeder — another data channel |
-| **BirdNET** | [kahst/BirdNET-Analyzer](https://github.com/kahst/BirdNET-Analyzer) · [Cornell](https://birdnet.cornell.edu/) | Species ID from the mic audio stream |
+| **BirdLense Hub** | [Gfermoto/BirdLense-Hub](https://github.com/Gfermoto/BirdLense-Hub) | Birds / feeder — another channel |
+| **BirdNET** | [kahst/BirdNET-Analyzer](https://github.com/kahst/BirdNET-Analyzer) | Species ID from mic audio |
 
-### Open mic — features
+### Open mic — short
 
-- 16 kHz mono, XVF3800: DoA, beamforming, MEL
-- Opus and local RTSP (`:554`)
-- A-weighted SPL, WebUI (`:80`), optional MQTT / Home Assistant
-- Wi‑Fi; optional Ethernet (W5500)
-
-### Quick start (open firmware)
-
-```bash
-pio run -e rtsp_mic
-pio run -e rtsp_mic -t upload
-pio device monitor -e rtsp_mic
-```
-
-- WebUI: `http://<ip>/` — default password `rtsp-mic-change-me` (**change it**)
-- Stream: `rtsp://<ip>:554/`
-
-Pins and build: [BUILD.md](BUILD.md). Internals: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-### LED ring
-
-RGB DoA ring on the mic (via XVF); separate Wi‑Fi status LED on the XIAO. Toggle in WebUI or `POST /api/system/led` — [docs/LED.md](docs/LED.md).
+- 16 kHz mono, XVF3800: DoA, beam, MEL  
+- Opus + RTSP `:554`, WebUI `:80`, optional MQTT / HA  
+- Build: `pio run -e rtsp_mic` · upload — see [BUILD.md](BUILD.md)
 
 ### Docs
 
 | File | About |
 |------|--------|
 | [BUILD.md](BUILD.md) | Build, flash, pins, tests |
-| [docs/BOM.md](docs/BOM.md) | DIY node parts list |
-| [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Enclosure STL / print |
-| [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Full DIY guide: flash, setup, enclosure |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | What is open for PRs |
-| [SECURITY.md](SECURITY.md) | Vulnerability reporting |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Cores, audio path, tasks |
+| [docs/BOM.md](docs/BOM.md) | Parts list |
+| [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Enclosure |
+| [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Full DIY |
+| [docs/LED.md](docs/LED.md) | DoA ring / status LED |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Cores, audio, tasks |
 | [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | MQTT, NVS, commands |
 | [openapi-webui.yaml](openapi-webui.yaml) | HTTP API |
+| [SECURITY.md](SECURITY.md) | Vulnerability reporting |
 | [tools/hil/README.md](tools/hil/README.md) | On-device checks |
