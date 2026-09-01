@@ -1,0 +1,830 @@
+openapi: 3.0.3
+info:
+  title: RTSP Mic WebUI Device API
+  version: "1.3.0"
+  description: |
+    Local ESP32 WebUI REST and WebSocket API for the **open RTSP microphone**
+    (MIT) in [UAV-radar](https://github.com/Gfermoto/UAV-radar). Same hardware
+    stack as the NEVOD DIY sensor; detection firmware is a separate signed binary
+  (see docs/DIY_GUIDE.md). Open mic: Opus/RTSP, birds / BirdNET. Related:
+    [BirdLense-Hub](https://github.com/Gfermoto/BirdLense-Hub),
+    [BirdNET Analyzer](https://github.com/kahst/BirdNET-Analyzer). See README.
+
+    **Transport:** cleartext HTTP by default (LAN). On untrusted networks put a TLS
+    reverse-proxy in front. SPA shows a cleartext banner when served over `http:`.
+
+    **Ports:** WebUI `:80`; local RTSP `:554`. DSP DOA, beamforming, MEL, SPL telemetry.
+
+    **Auth model:**
+    - HTTP Basic (`web_user` / `web_pass` in NVS). Default password
+      `rtsp-mic-change-me` blocks mutations and sensitive reads (`must_change_password`).
+    - Public SPA embeds stub `RTSPMIC_DEFAULT_PW=0`; live flag only from
+      `/status` field `must_change_password` after Basic Auth.
+    - CSRF: obtain token via `GET /api/csrf`, send as `X-CSRF-Token` on mutating POSTs.
+    - Hardened auth = Basic + non-default password (ticket, mel, integrations GET, scan, tls_ca GET).
+    - WS: `GET /api/ws-ticket` then connect `/ws` and send `{"auth":"<ticket>"}`.
+      Ticket is HMAC-SHA256 v2, IP-bound, TTL 10s, single-use nonce.
+
+    **Rate limits (per client IP):** csrf ~250ms, ticket/mel ~500ms, integrations GET ~250ms,
+    integrations POST / password / scan ~1000ms. Exceeding returns `429` with
+    `{"status":"rate_limited"}`.
+
+    See also: `docs/API_REFERENCE.md`, `docs/ARCHITECTURE.md`.
+    Captive Portal (`192.168.4.1`) is a separate AP surface and is not part of this spec.
+servers:
+  - url: http://{host}:{port}
+    description: Device WebUI (cleartext — TLS proxy recommended)
+    variables:
+      host:
+        default: 192.168.1.50
+      port:
+        default: "80"
+        enum: ["80"]
+tags:
+  - name: public
+    description: Unauthenticated SPA only (`GET /`). Public/full telemetry require Basic on `/status`.
+  - name: auth
+    description: CSRF, WS ticket, telemetry streams
+  - name: system
+    description: Password, reboot, factory reset, LED, TLS CA
+  - name: network
+    description: Wi-Fi scan and configuration
+  - name: ota
+    description: Firmware update
+paths:
+  /:
+    get:
+      tags: [public]
+      summary: SPA dashboard
+      description: |
+        Serves the embedded WebUI HTML. No authentication. CSRF is never embedded;
+        clients fetch it after Basic login.
+      security: []
+      responses:
+        "200":
+          description: HTML SPA
+          content:
+            text/html:
+              example: "<!DOCTYPE html>..."
+
+  /status:
+    get:
+      tags: [auth]
+      summary: Public or full telemetry JSON (Basic Auth required)
+      description: |
+        Always requires HTTP Basic Auth. After 5 failed attempts per IP → 429 auth_locked (60s).
+        Default password → `rtsp-mic.public.v1` + `must_change_password`.
+        Changed password → `rtsp-mic.telemetry.v1`.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: public.v1 or telemetry.v1 JSON
+          content:
+            application/json:
+              examples:
+                public:
+                  summary: Public status (default password)
+                  value:
+                    schema: rtsp-mic.public.v1
+                    must_change_password: true
+                telemetry:
+                  summary: Full telemetry (hardened Basic)
+                  value:
+                    schema: rtsp-mic.telemetry.v1
+                    system:
+                      uptime_s: 3600
+        "401":
+          description: Missing/invalid Basic credentials
+        "403":
+          description: Privacy active with default password (must_change_password)
+        "429":
+          description: auth_locked (5 failed Authorization attempts / IP, 60s)
+
+  /api/csrf:
+    get:
+      tags: [auth]
+      summary: Issue CSRF token
+      description: |
+        Returns a rotating CSRF token. Allowed with default password so the operator
+        can change credentials. Per-IP rate limit ~250ms.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: CSRF token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CsrfResponse"
+              example:
+                token: "a1b2c3d4e5f6789012345678abcdef01"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /api/ws-ticket:
+    get:
+      tags: [auth]
+      summary: Issue single-use WebSocket ticket
+      description: |
+        Hardened Basic required. Ticket format v2 = version + expiry + IPv4 + nonce +
+        128-bit HMAC trunc (hex). Bound to client IP, TTL 10s, single-use.
+        Per-IP rate limit ~500ms.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: Opaque ticket string for WS auth message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WsTicketResponse"
+              example:
+                ticket: "2100002710c0a8010a00a5a5a5a1b2c3d4e5f6789012345678abcdef0123456789ab"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/MustChangePassword"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        "503":
+          description: Ticket HMAC issue failed
+          content:
+            application/json:
+              example:
+                error: ticket_issue_failed
+
+  /ws:
+    get:
+      tags: [auth]
+      summary: WebSocket telemetry push
+      description: |
+        Upgrade to WebSocket. After connect, client must send JSON
+        `{"auth":"<ticket>"}` from `/api/ws-ticket`. Push-only thereafter (~1 Hz
+        extended UI telemetry). Unauthenticated clients receive no text frames.
+        HTTP Basic is not used on the WS handshake; ticket is the credential.
+      security: []
+      responses:
+        "101":
+          description: Switching Protocols
+
+  /api/mel:
+    get:
+      tags: [auth]
+      summary: MEL spectrogram preview
+      description: |
+        Hardened Basic. Returns up to 64 recent MEL frames as raw octets
+        (`bands * frames` bytes). Headers expose layout metadata.
+        Per-IP rate limit ~500ms.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: Octet stream preview
+          headers:
+            X-Mel-Bands:
+              schema: { type: integer, example: 64 }
+            X-Mel-Frames:
+              schema: { type: integer, example: 64 }
+            X-Mel-Fmin:
+              schema: { type: number }
+            X-Mel-Fmax:
+              schema: { type: number }
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "204":
+          description: MEL not ready / empty
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/MustChangePassword"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        "500":
+          description: Allocation / copy failure
+        "503":
+          description: Audio subsystem unavailable
+
+  /api/integrations:
+    get:
+      tags: [auth]
+      summary: Read integration settings
+      description: |
+        Hardened Basic. MQTT credentials are masked as `********`.
+        Per-IP rate limit ~250ms.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: Masked NetConfig JSON plus live flags
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntegrationsGet"
+              example:
+                mqtt_enabled: false
+                mqtt_host: "192.168.1.100"
+                mqtt_pass: "********"
+                mqtt_connected: false
+                ntp_synced: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/MustChangePassword"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+    post:
+      tags: [auth]
+      summary: Update integration settings
+      description: |
+        Mutable (Basic + CSRF + non-default password). Body JSON max 2048 bytes.
+        Per-IP rate limit ~1000ms. Sending `********` for a masked password
+        preserves the previous value.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IntegrationsPost"
+            example:
+              mqtt_enabled: true
+              mqtt_host: "mqtt.local"
+              mqtt_port: 1883
+      responses:
+        "200":
+          description: Applied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkReboot"
+              example:
+                status: ok
+                reboot_recommended: false
+        "400":
+          description: Validation error (bad host/url/port)
+          content:
+            application/json:
+              examples:
+                badHost:
+                  value: { status: bad_mqtt_host }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+        "413":
+          description: Body too large
+          content:
+            application/json:
+              example: { status: body_too_large }
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        "500":
+          description: NVS write failure
+          content:
+            application/json:
+              example: { status: nvs_error }
+
+  /api/audio:
+    post:
+      tags: [auth]
+      summary: Update audio DSP settings
+      description: |
+        Mutable form POST. Optional fields: `hpf` (0|1), `hpf_cutoff` (20–1000),
+        `agc` (0|1), `cal_offset` (−20…20 dB), `aec_env` (0=quiet|1=noisy),
+        `dsp_mic_gain`, `loudspeaker_present` (0|1; default 0),
+        `asrout` (0=AEC residuals|1=beam path; forced 1 without loudspeaker),
+        `echo_suppression` (0|1; ON only with loudspeaker; forced 0 without loudspeaker).
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                hpf:
+                  type: string
+                  enum: ["0", "1"]
+                hpf_cutoff:
+                  type: number
+                  minimum: 20
+                  maximum: 1000
+                agc:
+                  type: string
+                  enum: ["0", "1"]
+                cal_offset:
+                  type: number
+                  minimum: -20
+                  maximum: 20
+                aec_env:
+                  type: string
+                  enum: ["0", "1"]
+                dsp_mic_gain:
+                  type: number
+                loudspeaker_present:
+                  type: string
+                  enum: ["0", "1"]
+                asrout:
+                  type: string
+                  enum: ["0", "1"]
+                echo_suppression:
+                  type: string
+                  enum: ["0", "1"]
+            example:
+              hpf: "1"
+              hpf_cutoff: 80
+              agc: "1"
+              loudspeaker_present: "0"
+              asrout: "1"
+              echo_suppression: "0"
+              cal_offset: 0
+      responses:
+        "200":
+          description: Settings applied
+          content:
+            application/json:
+              example:
+                status: ok
+                calibration_offset_db: 0
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+
+  /api/system/reboot:
+    post:
+      tags: [system]
+      summary: Reboot device
+      description: Mutable. Schedules restart after a short delay.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      responses:
+        "200":
+          description: Reboot scheduled
+          content:
+            text/plain:
+              example: Rebooting...
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+
+  /api/system/factory_reset:
+    post:
+      tags: [system]
+      summary: Clear NVS and reboot
+      description: Mutable. Wipes preferences namespace `rtspmic` then reboots.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      responses:
+        "200":
+          description: Reset scheduled
+          content:
+            text/plain:
+              example: "Reset. Rebooting..."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+
+  /api/system/password:
+    post:
+      tags: [system]
+      summary: Change WebUI username and password
+      description: |
+        Basic + CSRF required. Allowed even with default password.
+        Password ≥8 chars, must not equal default, must not contain `:`.
+        Per-IP rate limit ~1000ms. Refreshes CSRF and RTSP credentials on success.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [password]
+              properties:
+                user:
+                  type: string
+                  minLength: 1
+                  maxLength: 32
+                  pattern: "^[A-Za-z0-9_.-]+$"
+                  description: Optional; empty keeps current username
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+            example:
+              user: admin
+              password: "correct-horse-battery"
+      responses:
+        "200":
+          description: Password updated
+          content:
+            application/json:
+              example: { status: ok }
+        "400":
+          description: Validation failed
+          content:
+            application/json:
+              examples:
+                badUser:
+                  value: { status: error, msg: bad_user }
+                shortPass:
+                  value: { status: error, msg: "password min 8 chars" }
+                defaultPass:
+                  value: { status: error, msg: must_not_be_default }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: bad_csrf
+          content:
+            application/json:
+              example: { status: bad_csrf }
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        "500":
+          description: NVS write failure
+          content:
+            application/json:
+              example: { status: nvs_error }
+
+  /api/system/led:
+    post:
+      tags: [system]
+      summary: Set mic RGB LED ring on/off (Seeed XVF3800)
+      description: |
+        Mutable. Public modes: `on` / `off`.
+        `off` → LED_EFFECT 0; `on` → LED_EFFECT 4 (DoA, factory default).
+        Also updates ESP status LED (GPIO21) pattern.
+        Aliases: `status`|`0` → on; `level`|`2` → on.
+        Full contract: `docs/LED.md`.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [mode]
+              properties:
+                mode:
+                  type: string
+                  enum: [on, off, status]
+            example:
+              mode: on
+      responses:
+        "200":
+          description: Mode applied
+          content:
+            application/json:
+              example: { status: ok }
+        "400":
+          description: Unknown mode
+          content:
+            application/json:
+              example: { status: bad_mode }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+
+  /api/system/tls_ca:
+    get:
+      tags: [system]
+      summary: TLS CA configured flag
+      description: Hardened Basic. Does not return PEM — only whether a CA is stored.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: Configuration flag
+          content:
+            application/json:
+              examples:
+                yes:
+                  value: { status: ok, configured: true }
+                no:
+                  value: { status: ok, configured: false }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/MustChangePassword"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+    post:
+      tags: [system]
+      summary: Upload or clear TLS CA PEM
+      description: |
+        Mutable. Form field `tls_ca` must contain `BEGIN CERTIFICATE` or be empty
+        to clear. Invalidates live TLS clients after write.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                tls_ca:
+                  type: string
+                  description: PEM text, or empty to remove
+            example:
+              tls_ca: "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
+      responses:
+        "200":
+          description: CA stored or cleared
+          content:
+            application/json:
+              example: { status: ok }
+        "400":
+          description: Non-empty value without PEM header
+          content:
+            application/json:
+              example: { status: error, msg: "PEM required" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+
+  /api/network/scan:
+    get:
+      tags: [network]
+      summary: Scan Wi-Fi networks
+      description: |
+        Hardened Basic. May return `202` with `[]` while async scan runs.
+        Per-IP rate limit ~1000ms. At most 20 SSIDs.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: Scan results
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 20
+                items:
+                  type: object
+                  properties:
+                    ssid: { type: string }
+                    rssi: { type: integer }
+                    enc:
+                      type: string
+                      enum: [open, secured]
+              example:
+                - { ssid: "GardenWiFi", rssi: -48, enc: secured }
+        "202":
+          description: Scan started / in progress
+          content:
+            application/json:
+              example: []
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/MustChangePassword"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /api/network/config:
+    post:
+      tags: [network]
+      summary: Change Wi-Fi credentials and reboot
+      description: Mutable. Saves `ssid` / `password` to NVS then reboots.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                ssid:
+                  type: string
+                  maxLength: 32
+                password:
+                  type: string
+                  format: password
+                  maxLength: 64
+            example:
+              ssid: "HomeNet"
+              password: "wifi-secret"
+      responses:
+        "200":
+          description: Saved; reboot scheduled
+          content:
+            text/plain:
+              example: "Saved. Rebooting..."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/ForbiddenMutable"
+
+  /update:
+    get:
+      tags: [ota]
+      summary: OTA help text
+      description: Authenticated. Bare HTML form removed — use SPA OTA tab with CSRF.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: Pointer to SPA OTA
+          content:
+            text/plain:
+              example: Use WebUI OTA tab (authenticated SPA with CSRF).
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      tags: [ota]
+      summary: Upload firmware binary
+      description: |
+        Mutable multipart upload. Filename must end with `.bin`.
+        If configured, header `X-Firmware-Signature` must match the device's
+        firmware-signing policy.
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/CsrfHeader"
+        - name: X-Firmware-Signature
+          in: header
+          required: false
+          description: Optional firmware signature.
+          schema:
+            type: string
+            maxLength: 64
+            pattern: "^[0-9a-fA-F]{64}$"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                update:
+                  type: string
+                  format: binary
+                  description: Firmware .bin payload
+      responses:
+        "200":
+          description: OTA success; reboot scheduled
+          content:
+            text/plain:
+              example: "OK. Rebooting..."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          description: Default password or invalid firmware signature
+        "500":
+          description: Incomplete upload or finalize failure
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: |
+        NVS `web_user` / `web_pass`. Default password `rtsp-mic-change-me` blocks
+        hardened reads and all mutable operations until changed via
+        `POST /api/system/password`.
+
+  parameters:
+    CsrfHeader:
+      name: X-CSRF-Token
+      in: header
+      required: true
+      description: |
+        32-character token from `GET /api/csrf`. Compared in constant time.
+        Rotates periodically and after password change.
+      schema:
+        type: string
+        minLength: 32
+        maxLength: 32
+        pattern: "^[0-9a-z]{32}$"
+
+  schemas:
+    CsrfResponse:
+      type: object
+      required: [token]
+      properties:
+        token:
+          type: string
+          minLength: 32
+          maxLength: 32
+    WsTicketResponse:
+      type: object
+      required: [ticket]
+      properties:
+        ticket:
+          type: string
+          minLength: 57
+          maxLength: 57
+          description: v2 HMAC ticket (57 hex chars)
+    StatusOk:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+    OkReboot:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        reboot_recommended:
+          type: boolean
+    RateLimitedBody:
+      type: object
+      properties:
+        status:
+          type: string
+          example: rate_limited
+    MustChangePasswordBody:
+      type: object
+      properties:
+        status:
+          type: string
+          example: must_change_password
+    IntegrationsGet:
+      type: object
+      additionalProperties: true
+      properties:
+        mqtt_enabled: { type: boolean }
+        mqtt_host: { type: string, maxLength: 64 }
+        mqtt_port: { type: integer }
+        mqtt_user: { type: string }
+        mqtt_pass: { type: string, description: Masked as ******** when set }
+        mqtt_ha_discovery: { type: boolean }
+        mqtt_connected: { type: boolean }
+        ntp_synced: { type: boolean }
+        rtsp_streaming: { type: boolean }
+    IntegrationsPost:
+      type: object
+      additionalProperties: true
+      properties:
+        mqtt_enabled: { type: boolean }
+        mqtt_host: { type: string, maxLength: 64 }
+        mqtt_port: { type: integer, minimum: 1, maximum: 65535 }
+        mqtt_user: { type: string }
+        mqtt_pass: { type: string, format: password }
+        mqtt_ha_discovery: { type: boolean }
+        ntp_host: { type: string }
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid Basic credentials
+    MustChangePassword:
+      description: Default password still in use
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MustChangePasswordBody"
+          example: { status: must_change_password }
+    ForbiddenMutable:
+      description: bad_csrf or must_change_password
+      content:
+        application/json:
+          examples:
+            csrf:
+              value: { status: bad_csrf }
+            defaultPw:
+              value: { status: must_change_password }
+    RateLimited:
+      description: Per-IP rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RateLimitedBody"
+          example: { status: rate_limited }
+
+security:
+  - basicAuth: []

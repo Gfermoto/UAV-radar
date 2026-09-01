@@ -1,0 +1,19 @@
+id,required,category,name_ru,name_en,qty,unit,unit_price_rub,ext_price_rub,url_ali,url_ozon,note
+1,yes,electronics,XVF3800 + XIAO ESP32-S3,ReSpeaker XVF3800 + XIAO ESP32-S3,1,pcs,7019.00,7019.00,https://aliexpress.ru/item/1005009684507040.html,https://www.ozon.ru/product/2841147966/,без штатного корпуса Seeed; плата с ESP32
+2,yes,electronics,Type-C Dual Screw Locking,USB-C dual screw-locking connector,1,pcs,555.00,555.00,https://aliexpress.ru/item/1005008744443056.html,,
+3,yes,electronics,Водонепроницаемый модуль USB-C PD 30 Вт,Waterproof USB-C PD 30 W inlet,1,pcs,580.00,580.00,,https://www.ozon.ru/product/4564511411/,
+4,yes,hardware,Сетчатые наклейки IP65 на микрофоны,IP65 microphone mesh stickers,4,pcs,7.79,31.16,https://aliexpress.ru/item/1005008678196173.html,,
+5,yes,hardware,Прозрачные клейкие шайбы,Clear adhesive washers,4,pcs,4.71,18.84,,,SKU-страница потеряна (в рабочей книге была ссылка на заказ Ali)
+6,yes,hardware,Кронштейн 1/4 дюйма,1/4 in tripod/camera bracket,1,pcs,812.00,812.00,,https://www.ozon.ru/product/1507997578/,уличное крепление
+7,yes,electronics,Антенна Wi-Fi IPEX1 U.FL,Wi-Fi antenna IPEX/U.FL 2.4/5 GHz,1,pcs,630.00,630.00,,https://www.ozon.ru/product/1570789297/,
+8,no,optional,Антивибрация Saramonic SR-SMC20,Saramonic SR-SMC20 shock mount,1,pcs,3909.00,3909.00,,https://www.ozon.ru/product/1806892134/,опция; не входит в сумму ядра
+9,yes,electronics,Ferrite Filter,Ferrite clamp,1,pcs,69.30,69.30,https://aliexpress.ru/item/1005006610435830.html,,
+10,yes,hardware,Заглушка Type-C,USB-C dust plug,1,pcs,21.60,21.60,,https://www.ozon.ru/product/2299262399/,комплект 5 шт — на узел 1
+11,yes,consumable,Салфетки (летняя ветрозащита),Window-robot wipes (summer wind screen),1,pcs,53.38,53.38,,https://www.ozon.ru/product/2369996016/,тонкая нетканка; см. DIY_GUIDE §7.4
+12,yes,consumable,Жидкая изолента,Liquid electrical tape,2,g,1.44,2.88,,https://www.ozon.ru/product/3286785887/,расход на узел
+13,yes,hardware,О-ринг 5 мм,O-ring 5 mm,1,pcs,,,,,USB-C уличный
+14,yes,hardware,О-ринг 6 мм,O-ring 6 mm,1,pcs,,,,,SMA антенна
+15,yes,hardware,Вплавляемые втулки M2×3×3.1,Heat-set inserts M2×3×3.1,3,pcs,,,,,плата в корпус
+16,yes,hardware,Винты M2×4 DIN 912,Screws M2×4 DIN 912,3,pcs,,,,,плата
+17,yes,hardware,Винты M3×19,Screws M3×19,8,pcs,,,,,крышка
+18,yes,hardware,Гайки M3,Nuts M3,8,pcs,,,,,крышка

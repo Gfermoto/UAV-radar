@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.15.1-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.15.1-ota: evidence confirm только на unique infer, lab_ping idle-only, locator energy_gated. Подписанная прошивка XIAO ESP32-S3 + XVF3800.">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.15.1.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.15.1-ota">
+  <meta property="og:description" content="Подписанная USB-flash прошивка NEVOD DIY. Hardening evidence-FSM и telemetry перед полевым флотом. OTA через канал diy-ota.">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.15.1.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta property="og:image:width" content="807">
+  <meta property="og:image:height" content="450">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NEVOD DIY v0.15.1-ota">
+  <meta name="twitter:description" content="Подписанная прошивка NEVOD DIY для ESP32-S3 + XVF3800. Evidence FSM hardening.">
+  <meta name="twitter:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.15.1-ota">
+    </div>
+    <h1>NEVOD DIY v0.15.1-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + XVF3800).</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li><strong>Evidence confirm:</strong> класс подтверждается только на новом TFLite infer — повторный poll того же <code>inferCount</code> не даёт confirm (<code>stale_infer</code>).</li>
+        <li><strong>Lab Mel:</strong> синтетический <code>lab_ping</code> только в полном idle (нет episode / current evidence).</li>
+        <li><strong>Telemetry:</strong> public locator включает <code>energy_gated</code> и <code>confirm_block_reason</code>; сняты legacy <code>detection_*_min</code> из NVS/API.</li>
+        <li>Из <code>0.15.0</code>: <code>mel_contrast_min_db</code> режет DET/Mel после NN confirm при низком LAeq contrast.</li>
+        <li>OTA: устройства на канале <code>diy-ota</code> подтягивают semver автоматически.</li>
+        <li>Первый вход: <code>admin</code> / <code>nevod-change-me</code> — смените пароль сразу.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>10ada56629a971b544b6dce1423b24ca8f016ee468491c0d23e88ca5126d2d47</code></li>
+        <li>Model sha256: <code>60aa807af350804c9300ea21ab537c12fca9c34683650e84e1076b03407f5008</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.15.1-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">Инструкция DIY</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a></p>
+  </main>
+</body>
+</html>

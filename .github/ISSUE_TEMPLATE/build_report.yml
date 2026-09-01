@@ -1,0 +1,24 @@
+name: Build report
+description: Отчёт о сборке DIY-узла (фото, замечания к инструкции)
+title: "[build] "
+labels: ["build-report"]
+body:
+  - type: textarea
+    id: kit
+    attributes:
+      label: Kit / versions
+      description: BOM date, enclosure tag, firmware tag, printer filament.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: What worked / what was confusing
+      description: Especially DIY_GUIDE steps that need clearer wording or photos.
+    validations:
+      required: true
+  - type: textarea
+    id: local_or_cloud
+    attributes:
+      label: Local HA only, or people’s radar (cloud)?
+      description: Optional — helps us improve the two-path docs.

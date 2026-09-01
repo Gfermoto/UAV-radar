@@ -1,0 +1,1545 @@
+/**
+ * @file    WebUI_page.h
+ * @brief   Встроенный HTML/JS шаблон WebUI SPA.
+ *
+ * Плейсхолдеры `__T_*__` и `RTSPMIC_*` заменяются в `WebUI_Html.cpp` при сборке
+ * кэша. Не редактировать разметку без синхронизации с OpenAPI и i18n.
+ *
+ * Секции размечены комментариями `SECTION:*` (навигация по ~1500 строк JS).
+ *
+ * @see WebUI_Html.cpp, openapi-webui.yaml
+ */
+#ifndef WEBUI_PAGE_H
+#define WEBUI_PAGE_H
+
+static const char WEBUI_HTML_PAGE[] = R"rawliteral(
+<!DOCTYPE html>
+<html lang="__HTML_LANG__">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RTSPMIC_PLACEHOLDER_NAME">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111827' stroke='%233b82f6' stroke-width='0.5'/%3E%3Cpath d='M11 14c0-5 4-8 7-8 5 0 6 5 6 8 0 5-3 7-4 9s-1 4-1 4' stroke='%233b82f6' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M17 10c-2 0-3 2-3 3' stroke='%233b82f6' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>RTSPMIC_PLACEHOLDER_NAME</title>
+<!-- SECTION:css -->
+<style>
+:root{--bg:#0a0e17;--panel:#111827;--panel2:#0d1320;--border:#1f2937;--text:#e5e7eb;--accent:#3b82f6;--danger:#ef4444;--warning:#f59e0b;--success:#10b981;--muted:#6b7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+
+body.profile-dev .settings-menu button.eng-secret,body.profile-dev .settings-menu button.eng-secret.on{display:none!important;}
+body.profile-dev #page-system .sys-actions{grid-column:1/-1;}
+body.profile-dev #page-system .sys-actions input[type="text"],
+body.profile-dev #page-system .sys-actions input[type="password"],
+body.profile-dev #page-system .sys-actions .login-pass-wrap{max-width:none!important;width:100%;}
+button,input,select{font:inherit;}
+button:focus-visible,.tab:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.header{background:var(--panel);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.header h1{font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:var(--danger);}
+.dot.on{background:var(--success);}
+.header .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.header .version{font-size:12px;color:var(--muted);}
+.tabs{display:flex;position:relative;background:var(--panel);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:10px 16px;min-height:44px;cursor:pointer;font-size:13px;color:var(--muted);white-space:nowrap;}
+.tab:hover{color:var(--text);}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-locked{opacity:0.4;filter:grayscale(0.6);}
+.tab-locked:hover{color:var(--muted);}
+.settings-btn{appearance:none;background:none;border:0;margin-left:auto;padding:10px 16px;min-height:44px;cursor:pointer;font-size:18px;color:var(--muted);line-height:1;}
+.settings-btn:hover{color:var(--text);}
+.settings-btn.locked{opacity:0.5;}
+.settings-menu{position:fixed;z-index:200;min-width:168px;background:#111827;border:1px solid var(--border);border-radius:8px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.55);}
+.settings-menu[hidden]{display:none!important;}
+.settings-menu button{display:block;width:100%;appearance:none;background:transparent;border:0;border-radius:6px;padding:12px 14px;text-align:left;font-size:14px;font-weight:500;color:#e5e7eb;cursor:pointer;min-height:44px;line-height:1.2;}
+.settings-menu button[hidden]{display:none!important;}
+.settings-menu button:hover{background:var(--panel2);color:var(--accent);}
+.settings-menu button.danger{color:var(--danger);}
+.settings-menu button.danger:hover{background:rgba(239,68,68,.12);}
+.settings-menu button.eng-secret{display:none!important;}
+.settings-menu button.eng-secret.on{display:block!important;}
+.pass-field{padding-right:36px!important;}
+.pass-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;user-select:none;opacity:0.5;}
+.pass-toggle:hover{opacity:1;}
+.page{display:none;padding:12px;flex:1;}
+.page.active{display:block;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:700px){.grid{grid-template-columns:1fr;}}
+#page-audio .grid{grid-template-columns:1fr;}
+#page-audio #audioSetupPanel{display:flex;flex-direction:column;gap:12px;}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.panel h2{font-size:14px;font-weight:600;margin-bottom:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.panel.wide{grid-column:1/-1;}
+.hero-status{display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:92px;}
+.hero-state{font-size:18px;font-weight:650;letter-spacing:.02em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hero-state.warn{color:var(--warning);}
+.hero-state.danger{color:var(--danger);}
+.hero-state.noise{color:#3b82f6;}
+.hero-state.ok{color:var(--success);}
+.hero-sub{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hero-metrics{display:flex;align-items:center;min-height:92px;padding-top:12px;padding-bottom:12px;}
+.hero-metrics-row{display:flex;width:100%;justify-content:space-around;align-items:flex-start;gap:8px;}
+.hero-metric{text-align:center;flex:1;min-width:0;}
+.hero-metric .v{display:block;font-size:26px;font-weight:700;color:var(--text);line-height:1.1;font-variant-numeric:tabular-nums;}
+.hero-metric .v-sm{display:block;font-size:18px;font-weight:600;color:var(--text);line-height:1.1;font-variant-numeric:tabular-nums;}
+.hero-metric .v-sm.accent{color:var(--accent);}
+.hero-metric .l{font-size:11px;color:var(--muted);margin-top:2px;}
+.hero-metric .bf{font-size:11px;color:var(--muted);margin-top:2px;min-height:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stat-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.stat-row:last-child{border-bottom:none;}
+.stat-label{color:var(--muted);}
+.stat-value{font-weight:500;}
+.stat-value.warn{color:var(--warning);}
+.stat-value.danger{color:var(--danger);}
+.doa-compass{width:200px;height:200px;margin:0 auto;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.doa-compass canvas{position:absolute;inset:-20px;width:calc(100%+40px);height:calc(100%+40px);}
+.doa-ring-pulse{animation:ringPulse 3s ease-out forwards;}
+@keyframes ringPulse{
+0%{box-shadow:0 0 0 0 rgba(239,68,68,1);}
+15%{box-shadow:0 0 0 8px rgba(239,68,68,0.9);}
+50%{box-shadow:0 0 0 18px rgba(239,68,68,0.5);}
+100%{box-shadow:0 0 0 24px rgba(239,68,68,0);}
+}
+.audio-meter{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:8px;}
+.audio-meter-fill{height:100%;background:linear-gradient(90deg,var(--success),var(--warning),var(--danger));transition:width .1s;}
+.settings-form{display:flex;flex-direction:column;gap:10px;}
+.settings-form label{font-size:12px;color:var(--muted);}
+.settings-form input:not([type=checkbox]),.settings-form select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;color:var(--text);width:100%;}
+.settings-form input:disabled,.settings-form select:disabled{opacity:.45;cursor:not-allowed;}
+.settings-form button,.btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:11px 12px;min-height:44px;font-size:13px;font-weight:500;cursor:pointer;}
+.settings-form button.full,.btn.full{width:100%;}
+.settings-form button:hover,.btn:hover{opacity:.9;}
+.btn-danger{background:var(--danger);}
+.btn-warning{background:var(--warning);color:#1a1a1a;}
+.check-row{display:flex;align-items:center;gap:10px;min-height:44px;font-size:13px;color:var(--text);cursor:pointer;}
+.check-row input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0;}
+.form-row{display:grid;grid-template-columns:1fr 100px;gap:10px;}
+.form-row>div{display:flex;flex-direction:column;gap:6px;}
+@media(max-width:700px){.form-row{grid-template-columns:1fr;}}
+.hint{font-size:12px;color:var(--muted);line-height:1.4;}
+.events-log{max-height:180px;overflow-y:auto;font-size:12px;}
+.events-log .entry{padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;}
+.events-log .time{color:var(--muted);min-width:3.5em;flex-shrink:0;}
+.events-log .t-signal{color:var(--danger);font-weight:600;}
+.events-log .t-tonal{color:var(--warning);}
+.events-log .t-audio_guard{color:var(--danger);}
+.events-log .t-clear{color:var(--muted);}
+.events-log .t-ok{color:var(--success);}
+.events-log .t-info{color:var(--muted);}
+.events-log .t-noise{color:#3b82f6;}
+.network-scan{display:flex;gap:8px;}
+.network-scan select{flex:1;}
+.spec-wrap{position:relative;width:100%;height:180px;background:#000;border-radius:6px;overflow:hidden;}
+@media(max-width:700px){.spec-wrap{height:140px;}}
+.spec-wrap canvas{width:100%;height:100%;image-rendering:pixelated;}
+.ratio-bars{display:flex;align-items:flex-end;gap:4px;height:64px;margin-top:8px;}
+.ratio-bars .rb{flex:1;background:var(--accent);min-height:2px;border-radius:2px 2px 0 0;transition:height .2s;}
+.ratio-labels{display:flex;gap:4px;font-size:10px;color:var(--muted);margin-top:4px;}
+.ratio-labels span{flex:1;text-align:center;}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;}
+.badge.on{background:rgba(16,185,129,.15);color:var(--success);}
+.badge.off{background:rgba(107,114,128,.15);color:var(--muted);}
+.badge.noise{background:rgba(59,130,246,.15);color:#3b82f6;}
+.badge.warn{background:rgba(245,158,11,.15);color:var(--warning);}
+.badge.danger{background:rgba(239,68,68,.15);color:var(--danger);}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:24px;}
+.chip{padding:3px 8px;border-radius:4px;background:var(--panel2);border:1px solid var(--border);font-size:12px;}
+.chip.hot{border-color:var(--danger);color:var(--danger);}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120%);background:var(--panel);border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:8px;font-size:13px;z-index:99;opacity:0;transition:transform .2s,opacity .2s;max-width:90vw;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+.toast.err{border-color:var(--danger);color:var(--danger);}
+.sep{height:1px;background:var(--border);margin:12px 0;}
+.range-val{text-align:center;font-size:14px;font-weight:600;}
+.demo-banner{display:none;background:#1e293b;color:var(--warning);font-size:12px;text-align:center;padding:6px 10px;border-bottom:1px solid var(--border);}
+body.demo .demo-banner{display:block;}
+.login-overlay{position:fixed;inset:0;background:rgba(10,14,23,.95);z-index:999;display:flex;align-items:center;justify-content:center;}
+.login-overlay[hidden]{display:none;}
+.login-box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:32px 40px;text-align:center;max-width:340px;width:90vw;}
+.login-box h2{font-size:18px;margin-bottom:4px;}
+.login-box .hint{margin-bottom:16px;}
+.login-pass-wrap{position:relative;display:flex;align-items:center;}
+.login-pass-wrap input{flex:1;padding-right:36px!important;}
+.login-pass-wrap .pass-toggle{position:absolute;right:10px;cursor:pointer;opacity:0.5;font-size:18px;line-height:1;}
+.login-pass-wrap .pass-toggle:hover{opacity:1;}
+.login-box input{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;color:var(--text);width:100%;text-align:center;font-size:16px;letter-spacing:2px;}
+.login-box button{margin-top:12px;width:100%;}
+.login-error{color:var(--danger);font-size:12px;margin-top:8px;min-height:18px;}
+</style>
+</head>
+<!-- SECTION:body-overlays -->
+<body class="RTSPMIC_BODY_PROFILE">
+<div class="demo-banner">Preview · демо-телеметрия (не устройство)</div>
+<div id="defaultPwBanner" class="demo-banner" style="background:#7f1d1d;display:none">__T_DEFAULT_PW_WARN__</div>
+<div id="cleartextBanner" class="demo-banner" style="background:#78350f;display:none">__T_CLEARTEXT_WARN__</div>
+<div id="loginOverlay" class="login-overlay" hidden>
+<div class="login-box">
+<h2>RTSPMIC_PLACEHOLDER_NAME</h2>
+<p class="hint">__T_LOGIN_HINT__</p>
+<form onsubmit="doLogin();return false">
+<input type="text" id="loginUser" placeholder="RTSPMIC_WEB_USER" autocomplete="username" value="RTSPMIC_WEB_USER" style="margin-bottom:8px;letter-spacing:0">
+<div class="login-pass-wrap">
+<input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+<span class="pass-toggle" onclick="var f=document.getElementById('loginPass');f.type=f.type==='password'?'text':'password';">👁</span>
+</div>
+<button type="submit">__T_LOGIN_BTN__</button>
+</form>
+<div id="loginError" class="login-error"></div>
+</div>
+</div>
+<div class="header">
+<h1><span id="statusDot" class="dot"></span> <span id="hdrTitle">RTSPMIC_PLACEHOLDER_NAME</span></h1>
+<div class="meta">
+<span class="version">vRTSPMIC_PLACEHOLDER_VERSION</span>
+</div>
+</div>
+<nav class="tabs" role="tablist" aria-label="RTSPMIC_PLACEHOLDER_NAME">
+<button type="button" class="tab" role="tab" id="tab-dashboard" aria-controls="page-dashboard" aria-selected="true" data-tab="dashboard">__T_TAB_DASH__</button>
+<button type="button" class="settings-btn locked" id="btnSettings" title="__T_LOGIN_HINT__" aria-label="__T_LOGIN_HINT__" aria-haspopup="true" aria-expanded="false">⚙</button>
+<div id="settingsMenu" class="settings-menu" hidden role="menu">
+<button type="button" role="menuitem" data-page="network">__T_TAB_NET__</button>
+<button type="button" role="menuitem" data-page="audio">__T_TAB_AUDIO__</button>
+<button type="button" role="menuitem" data-page="system">__T_TAB_SYS__</button>
+<button type="button" role="menuitem" data-page="integrations">__T_TAB_INT__</button>
+<button type="button" role="menuitem" data-page="ota">__T_TAB_OTA__</button>
+</div>
+</nav>
+
+<!-- SECTION:page-dashboard -->
+<div id="page-dashboard" class="page active" role="tabpanel" aria-labelledby="tab-dashboard">
+<div class="grid">
+<div class="panel hero-status">
+<div id="heroState" class="hero-state ok">__T_HERO_IDLE__</div>
+<div id="heroSub" class="hero-sub">__T_HERO_SUB__</div>
+</div>
+<div class="panel hero-metrics">
+<div class="hero-metrics-row">
+<div class="hero-metric">
+<span id="heroDoa" class="v"></span>
+<div class="l">DOA</div>
+<div id="heroBf" class="bf"></div>
+</div>
+</div>
+</div>
+<div class="panel"><h2>__T_DOA__</h2>
+<div class="doa-compass" id="compassRing"><canvas id="compassCnv" width="240" height="240"></canvas></div>
+<div id="spEnergyBars" class="beam-bars" style="margin-top:10px;display:flex;gap:10px;justify-content:center;align-items:flex-end;height:72px;"></div>
+</div>
+<div class="panel"><h2>__T_AUDIO__</h2>
+<div class="stat-row"><span class="stat-label">__T_LAEQ__</span><span id="noiseLaeq" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_SPL_FAST__</span><span id="noiseFast" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_SPL_SLOW__</span><span id="noiseSlow" class="stat-value">—</span></div>
+<div class="sep"></div>
+<div class="stat-row"><span class="stat-label">__T_PEAK__</span><span id="peakVal" class="stat-value">0</span></div>
+<div class="stat-row"><span class="stat-label">__T_CLIP__</span><span id="clipVal" class="stat-value">—</span></div>
+<div class="audio-meter"><div id="meterFill" class="audio-meter-fill" style="width:0%"></div></div>
+<div class="stat-row" style="margin-top:6px;"><span class="stat-label">__T_CAL_OFFSET__</span><span id="noiseCal" class="stat-value">—</span></div>
+</div>
+<div class="panel wide"><h2>__T_MEL__</h2>
+<div class="spec-wrap"><canvas id="melCnv" width="640" height="220"></canvas></div>
+<div class="stat-row" style="margin-top:8px;"><span class="stat-label">__T_MEL_META__</span><span id="melMeta" class="stat-value">—</span></div></div>
+</div></div>
+
+<!-- SECTION:page-network -->
+<div id="page-network" class="page" role="tabpanel" aria-labelledby="tab-network" hidden>
+<div class="grid">
+<div class="panel"><h2>__T_NET_STATUS__</h2>
+<div class="stat-row"><span class="stat-label">__T_NET_SSID__</span><span id="netSsid" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_NET_IP__</span><span id="netIp" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_NET_MAC__</span><span id="netMac" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_NET_RSSI__</span><span id="netRssi" class="stat-value">—</span></div>
+RTSPMIC_ETH_NET_ROW
+</div>
+<div class="panel"><h2>__T_NET_CHANGE__</h2>
+<div class="settings-form">
+<form onsubmit="saveNetwork();return false" style="display:contents">
+<label for="netScanList">__T_NET_SCAN__</label>
+<div class="network-scan"><select id="netScanList"><option value="">__T_NET_SCANNING__</option></select><button type="button" onclick="scanNetworks()">__T_BTN_SCAN__</button></div>
+<label for="netSsidInput">__T_NET_SSID__</label><input type="text" id="netSsidInput" autocomplete="off">
+<label for="netPassInput">__T_NET_PASS__</label><input type="password" id="netPassInput" autocomplete="new-password">
+<button type="submit">__T_NET_SAVE__</button>
+</form></div></div></div></div>
+
+<!-- SECTION:page-audio -->
+<div id="page-audio" class="page" role="tabpanel" aria-labelledby="tab-audio" hidden>
+<div class="grid">
+<div class="panel wide"><h2>__T_AUD_INFO__</h2>
+<div class="stat-row"><span class="stat-label">__T_AUD_AGC__</span><span id="curAgc" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_GAIN_NOW__</span><span id="curGain" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_EFF_GAIN__</span><span id="curEffGain" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_MIC_NOW__</span><span id="curMicGain" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_ENG_LIM_EN__</span><span id="curLimiter" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_HPF__</span><span id="curHpf" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_ENV__</span><span id="curEnv" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_ASROUT__</span><span id="curAsrout" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_ECHO__</span><span id="curEcho" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_PEAK__</span><span id="curPeak" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_CLIP__</span><span id="curClip" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_OPUS__</span><span id="opusStatus" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_RATE__</span><span class="stat-value">RTSPMIC_SAMPLE_RATE Hz</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_MEL_B__</span><span class="stat-value">64</span></div>
+<div class="stat-row"><span class="stat-label">__T_AUD_SPL__</span><span id="splReference" class="stat-value">—</span></div>
+</div>
+<div id="audioSetupPanel">
+<div class="panel" style="border:1px solid var(--warning)"><h2>__T_AUD_BASIC__</h2>
+<div class="settings-form">
+<label class="check-row"><input type="checkbox" id="audioAgc" checked> __T_AUD_AGC__</label>
+<p class="hint">__T_AGC_HINT__</p>
+<label class="check-row"><input type="checkbox" id="audioLoudspeaker"> __T_AUD_LOUDSPEAKER__</label>
+<p class="hint">__T_AUD_LOUDSPEAKER_HINT__</p>
+<label for="audioHpf">__T_AUD_HPF__</label>
+<select id="audioHpf">
+<option value="0">__T_AUD_OFF__</option>
+<option value="1">70 Гц</option>
+<option value="2">125 Гц</option>
+<option value="3">150 Гц</option>
+<option value="4">180 Гц</option>
+</select>
+<p class="hint">__T_AUD_HPF_HINT__</p>
+<label for="audioEnv">__T_AUD_ENV__</label>
+<select id="audioEnv"><option value="0">__T_AUD_ENV_Q__</option><option value="1" selected>__T_AUD_ENV_N__</option></select>
+<label for="audioMicGain">__T_AUD_MIC_SENS__ <span id="audioMicGainVal" class="range-val">10.0</span></label>
+<input type="range" id="audioMicGain" min="1" max="500" step="1" value="10" oninput="document.getElementById('audioMicGainVal').textContent=Number(this.value).toFixed(1);">
+<label for="audioAsrout">__T_AUD_ASROUT__</label>
+<select id="audioAsrout"><option value="1">__T_AUD_ASROUT_BF__</option><option value="0">__T_AUD_ASROUT_AEC__</option></select>
+<p class="hint">__T_AUD_ASROUT_HINT__</p>
+<label class="check-row"><input type="checkbox" id="audioEcho"> __T_AUD_ECHO__</label>
+<button type="button" onclick="saveAudio()">__T_AUD_APPLY__</button></div></div>
+<div class="panel"><h2>__T_CAL_TITLE__</h2>
+<div class="settings-form">
+<label for="calOffset">__T_CAL_OFFSET_LABEL__ <span id="calOffsetVal" class="range-val">0.0 dB</span></label>
+<input type="range" id="calOffset" min="-40" max="40" step="0.5" value="0" oninput="document.getElementById('calOffsetVal').textContent=this.value+' dB'">
+<p class="hint">__T_CAL_HINT__</p>
+<button type="button" onclick="saveCalibration()">__T_AUD_APPLY__</button>
+</div></div>
+<div class="panel wide" style="border:2px solid var(--danger)"><h2>__T_ENG_TITLE__</h2>
+<p class="hint" style="color:var(--danger)">__T_ENG_WARN__</p></div>
+<div class="panel"><h2>__T_ENG_NS__</h2>
+<div class="settings-form">
+<label for="engNsStat">__T_ENG_NS_STAT__ <span id="engNsStatVal" class="range-val">1.00</span></label>
+<input type="range" id="engNsStat" min="0" max="100" step="1" value="100" oninput="document.getElementById('engNsStatVal').textContent=(this.value/100).toFixed(2)">
+<p class="hint">__T_ENG_NS_HINT__</p>
+<label for="engNsNstat">__T_ENG_NS_NSTAT__ <span id="engNsNstatVal" class="range-val">1.00</span></label>
+<input type="range" id="engNsNstat" min="0" max="100" step="1" value="100" oninput="document.getElementById('engNsNstatVal').textContent=(this.value/100).toFixed(2)">
+</div></div>
+ <div class="panel"><h2>__T_ENG_AGC__</h2>
+ <div class="settings-form">
+ <label for="engAgcMaxGain">__T_ENG_AGC_MAX__</label>
+<input type="number" id="engAgcMaxGain" min="1" max="1000" step="1" value="125">
+<label for="engAgcDesLevel">__T_ENG_AGC_DES__</label>
+<input type="number" id="engAgcDesLevel" min="1e-8" max="1" step="0.0001" value="0.0045">
+</div></div>
+<div class="panel"><h2>__T_ENG_LIM__</h2>
+<div class="settings-form">
+<label class="check-row"><input type="checkbox" id="engLimiterEn" checked> __T_ENG_LIM_EN__</label>
+<label for="engLimiterThr">__T_ENG_LIM_THR__ <span id="engLimiterThrVal" class="range-val">0.47</span></label>
+<input type="range" id="engLimiterThr" min="1" max="100" step="1" value="47" oninput="document.getElementById('engLimiterThrVal').textContent=(this.value/100).toFixed(2)">
+</div></div>
+<div class="panel"><h2>__T_ENG_AGC_TIME__</h2>
+<div class="settings-form">
+<label for="engAgcTime">__T_ENG_AGC_T__ <span id="engAgcTimeVal" class="range-val">0.9</span> s</label>
+<input type="range" id="engAgcTime" min="0.50" max="4.00" step="0.05" value="0.9" oninput="document.getElementById('engAgcTimeVal').textContent=Number(this.value).toFixed(2)">
+<label for="engAgcFastTime">__T_ENG_AGC_FT__ <span id="engAgcFastTimeVal" class="range-val">0.10</span> s</label>
+<input type="range" id="engAgcFastTime" min="0.05" max="4.00" step="0.05" value="0.10" oninput="document.getElementById('engAgcFastTimeVal').textContent=Number(this.value).toFixed(2)">
+<label for="engAgcAlphaSlow">__T_ENG_AGC_ASLOW__ <span id="engAgcAlphaSlowVal" class="range-val">0.984</span></label>
+<input type="range" id="engAgcAlphaSlow" min="0" max="100" step="1" value="98" oninput="document.getElementById('engAgcAlphaSlowVal').textContent=(this.value/100).toFixed(3)">
+<label for="engAgcAlphaFast">__T_ENG_AGC_AFAST__ <span id="engAgcAlphaFastVal" class="range-val">0.36</span></label>
+<input type="range" id="engAgcAlphaFast" min="0" max="100" step="1" value="36" oninput="document.getElementById('engAgcAlphaFastVal').textContent=(this.value/100).toFixed(2)">
+</div></div>
+<div class="panel wide"><h2>__T_ENG_ATTNS__</h2>
+<div class="settings-form">
+<p class="hint">__T_ENG_ATTNS_HINT__</p>
+<label for="engAttnsMode">__T_ENG_ATTNS_MODE__</label>
+<select id="engAttnsMode"><option value="0">__T_ENG_ATTNS_MODE_OFF__</option><option value="1" selected>__T_ENG_ATTNS_MODE_ON__</option></select>
+<p class="hint">__T_ENG_ATTNS_MODE_HINT__</p>
+<label for="engAttnsNom">__T_ENG_ATTNS_NOM__ <span id="engAttnsNomVal" class="range-val">1.00</span></label>
+<input type="range" id="engAttnsNom" min="0" max="100" step="1" value="100" oninput="document.getElementById('engAttnsNomVal').textContent=(this.value/100).toFixed(2)">
+<p class="hint">__T_ENG_ATTNS_NOM_HINT__</p>
+<label for="engAttnsSlope">__T_ENG_ATTNS_SLOPE__ <span id="engAttnsSlopeVal" class="range-val">0.20</span></label>
+<input type="range" id="engAttnsSlope" min="0" max="50" step="1" value="2" oninput="document.getElementById('engAttnsSlopeVal').textContent=(this.value/10).toFixed(2)">
+<p class="hint">__T_ENG_ATTNS_SLOPE_HINT__</p>
+<label for="engRefGain">__T_ENG_REF_GAIN__</label>
+<input type="number" id="engRefGain" min="0.1" max="1000" step="0.1" value="1.5">
+<p class="hint">__T_ENG_REF_GAIN_HINT__</p>
+<label for="engSysDelay">__T_ENG_SYS_DELAY__</label>
+<input type="number" id="engSysDelay" min="-10000" max="10000" step="1" value="0">
+<p class="hint">__T_ENG_SYS_DELAY_HINT__</p>
+<label for="engAsroutGain">__T_ENG_ASROUT_GAIN__</label>
+<input type="number" id="engAsroutGain" min="0" max="1000" step="0.1" value="1">
+<p class="hint">__T_ENG_ASROUT_GAIN_HINT__</p>
+<button type="button" class="full" onclick="saveEngineer()">__T_ENG_SAVE__</button>
+</div></div>
+</div>
+</div></div>
+
+<!-- SECTION:page-system -->
+<div id="page-system" class="page" role="tabpanel" aria-labelledby="tab-system" hidden>
+<div class="grid">
+<div class="panel"><h2>__T_DEV_INFO__</h2>
+<div class="stat-row"><span class="stat-label">__T_FW__</span><span id="sysFw" class="stat-value">RTSPMIC_PLACEHOLDER_NAME</span></div>
+<div class="stat-row"><span class="stat-label" title="__T_VER_HINT__">__T_VER__</span><span id="sysVer" class="stat-value" style="cursor:pointer;user-select:none">RTSPMIC_PLACEHOLDER_VERSION</span></div>
+<div class="stat-row"><span class="stat-label">__T_UPTIME__</span><span id="sysUptime" class="stat-value">0</span></div>
+<div class="stat-row"><span class="stat-label">__T_HEAP__</span><span id="sysHeap" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_HEAP_BLOCK__</span><span id="sysHeapBlock" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_PSRAM__</span><span id="sysPsram" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_TEMP__</span><span id="sysTemp" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_CPU__</span><span id="sysCpu" class="stat-value">240 MHz</span></div></div>
+<div class="panel"><h2>__T_STATUS__</h2>
+<div class="stat-row"><span class="stat-label">__T_NTP__</span><span id="ntpVal" class="stat-value">—</span></div>
+<div class="stat-row"><span class="stat-label">__T_RTSP__</span><span id="rtspVal" class="stat-value">__T_RTSP_OFF__</span></div>
+<!-- Кольцо: value 0=on (DoA+GPIO21), 1=off. POST /api/system/led — docs/LED.md -->
+<label for="sysLedMode">__T_LED_MODE__</label>
+<select id="sysLedMode" onchange="saveLedMode()">
+<option value="0">__T_LED_ON__</option>
+<option value="1">__T_LED_OFF__</option>
+</select>
+</div>
+RTSPMIC_TLS_CA_BLOCK
+<div class="panel sys-actions"><h2>__T_ACTIONS__</h2>
+<div class="settings-form" style="gap:12px;">
+<form onsubmit="changePassword();return false" style="display:contents">
+<label for="sysNewUser">__T_USER_LABEL__</label>
+<input type="text" id="sysNewUser" maxlength="32" placeholder="RTSPMIC_WEB_USER" autocomplete="username" style="max-width:200px">
+<label for="sysNewPass">__T_PW_CHANGE__</label>
+<div class="login-pass-wrap" style="max-width:200px">
+<input type="password" id="sysNewPass" minlength="8" placeholder="••••••••" autocomplete="new-password" style="flex:1">
+<span class="pass-toggle" onclick="var f=document.getElementById('sysNewPass');f.type=f.type==='password'?'text':'password';">👁</span>
+</div>
+<button type="submit">__T_PW_BTN__</button>
+</form>
+<div class="sep"></div>
+<button type="button" onclick="reboot()" class="btn-warning">__T_REBOOT__</button>
+<button type="button" onclick="factoryReset()" class="btn-danger">__T_FACTORY__</button>
+</div></div></div></div></div>
+
+<!-- SECTION:page-integrations -->
+<div id="page-integrations" class="page" role="tabpanel" aria-labelledby="tab-integrations" hidden>
+<div class="grid">
+<div class="panel wide" style="border:1px solid var(--accent)"><h2>__T_INT_LOCAL__</h2>
+<div class="settings-form">
+<form onsubmit="saveIntegrations();return false" style="display:contents">
+<label class="check-row"><input type="checkbox" id="intMqttEn"> __T_INT_MQTT_EN__</label>
+<div class="form-row">
+<div><label for="intMqttHost">__T_INT_HOST__</label><input type="text" id="intMqttHost" autocomplete="off" placeholder="192.168.1.100"></div>
+<div><label for="intMqttPort">__T_INT_PORT__</label><input type="number" id="intMqttPort" min="1" max="65535" placeholder="1883"></div>
+</div>
+<p class="hint">__T_INT_MQTT_PORT_HINT__</p>
+<label for="intMqttUser">__T_INT_USER__</label><input type="text" id="intMqttUser" autocomplete="off">
+<label for="intMqttPass">__T_INT_PASS__</label><input type="password" id="intMqttPass" autocomplete="new-password">
+<p class="hint">__T_INT_MQTT_HINT__</p>
+<div class="stat-row"><span class="stat-label">__T_INT_MQTT_ST__</span><span id="intMqttSt" class="stat-value">—</span></div>
+</form></div></div>
+
+<div class="panel"><h2>__T_INT_NTP__</h2>
+<div class="settings-form">
+<label for="intNtpHost">__T_INT_NTP_HOST__</label>
+<input type="text" id="intNtpHost" autocomplete="off" placeholder="pool.ntp.org">
+<p class="hint">__T_INT_NTP_HINT__</p>
+<div class="stat-row"><span class="stat-label">__T_INT_NTP_ST__</span><span id="intNtpSt" class="stat-value">—</span></div>
+</div></div>
+
+<div class="panel"><h2>__T_SCHED_RESET__</h2>
+<div class="settings-form">
+<label class="check-row"><input type="checkbox" id="intSchedResetEn"> __T_SCHED_RESET_EN__</label>
+<label for="intSchedResetTime">__T_SCHED_RESET_TIME__</label>
+<input type="time" id="intSchedResetTime" value="03:00">
+<p class="hint">__T_SCHED_RESET_HINT__</p>
+</div></div>
+
+
+<div class="panel wide">
+<div class="settings-form">
+<button type="button" class="full" onclick="saveIntegrations()">__T_INT_SAVE__</button>
+</div></div>
+</div></div>
+
+<div id="page-engineer" class="page" role="tabpanel" aria-labelledby="tab-engineer" hidden>
+<div class="panel wide"><p class="hint">__T_AUD_SETUP_HINT__</p>
+<button type="button" class="full" onclick="showTab('audio')">__T_TAB_AUDIO__</button>
+</div></div>
+
+<!-- SECTION:page-ota -->
+<div id="page-ota" class="page" role="tabpanel" aria-labelledby="tab-ota" hidden>
+<div class="grid">
+<div class="panel wide"><h2>__T_OTA_TITLE__</h2>
+<p style="font-size:13px;color:var(--muted);margin-bottom:14px;">__T_OTA_HINT__ <a href="/update" style="color:var(--accent);">/update</a>.</p>
+<div class="settings-form">
+<label for="otaFile">__T_OTA_FILE__</label>
+<input type="file" id="otaFile" accept=".bin">
+<button type="button" onclick="startOTA()" id="otaBtn">__T_OTA_GO__</button>
+<div id="otaStatus" style="margin-top:4px;font-size:13px;color:var(--muted);"></div></div></div></div></div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- SECTION:js-bootstrap -->
+<script>
+window.RTSPMIC_PREVIEW=0;
+let demoMode=!!(window.RTSPMIC_PREVIEW)||location.protocol==='file:'||/(?:^|[?&])demo=1(?:&|$)/.test(location.search);
+RTSPMIC_CSRF_TOKEN_JS
+RTSPMIC_DEFAULT_PW_JS
+function updateDefaultPwBanner(){
+var el=document.getElementById('defaultPwBanner');
+if(!el)return;
+var forceBanners=/(?:^|[?&])banners=1(?:&|$)/.test(location.search);
+if(forceBanners||(typeof RTSPMIC_DEFAULT_PW!=='undefined'&&RTSPMIC_DEFAULT_PW&&!demoMode&&!window.RTSPMIC_PREVIEW))el.style.display='block';
+else el.style.display='none';
+}
+updateDefaultPwBanner();
+(function(){
+  var el=document.getElementById('cleartextBanner');
+  var forceBanners=/(?:^|[?&])banners=1(?:&|$)/.test(location.search);
+  if(el&&(forceBanners||(location.protocol==='http:'&&!demoMode&&!window.RTSPMIC_PREVIEW)))el.style.display='block';
+})();
+function apiHeaders(extra){var h=Object.assign({},extra||{});if(authHeader)h.Authorization=authHeader;if(typeof CSRF_TOKEN!=='undefined'&&CSRF_TOKEN)h['X-CSRF-Token']=CSRF_TOKEN;return h;}
+function apiFetch(url,opts){
+opts=opts||{};
+opts.headers=apiHeaders(opts.headers);
+return fetch(url,opts).then(function(r){
+if(r.status!==403||!authHeader)return r;
+// Только bad_csrf → refresh+retry. must_change_password не трогаем (иначе CSRF-spam → 429 на смену пароля).
+return r.clone().json().then(function(j){
+if(!j||j.status!=='bad_csrf')return r;
+return fetch('/api/csrf',{headers:apiHeaders()}).then(function(cr){return cr.ok?cr.json():null;})
+.then(function(cj){if(cj&&cj.token)CSRF_TOKEN=cj.token;opts.headers=apiHeaders(opts.headers);return fetch(url,opts);});
+}).catch(function(){return r;});
+});
+}
+/* SECTION:js-i18n-api */
+function apiStatusMsg(st){
+if(!st||st==='ok')return I18N.intOk;
+if(st==='must_change_password')return I18N.errMustChange||I18N.defaultPwWarn;
+if(st==='rate_limited')return I18N.err+': rate_limited';
+if(st==='bad_csrf')return I18N.err+': bad_csrf';
+if(st==='must_not_be_default')return I18N.pwFail;
+if(st==='pro_mqtt_port_1883_or_8883')return I18N.errMqttPort||I18N.err;
+return (I18N.err||'Error')+': '+st;
+}
+/* SECTION:js-auth-login */
+const I18N={
+  idle:'__T_HERO_IDLE__',sub:'__T_HERO_SUB__',
+  heroSignal:'__T_HERO_SIGNAL__',heroSignalSub:'__T_HERO_SIGNAL_SUB__',
+  heroNoise:'__T_HERO_NOISE__',heroNoiseSub:'__T_HERO_NOISE_SUB__',
+clipY:'__T_CLIP_YES__',clipN:'__T_CLIP_NO__',ntpOk:'__T_NTP_OK__',ntpNo:'__T_NTP_NO__',
+  vadV:'__T_VAD_VOICE__',vadS:'__T_VAD_SIL__',rtspOn:'__T_RTSP_ON__',rtspOff:'__T_RTSP_OFF__',
+ saved:'__T_SAVED__',err:'__T_ERR__',audOk:'__T_AUD_OK__',
+audSetupConfirm:'__T_AUD_SETUP_CONFIRM__',audSetupOn:'__T_AUD_SETUP_ON__',audSetupOff:'__T_AUD_SETUP_OFF__',
+audSetupIdle:'__T_AUD_SETUP_IDLE__',
+needSsid:'__T_NET_NEED_SSID__',scanning:'__T_NET_SCANNING__',sel:'__T_NET_SELECT__',scanFail:'__T_NET_FAIL__',
+rebootQ:'__T_REBOOT_Q__',factoryQ:'__T_FACTORY_Q__',otaPick:'__T_OTA_PICK__',otaUp:'__T_OTA_UP__',otaOk:'__T_OTA_OK__',
+audOn:'__T_AUD_ON__',audOff:'__T_AUD_OFF__',intOk:'__T_INT_OK__',intConn:'__T_INT_CONN__',intDisc:'__T_INT_DISC__',
+intNtpOk:'__T_INT_NTP_OK__',intNtpWait:'__T_INT_NTP_WAIT__',yes:'__T_YES__',no:'__T_NO__',
+loginErr:'__T_LOGIN_ERR__',errAuthLocked:'__T_ERR_AUTH_LOCKED__',pwMin:'__T_PW_MIN__',pwChanged:'__T_PW_CHANGED__',pwFail:'__T_PW_FAIL__',
+defaultPwWarn:'__T_DEFAULT_PW_WARN__',errMustChange:'__T_ERR_MUST_CHANGE__',errMqttPort:'__T_ERR_MQTT_PORT__',
+  tlsCaHas:'__T_TLS_CA_HAS__',tlsCaMiss:'__T_TLS_CA_MISS__',
+engEnabled:'__T_ENG_ENABLED__',
+};
+let ws=null,wsConnecting=false,wsReconnectTimer=null,wsBackoffMs=1000;
+let melBusy=false,audioDirty=false,sysDirty=false;
+let authHeader=null;
+const RTSPMIC_WEB_USER='RTSPMIC_WEB_USER';
+function toast(msg,err){
+const el=document.getElementById('toast');
+el.textContent=msg;
+el.className='toast show'+(err?' err':'');
+clearTimeout(toast._t);
+toast._t=setTimeout(()=>el.classList.remove('show'),2800);
+}
+function doLogin(){
+var u=(document.getElementById('loginUser').value||'').trim();
+var p=document.getElementById('loginPass').value;
+var errEl=document.getElementById('loginError');
+if(!u||!p){errEl.textContent=I18N.loginErr;return;}
+var hdr='Basic '+btoa(u+':'+p);
+errEl.textContent='…';
+fetch('/status',{headers:{Authorization:hdr},cache:'no-store'}).then(function(r){
+if(r.status===429){
+errEl.textContent=(I18N.errAuthLocked||'Слишком много попыток — подождите ~60 с');
+toast(I18N.errAuthLocked||'auth_locked 60s',true);
+return null;
+}
+if(r.status===401){
+errEl.textContent=I18N.loginErr;
+return null;
+}
+if(!r.ok){errEl.textContent=I18N.err;return null;}
+return r.json().then(function(d){return {d:d};});
+}).then(function(x){
+if(!x)return;
+authHeader=hdr;
+sessionStorage.setItem('rtspmic_auth',authHeader);
+errEl.textContent='';
+document.getElementById('loginOverlay').setAttribute('hidden','');
+startStatusPoll();
+connectWS();
+updateLockIcons();
+refreshCsrfToken();
+if(x.d&&x.d.must_change_password!=null)RTSPMIC_DEFAULT_PW=x.d.must_change_password?1:0;
+if(mustChangePassword()||p==='rtsp-mic-change-me'){
+RTSPMIC_DEFAULT_PW=1;updateDefaultPwBanner();toast(I18N.defaultPwWarn,true);showTab('system');
+}
+applyTelemetry(x.d);
+}).catch(function(){errEl.textContent=I18N.err;});
+}
+var sauth=sessionStorage.getItem('rtspmic_auth');
+if(sauth){authHeader=sauth;updateLockIcons();refreshCsrfToken();}
+function isAuthenticated(){return !!authHeader||!!window.RTSPMIC_PREVIEW||demoMode||location.protocol==='file:';}
+var statusPollTimer=null;
+/* SECTION:js-telemetry-ws */
+function applyTelemetry(d){
+if(!d)return;
+if(d.must_change_password!=null){
+RTSPMIC_DEFAULT_PW=d.must_change_password?1:0;
+updateDefaultPwBanner();
+}
+// RTSP PLAY: не держим WS — HTTP /status достаточно, иначе heap/PCB умирают.
+if(d.rtsp_streaming){
+  if(!window._rtspStreaming){
+    window._rtspStreaming=true;
+    if(wsReconnectTimer){clearTimeout(wsReconnectTimer);wsReconnectTimer=null;}
+    if(ws){try{ws.onclose=null;ws.close();}catch(e){} ws=null;}
+    startStatusPoll();
+  }
+}else if(window._rtspStreaming){
+  window._rtspStreaming=false;
+  startStatusPoll();
+  connectWS();
+}
+ updateDOA(d.doa||{},d.audio||{});
+ updateAudio(d.audio||{});
+updateMicHero(d);
+ updateSystem(d);
+}
+function pollStatus(){
+if(demoMode||!authHeader)return;
+apiFetch('/status').then(function(r){
+if(r.status===401||r.status===429){
+stopStatusPoll();authHeader=null;sessionStorage.removeItem('rtspmic_auth');
+document.getElementById('loginOverlay').removeAttribute('hidden');
+toast(r.status===429?(I18N.err+': auth_locked'):I18N.loginErr,true);
+throw 0;
+}
+if(r.status===403){return r.json().then(function(j){if(j&&j.status==='must_change_password'){RTSPMIC_DEFAULT_PW=1;updateDefaultPwBanner();toast(I18N.defaultPwWarn,true);showTab('system');}throw 0;});}
+if(!r.ok)throw 0;return r.json();}).then(function(d){
+window._statusFail=0;
+document.getElementById('statusDot').className='dot on';
+applyTelemetry(d);
+if(mustChangePassword()){updateDefaultPwBanner();showTab('system');}
+}).catch(function(){
+document.getElementById('statusDot').className='dot';
+if(!window._statusFail)window._statusFail=0;
+window._statusFail++;
+if(window._statusFail>=10&&!window._rtspmicDemo)maybeStartDemo();
+});
+}
+function startStatusPoll(){
+if(demoMode||!authHeader)return;
+if(statusPollTimer){clearInterval(statusPollTimer);statusPollTimer=null;}
+pollStatus();
+const ms=window._rtspStreaming?2500:1000;
+statusPollTimer=setInterval(pollStatus,ms);
+}
+function stopStatusPoll(){
+if(statusPollTimer){clearInterval(statusPollTimer);statusPollTimer=null;}
+}
+function mustChangePassword(){return !!(typeof RTSPMIC_DEFAULT_PW!=='undefined'&&RTSPMIC_DEFAULT_PW&&!demoMode&&!window.RTSPMIC_PREVIEW);}
+function closeSettingsMenu(){
+var m=document.getElementById('settingsMenu');
+var b=document.getElementById('btnSettings');
+if(m)m.setAttribute('hidden','');
+if(b)b.setAttribute('aria-expanded','false');
+}
+function toggleSettingsMenu(e){
+if(e){e.preventDefault();e.stopPropagation();}
+var m=document.getElementById('settingsMenu');
+var b=document.getElementById('btnSettings');
+if(!m||!b)return;
+if(m.hasAttribute('hidden')){
+var r=b.getBoundingClientRect();
+m.style.top=(r.bottom+4)+'px';
+m.style.left=Math.max(8,r.right-168)+'px';
+m.removeAttribute('hidden');
+b.setAttribute('aria-expanded','true');
+}else{
+closeSettingsMenu();
+}
+}
+document.addEventListener('click',function(e){
+var m=document.getElementById('settingsMenu');
+var b=document.getElementById('btnSettings');
+if(!m||m.hasAttribute('hidden'))return;
+if(m.contains(e.target)||(b&&b.contains(e.target)))return;
+closeSettingsMenu();
+});
+function showTab(name){
+if(name==='engineer')name='audio';
+if(!name)return;
+closeSettingsMenu();
+if(name!=='dashboard'&&!isAuthenticated()){
+document.getElementById('loginError').textContent='';
+document.getElementById('loginOverlay').removeAttribute('hidden');
+var lu=document.getElementById('loginUser');
+if(lu&&!lu.value)lu.value=RTSPMIC_WEB_USER;
+document.getElementById('loginPass').value='';
+(lu||document.getElementById('loginPass')).focus();
+return;
+}
+if(mustChangePassword()&&name!=='dashboard'&&name!=='system'){
+toast(I18N.defaultPwWarn,true);
+name='system';
+}
+document.querySelectorAll('.tab[data-tab]').forEach(t=>{
+t.setAttribute('aria-selected',t.dataset.tab===name?'true':'false');
+});
+document.querySelectorAll('.page').forEach(p=>{
+const on=p.id==='page-'+name;
+p.classList.toggle('active',on);
+if(on)p.removeAttribute('hidden');else p.setAttribute('hidden','');
+});
+if(name==='network')scanNetworks();
+if(name==='integrations'||name==='audio')loadIntegrations();
+if(name==='system')loadTlsCaStatus();
+}
+document.getElementById('btnSettings').addEventListener('click',toggleSettingsMenu);
+document.querySelectorAll('#settingsMenu [data-page]').forEach(btn=>{
+btn.addEventListener('click',function(e){
+e.stopPropagation();
+showTab(btn.getAttribute('data-page'));
+});
+});
+document.querySelectorAll('.tab[data-tab]').forEach(t=>{
+t.addEventListener('click',()=>showTab(t.dataset.tab));
+t.addEventListener('keydown',e=>{
+if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+const tabs=[...document.querySelectorAll('.tab[data-tab]')];
+let i=tabs.indexOf(t)+(e.key==='ArrowRight'?1:-1);
+if(i<0)i=tabs.length-1;if(i>=tabs.length)i=0;
+tabs[i].focus();showTab(tabs[i].dataset.tab);e.preventDefault();
+}
+});
+});
+['audioHpf','audioAgc','audioEnv','audioMicGain','audioLoudspeaker','audioAsrout','audioEcho','calOffset',
+ 'engNsStat','engNsNstat','engAgcMaxGain','engAgcDesLevel','engLimiterEn','engLimiterThr',
+ 'engAgcTime','engAgcFastTime','engAgcAlphaSlow','engAgcAlphaFast','engAttnsMode','engAttnsNom',
+ 'engAttnsSlope','engRefGain','engSysDelay','engAsroutGain'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.addEventListener('focus',()=>audioDirty=true);
+  el.addEventListener('input',()=>audioDirty=true);
+  el.addEventListener('change',()=>audioDirty=true);
+});
+['sysLedMode'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.addEventListener('change',()=>sysDirty=true);
+});
+
+function connectWS(){
+if(demoMode)return;
+if(!authHeader){startStatusPoll();return;}
+if(window._rtspStreaming){startStatusPoll();return;}
+if(wsConnecting)return;
+if(ws&&(ws.readyState===WebSocket.CONNECTING||ws.readyState===WebSocket.OPEN))return;
+if(wsReconnectTimer){clearTimeout(wsReconnectTimer);wsReconnectTimer=null;}
+wsConnecting=true;
+const hdrs={Authorization:authHeader};
+fetch('/api/ws-ticket',{credentials:'include',headers:hdrs})
+.then(r=>r.ok?r.json():Promise.reject())
+.then(function(j){
+try{
+if(window._rtspStreaming){wsConnecting=false;return;}
+if(ws&&ws.readyState===WebSocket.OPEN){wsConnecting=false;return;}
+ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host+'/ws');
+}catch(e){ws=null;wsConnecting=false;scheduleWsReconnect();return;}
+ws.onmessage=function(e){
+try{applyTelemetry(JSON.parse(e.data));}catch(err){}
+};
+ws.onopen=function(){
+wsConnecting=false;
+wsBackoffMs=1000;
+if(j&&j.ticket)ws.send(JSON.stringify({auth:j.ticket}));
+document.getElementById('statusDot').className='dot on';
+};
+ws.onerror=function(){};
+ws.onclose=function(){
+wsConnecting=false;
+document.getElementById('statusDot').className='dot';
+ws=null;
+if(authHeader&&!window._rtspStreaming)scheduleWsReconnect();
+else startStatusPoll();
+};
+})
+.catch(function(){wsConnecting=false;maybeStartDemo();if(!window._rtspStreaming)scheduleWsReconnect();});
+}
+function scheduleWsReconnect(){
+if(demoMode||!authHeader||window._rtspStreaming)return;
+if(wsReconnectTimer)return;
+const delay=wsBackoffMs;
+wsBackoffMs=Math.min(wsBackoffMs*2,15000);
+wsReconnectTimer=setTimeout(function(){wsReconnectTimer=null;connectWS();},delay);
+}
+function maybeStartDemo(){
+if(location.protocol==='file:')startDemo();
+}
+/* SECTION:js-mel-doa */
+function updateNoiseDemo(d){
+  var laeqN=Number(d.laeq_db),fastN=Number(d.spl_fast),slowN=Number(d.spl_slow);
+  if(!isFinite(laeqN)||!isFinite(fastN)||!isFinite(slowN))return;
+  var laeq=laeqN.toFixed(1),fast=fastN.toFixed(1),slow=slowN.toFixed(1),cal=d.calibrated?'':'*';
+  document.getElementById('noiseLaeq').textContent=laeq+' dB'+cal;
+  document.getElementById('noiseFast').textContent=fast+' dB'+cal;
+  document.getElementById('noiseSlow').textContent=slow+' dB'+cal;
+  document.getElementById('noiseCal').textContent=d.calibrated?I18N.yes:I18N.no;
+}
+function startDemo(){
+if(window._rtspmicDemo)return;
+window._rtspmicDemo=true;
+demoMode=true;
+document.body.classList.add('demo');
+document.getElementById('statusDot').className='dot on';
+if(ws){try{ws.close();}catch(e){}}
+// Цикл: NOISE(8)→SILENCE(4)→TRD(24)→SILENCE(6)→DRON(24)→NOISE(4)→DVS(24)→SILENCE(4)
+// NOISE = фоновый шум (синяя стрелка), SILENCE = тишина
+let t=0,phases=[{n:'AMBIENT',dur:8,c:'noise'},{n:'SILENCE',dur:4,c:'idle'},{n:'ROOM',dur:24,c:'room'},{n:'SILENCE',dur:6,c:'idle'},{n:'VOICE',dur:24,c:'voice'},{n:'AMBIENT',dur:4,c:'noise'},{n:'MUSIC',dur:24,c:'music'},{n:'SILENCE',dur:4,c:'idle'}];
+let phaseOff=0,phaseIdx=0,phaseTick=0;
+function tick(){
+t+=1;phaseTick+=1;
+let p=phases[phaseIdx];
+if(phaseTick>=p.dur){phaseIdx=(phaseIdx+1)%phases.length;phaseTick=0;p=phases[phaseIdx];}
+let c=p.c;
+let isIdle=c==='idle',isNoise=c==='noise',isRoom=c==='room',isVoice=c==='voice',isMusic=c==='music';
+let pt=phaseTick;
+
+// ── DOA ──
+let doaAz,doaConf;
+if(isIdle){doaAz=90+Math.sin(t/20)*15;doaConf=0.25;}
+else if(isNoise){doaAz=200+Math.sin(t/17)*20;doaConf=0.30;}
+else if(isRoom){doaAz=45+Math.sin(t/15)*20;doaConf=0.55;}
+else if(isVoice){doaAz=180+Math.sin(t/12)*30;doaConf=0.82;}
+else if(isMusic){doaAz=270+Math.sin(t/18)*25;doaConf=0.65;}
+ else{doaAz=100+pt*2;doaConf=0.95;}
+
+// ── SPL + peak ──
+let splBase,peakBase;
+if(isIdle){splBase=24;peakBase=2000+Math.random()*1000;}
+else if(isNoise){splBase=60;peakBase=10000+Math.random()*5000;}
+else if(isRoom){splBase=50;peakBase=9000+Math.random()*4000;}
+else if(isVoice){splBase=62;peakBase=14000+Math.random()*3000;}
+else if(isMusic){splBase=68;peakBase=22000+Math.random()*3000;}
+ else{splBase=95;peakBase=pt<2?32767:8000;}
+let laeqVal=splBase+6*Math.sin(t/8)+3*Math.sin(t/3.5);
+let peakVal=Math.round(peakBase);
+
+let clr=isNoise?'noise':(isIdle?'idle':'signal');
+
+// ── Вывод ──
+// spEnergy: [beam1, beam2, free-running, auto-select] — fake для демо
+let spDemo=isIdle?[0.01,0.01,0.02,0.01]:
+            isNoise?[0.08,0.06,0.12,0.09]:
+            isVoice?[0.4+0.2*Math.sin(t/7),0.35+0.1*Math.sin(t/5),0.3,0.55+0.1*Math.sin(t/5)]:
+            isRoom?[0.2,0.45+0.15*Math.sin(t/6),0.35,0.6]:
+            isMusic?[0.35,0.25,0.2,0.5]:
+            [0.05,0.04,0.06,0.05];
+let beam2Az=(doaAz+110+20*Math.sin(t/9)+360)%360;
+let dualDoa={azimuth:doaAz,confidence:doaConf,beams:[doaAz,beam2Az],azimuths:[doaAz,beam2Az,doaAz,doaAz]};
+updateDOA(dualDoa,clr,{laeq_db:laeqVal,sp_energy:spDemo},0,spDemo);
+updateAudio({peak:peakVal,rms:Math.round(peakVal*0.35),avg_db:-28+8*Math.sin(t/9),clipping:peakVal>30000,laeq_db:laeqVal,spl_fast:laeqVal+6+4*Math.sin(t/12),spl_slow:laeqVal+2+2*Math.sin(t/45),calibrated:true,sp_energy:spDemo});
+  updateMicHero({audio:{peak:peakVal,laeq_db:laeqVal,spl_fast:laeqVal+6,spl_slow:laeqVal+2,rms:Math.round(peakVal*0.35)}});
+updateSystem({
+uptime:3600+t,ntp_synced:true,rtsp_streaming:true,
+wifi_ssid:'RTSPMIC-Lab',wifi_ip:'192.168.1.42',wifi_mac:'AA:BB:CC:DD:EE:FF',wifi_rssi:-52,
+free_heap:180000, free_heap_block:120000, free_psram:6500000,temp:41.2,opus:true,
+audio_hpf:true,aec_env:1,loudspeaker_present:false,
+dsp_agc_enabled:true,dsp_limiter_enabled:true,echo_suppression:false,asrout:1,dsp_mic_gain:10,
+audio:{laeq_db:laeqVal,spl_fast:laeqVal+6+4*Math.sin(t/12),spl_slow:laeqVal+2+2*Math.sin(t/45),calibrated:true,samples_processed:16000*10*t},
+calibration_offset_db:2.1,dsp_gain_db:isIdle?12:isNoise?6:isRoom?-5:isVoice?3:0
+});
+// Demo MEL: voice, room, and broadband audio patterns for UI preview
+const bands=64,frames=96;
+if(!window._melBuf)window._melBuf=new Float32Array(bands*frames);
+const buf=window._melBuf;
+buf.copyWithin(0,bands);
+const col=(frames-1)*bands;
+for(let b=0;b<bands;b++){
+let v=0.05+0.18*(1-b/(bands-1));
+if(b<14)v+=0.04+0.03*Math.sin(t*0.06+b*0.3);
+if(isBird){
+for(let h=1;h<=5;h++){const dlt=Math.abs(b-(14+h*4)),w=0.8+0.1*h;if(dlt<w*3)v+=(0.55/Math.sqrt(h))*Math.exp(-(dlt*dlt)/(2*w*w));}
+}
+// Broadband noise peaks for UI demo (~270 Hz / ~1.3 kHz)
+if(isJet){
+v+=0.18*(1-b/64);                                          // сильная broadband-основа (jet noise)
+if(b>=3&&b<=12)v+=0.28*Math.exp(-((b-8)*(b-8))/6);         // пик ~270 Hz (combustion freq)
+if(b>=22&&b<=30)v+=0.22*Math.exp(-((b-26)*(b-26))/3);       // пик ~1289 Hz (compressor harmonic)
+if(b>40)v+=0.04*Math.exp(-(b-40)/8);                         // плавный спад в ВЧ (roll-off <8 кГц)
+}
+if(isPiston){
+for(let h=1;h<=4;h++){const pos=8+h*7,dlt=Math.abs(b-pos),w=0.6;if(dlt<w*4)v+=(0.5/Math.sqrt(h))*Math.exp(-(dlt*dlt)/(2*w*w));}
+}
+const prev=buf[(frames-2)*bands+b]||v;
+v=Math.max(0,Math.min(1,prev*0.72+v*0.28+(Math.random()-0.5)*0.015));
+buf[col+b]=v;
+}
+const u8=new Uint8Array(bands*frames);
+for(let i=0;i<buf.length;i++)u8[i]=Math.min(255,Math.floor(buf[i]*255));
+const cnv=document.getElementById('melCnv'),ctx=cnv.getContext('2d');
+const w=cnv.width,h=cnv.height,img=ctx.createImageData(w,h);
+for(let x=0;x<w;x++){
+const fi=Math.min(frames-1,Math.floor(x*frames/w));
+for(let y=0;y<h;y++){
+const bi=Math.min(bands-1,Math.floor((h-1-y)*bands/h));
+const tv=u8[fi*bands+bi]/255;let r=0,g=0,bcol=0;
+if(tv<.25){const u=tv/.25;bcol=Math.floor(80+u*175);}
+else if(tv<.5){const u=(tv-.25)/.25;g=Math.floor(u*220);bcol=255;}
+else if(tv<.75){const u=(tv-.5)/.25;r=Math.floor(u*255);g=Math.floor(220-u*40);}
+else{const u=(tv-.75)/.25;r=255;g=Math.floor(180-u*180);}
+const o=(y*w+x)*4;img.data[o]=r;img.data[o+1]=g;img.data[o+2]=bcol;img.data[o+3]=255;
+}}
+ctx.putImageData(img,0,0);
+document.getElementById('melMeta').textContent=bands+' × '+frames;
+updateNoiseDemo({laeq_db:laeqVal,spl_fast:laeqVal+6+4*Math.sin(t/12),spl_slow:laeqVal+2+2*Math.sin(t/45),calibrated:true,calibration_offset_db:2.1});
+}
+try{tick();}catch(e){console.error('demo tick',e);}
+setInterval(function(){try{tick();}catch(e){console.error('demo tick',e);}},500);
+}
+if(demoMode){demoIntegrations();}
+else if(isAuthenticated()){
+connectWS();
+startStatusPoll();
+setInterval(fetchMel,2000);
+setTimeout(function(){if(authHeader&&(!ws||ws.readyState!==1))connectWS();},5000);
+}else{
+// Сразу логин — без auth страница «не дышит» (/status = 401).
+var lu0=document.getElementById('loginUser');
+if(lu0&&!lu0.value)lu0.value='admin';
+document.getElementById('loginOverlay').removeAttribute('hidden');
+document.getElementById('loginPass').focus();
+}
+
+function fetchMel(){
+if(demoMode||melBusy||mustChangePassword())return;
+const page=document.getElementById('page-dashboard');
+if(!page||!page.classList.contains('active'))return;
+melBusy=true;
+apiFetch('/api/mel').then(r=>{
+if(r.status===204||!r.ok){melBusy=false;return null;}
+const bands=+r.headers.get('X-Mel-Bands')||64;
+const frames=+r.headers.get('X-Mel-Frames')||0;
+return r.arrayBuffer().then(buf=>({buf,bands,frames}));
+}).then(d=>{
+melBusy=false;if(!d||!d.frames)return;
+const u8=new Uint8Array(d.buf),cnv=document.getElementById('melCnv'),ctx=cnv.getContext('2d');
+const w=cnv.width,h=cnv.height,img=ctx.createImageData(w,h);
+for(let x=0;x<w;x++){
+const fi=Math.min(d.frames-1,Math.floor(x*d.frames/w));
+for(let y=0;y<h;y++){
+const bi=Math.min(d.bands-1,Math.floor((h-1-y)*d.bands/h));
+const t=u8[fi*d.bands+bi]/255;let r=0,g=0,b=0;
+if(t<.25){const u=t/.25;b=Math.floor(80+u*175);}
+else if(t<.5){const u=(t-.25)/.25;g=Math.floor(u*220);b=255;}
+else if(t<.75){const u=(t-.5)/.25;r=Math.floor(u*255);g=Math.floor(220-u*40);}
+else{const u=(t-.75)/.25;r=255;g=Math.floor(180-u*180);}
+const o=(y*w+x)*4;img.data[o]=r;img.data[o+1]=g;img.data[o+2]=b;img.data[o+3]=255;
+}}
+ctx.putImageData(img,0,0);
+document.getElementById('melMeta').textContent=d.bands+' × '+d.frames;
+}).catch(()=>{melBusy=false;});
+}
+function degToRad(d){return d*Math.PI/180;}
+function updateSpEnergy(sp){
+var el=document.getElementById('spEnergyBars');if(!el)return;
+if(!sp||sp.length<4){el.innerHTML='';return;}
+var colors=['#3b82f6','#8b5cf6','#6b7280','#10b981'];
+var labels=['B1','B2','FR','AS'];
+var bars='';
+for(var i=0;i<4;i++){
+var v=Math.min(1,Math.max(0,sp[i]*2));
+var h=Math.max(4,Math.round(v*56));
+bars+='<div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:36px;" title="'+labels[i]+': '+sp[i].toFixed(3)+'">'
++'<div style="width:22px;height:56px;background:var(--panel2);border-radius:3px;border:1px solid var(--border);display:flex;align-items:flex-end;overflow:hidden;">'
++'<div style="width:100%;height:'+h+'px;background:'+colors[i]+';border-radius:2px 2px 0 0;transition:height .3s;"></div></div>'
++'<span style="font-size:10px;color:var(--muted);font-weight:600;">'+labels[i]+'</span></div>';
+}
+el.innerHTML=bars;
+}
+function fireRingPulse(){var el=document.getElementById('compassRing');el.classList.remove('doa-ring-pulse');void el.offsetWidth;el.classList.add('doa-ring-pulse');}
+function drawNeedle(ctx,cx,cy,r,deg,clr,width,lenFrac,alpha){
+var ndeg=degToRad(deg-90),nx=cx+Math.cos(ndeg)*r*lenFrac,ny=cy+Math.sin(ndeg)*r*lenFrac;
+ctx.save();ctx.globalAlpha=alpha==null?1:alpha;
+ctx.strokeStyle=clr;ctx.lineWidth=width;ctx.lineCap='round';
+ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+var headLen=width*3.2,headAng=0.45;
+var x1=nx-Math.cos(ndeg-headAng)*headLen,y1=ny-Math.sin(ndeg-headAng)*headLen;
+var x2=nx-Math.cos(ndeg+headAng)*headLen,y2=ny-Math.sin(ndeg+headAng)*headLen;
+ctx.fillStyle=clr;ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(x1,y1);ctx.lineTo(x2,y2);ctx.closePath();ctx.fill();
+ctx.restore();
+}
+function angSep(a,b){var d=Math.abs(((a-b)%360+540)%360-180);return d;}
+function updateDOA(doa,audioCls){
+var a=Math.round(doa.azimuth||0),c=doa.confidence||0;
+var beams=doa.beams||[];
+ var spEnergy=audioCls&&audioCls.sp_energy;
+var doaEl=document.getElementById('heroDoa');
+var bfEl=document.getElementById('heroBf');
+// Primary = wind-corrected DoA; BF — вторичная подпись
+doaEl.textContent=a+'\u00b0';
+ doaEl.style.color=c>0.2?'#10b981':'var(--muted)';
+doaEl.style.opacity='1';
+if(beams.length>=2&&angSep(beams[0],beams[1])>15){
+if(bfEl)bfEl.textContent='BF '+Math.round(beams[0])+'\u00b0 \u00b7 '+Math.round(beams[1])+'\u00b0';
+}else if(bfEl){bfEl.textContent='';}
+ const clr='#10b981';
+ const clrA='rgba(16,185,129,';
+const cnv=document.getElementById('compassCnv');
+const ctx=cnv.getContext('2d');
+const w=cnv.width,h=cnv.height,cx=w/2,cy=h/2,r=90;
+ctx.clearRect(0,0,w,h);
+// Outer glow ring
+if(c>0.3){var g=ctx.createRadialGradient(cx,cy,r-20,cx,cy,r+5);
+g.addColorStop(0,clrA+'0.03)');g.addColorStop(0.6,clrA+'0.08)');g.addColorStop(1,clrA+'0)');
+ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r+8,0,Math.PI*2);ctx.fill();}
+// Confidence sector
+if(c>0.2){var ang=degToRad(a-90),sweep=degToRad((1-c)*45+10);
+ctx.fillStyle=clrA+Math.round(c*20)/100+')';
+ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,ang-sweep,ang+sweep);ctx.closePath();ctx.fill();}
+// Dark face
+ctx.fillStyle='#0a0e17';ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+// Outer ring
+ctx.strokeStyle='#1f2937';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+// Inner ring
+ctx.strokeStyle='#1f2937';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r-18,0,Math.PI*2);ctx.stroke();
+// Tick marks
+for(var i=0;i<360;i+=10){var ta=degToRad(i-90),l=(i%30===0)?8:4;
+ctx.strokeStyle=(i%90===0)?'#6b7280':'#1f2937';ctx.lineWidth=(i%90===0)?2:1;
+ctx.beginPath();ctx.moveTo(cx+Math.cos(ta)*(r-3),cy+Math.sin(ta)*(r-3));
+ctx.lineTo(cx+Math.cos(ta)*(r-l),cy+Math.sin(ta)*(r-l));ctx.stroke();}
+// Cardinal labels on dark pads
+var dirs=[{t:'N',a:-90,r:r-26},{t:'E',a:0,r:r-26},{t:'S',a:90,r:r-26},{t:'W',a:180,r:r-26}];
+for(var d=0;d<dirs.length;d++){var da=degToRad(dirs[d].a);
+ctx.font='bold 12px -apple-system,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+var dx=cx+Math.cos(da)*dirs[d].r,dy=cy+Math.sin(da)*dirs[d].r;
+ctx.fillStyle='#1f2937';ctx.beginPath();ctx.arc(dx,dy,10,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='#e5e7eb';ctx.fillText(dirs[d].t,dx,dy);}
+// Inter-cardinal labels
+var ics=[{t:'NE',a:-45,r:r-28},{t:'SE',a:45,r:r-28},{t:'SW',a:135,r:r-28},{t:'NW',a:-135,r:r-28}];
+for(var ic=0;ic<ics.length;ic++){var ica=degToRad(ics[ic].a);
+ctx.font='9px -apple-system,sans-serif';ctx.fillStyle='#4b5563';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillText(ics[ic].t,cx+Math.cos(ica)*ics[ic].r,cy+Math.sin(ica)*ics[ic].r);}
+// Center dot
+ctx.fillStyle='#e5e7eb';ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fill();
+// Primary thick = wind-corrected DoA; thin B1/B2 = dual BF (GUI only)
+drawNeedle(ctx,cx,cy,r,a,clr,4.5,0.68,1);
+if(beams.length>=2&&angSep(beams[0],beams[1])>15){
+var e0=(spEnergy&&spEnergy[0])||0,e1=(spEnergy&&spEnergy[1])||0;
+drawNeedle(ctx,cx,cy,r,beams[0],'#3b82f6',2,0.55,e0>=0.05?0.7:0.4);
+drawNeedle(ctx,cx,cy,r,beams[1],'#a78bfa',2,0.55,e1>=0.05?0.7:0.4);
+}
+ctx.fillStyle='#e5e7eb';ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fill();
+// Beam energy bars
+updateSpEnergy(spEnergy);
+}
+function updateAudio(aud){
+// Beam energy labels
+updateSpEnergy(aud.sp_energy);
+let peak=aud.peak;
+if(peak==null&&aud.peak_level!=null){
+const db=Number(aud.peak_level);
+peak=Math.round(Math.pow(10,db/20)*32767);
+}
+peak=peak||0;
+document.getElementById('peakVal').textContent=peak;
+document.getElementById('clipVal').textContent=aud.clipping?I18N.clipY:I18N.clipN;
+document.getElementById('clipVal').className=aud.clipping?'stat-value danger':'stat-value';
+document.getElementById('meterFill').style.width=Math.min(100,(peak/32767)*100)+'%';
+var curPeak=document.getElementById('curPeak');if(curPeak)curPeak.textContent=peak;
+var curClip=document.getElementById('curClip');
+if(curClip){curClip.textContent=aud.clipping?I18N.clipY:I18N.clipN;curClip.className=aud.clipping?'stat-value danger':'stat-value';}
+var splRef=document.getElementById('splReference');
+if(splRef){
+  if(aud.laeq_db!=null&&isFinite(Number(aud.laeq_db))){
+    var calMark=aud.calibrated?'':'*';
+    splRef.textContent=Number(aud.laeq_db).toFixed(1)+' dB'+calMark;
+  }else if(aud.spl_fast!=null&&isFinite(Number(aud.spl_fast))){
+    splRef.textContent=Number(aud.spl_fast).toFixed(1)+' dB';
+  }
+}
+if(aud.laeq_db!=null)updateNoiseDemo(aud);
+}
+function updateMicHero(d){
+  const hero=document.getElementById('heroState');
+  const sub=document.getElementById('heroSub');
+  if(!hero||!sub)return;
+  const aud=d.audio||{};
+  const doa=d.doa||{};
+  const spl=Number(aud.spl_fast_raw!=null?aud.spl_fast_raw:(aud.spl_fast!=null?aud.spl_fast:aud.laeq_db));
+  if(d.vad||doa.speech_detected){
+    hero.textContent=I18N.heroSignal;hero.className='hero-state ok';
+    sub.textContent=I18N.heroSignalSub;
+  }else if(Number.isFinite(spl)&&spl>=70){
+    hero.textContent=I18N.heroNoise;hero.className='hero-state noise';
+    sub.textContent=I18N.heroNoiseSub;
+  }else{
+    hero.textContent=I18N.idle;hero.className='hero-state ok';
+    sub.textContent=I18N.sub;
+  }
+}
+function updateSystem(d){
+document.getElementById('sysUptime').textContent=Math.floor(d.uptime||0)+'s';
+document.getElementById('ntpVal').textContent=d.ntp_synced?I18N.ntpOk:I18N.ntpNo;
+document.getElementById('ntpVal').className=d.ntp_synced?'stat-value':'stat-value warn';
+document.getElementById('rtspVal').textContent=d.rtsp_streaming?I18N.rtspOn:I18N.rtspOff;
+document.getElementById('rtspVal').className=d.rtsp_streaming?'stat-value':'stat-value';
+if(d.wifi_ip)window._wifiIp=d.wifi_ip;
+if(d.rtsp_port!=null)window._rtspPort=d.rtsp_port;
+document.getElementById('netSsid').textContent=d.wifi_ssid||'—';
+document.getElementById('netIp').textContent=d.wifi_ip||'—';
+document.getElementById('netMac').textContent=d.wifi_mac||'—';
+document.getElementById('netRssi').textContent=(d.wifi_rssi!=null?d.wifi_rssi+' dBm':'—');
+(function(){
+  var ethEl=document.getElementById('netEth');
+  if(ethEl){
+    ethEl.textContent=(d.ethernet?I18N.yes:I18N.no);
+    ethEl.className=d.ethernet?'stat-value':'stat-value warn';
+  }
+})();
+(function(){
+  const sys=d.system||{};
+  const fh=(d.free_heap!=null?d.free_heap:sys.free_heap);
+  const fb=(d.free_heap_block!=null?d.free_heap_block:sys.free_heap_block);
+  const fp=(d.free_psram!=null?d.free_psram:sys.free_psram);
+  document.getElementById('sysHeap').textContent=(fh!=null)?Math.floor(fh/1024)+' KB':'—';
+  document.getElementById('sysHeapBlock').textContent=(fb!=null)?Math.floor(fb/1024)+' KB':'—';
+  document.getElementById('sysPsram').textContent=(fp!=null)?Math.floor(fp/1024)+' KB':'—';
+})();
+document.getElementById('sysTemp').textContent=d.temp!=null?d.temp.toFixed(1)+' °C':'—';
+const aud=d.audio||{};
+const hpfMode=(d.audio_hpf_mode!=null?d.audio_hpf_mode:(aud.hpf_mode!=null?aud.hpf_mode:null));
+const hpfHz=(d.audio_hpf_cutoff_hz!=null?d.audio_hpf_cutoff_hz:aud.hpf_cutoff_hz);
+const hpfOn=d.audio_hpf!=null?d.audio_hpf:aud.hpf;
+const gain=d.dsp_gain_db!=null?d.dsp_gain_db:(aud.dsp_agc_gain_db!=null?aud.dsp_agc_gain_db:null);
+const effGain=aud.dsp_effective_gain_db!=null?aud.dsp_effective_gain_db:(d.dsp_effective_gain_db!=null?d.dsp_effective_gain_db:null);
+function hpfLabel(mode,hz,on){
+  if(mode!=null){
+    const m=+mode;
+    if(m===0)return I18N.audOff;
+    if(m===1)return '70 Hz';
+    if(m===2)return '125 Hz';
+    if(m===3)return '150 Hz';
+    if(m===4)return '180 Hz';
+  }
+  if(hz!=null&&+hz>0)return Math.round(+hz)+' Hz';
+  return on?I18N.audOn:I18N.audOff;
+}
+if(gain!=null){
+  document.getElementById('curGain').textContent=(gain>=0?'+':'')+Number(gain).toFixed(1)+' dB';
+}
+var curEff=document.getElementById('curEffGain');
+if(curEff&&effGain!=null){
+  curEff.textContent=(effGain>=0?'+':'')+Number(effGain).toFixed(1)+' dB';
+}
+if(!audioDirty){
+  if(hpfMode!=null){
+    document.getElementById('audioHpf').value=String(hpfMode);
+    var curHpf=document.getElementById('curHpf');if(curHpf)curHpf.textContent=hpfLabel(hpfMode,hpfHz,hpfOn);
+  }else if(hpfOn!=null){
+    document.getElementById('audioHpf').value=hpfOn?'2':'0';
+    var curHpf=document.getElementById('curHpf');if(curHpf)curHpf.textContent=hpfLabel(hpfOn?2:0,hpfHz,hpfOn);
+  }
+  if(d.aec_env!=null){
+    document.getElementById('audioEnv').value=d.aec_env;
+    var envEl=document.getElementById('audioEnv');
+    var curEnv=document.getElementById('curEnv');
+    if(curEnv&&envEl&&envEl.options[envEl.selectedIndex])curEnv.textContent=envEl.options[envEl.selectedIndex].text;
+  }
+  applyDspUi(d);
+}else{
+  // Пока редактируем — только live-лейблы «сейчас», не трогаем контролы.
+  var curHpf2=document.getElementById('curHpf');if(curHpf2)curHpf2.textContent=hpfLabel(hpfMode,hpfHz,hpfOn);
+  var curAgc=document.getElementById('curAgc');if(curAgc&&d.dsp_agc_enabled!=null)curAgc.textContent=d.dsp_agc_enabled?I18N.audOn:I18N.audOff;
+  var curLim=document.getElementById('curLimiter');if(curLim&&d.dsp_limiter_enabled!=null)curLim.textContent=d.dsp_limiter_enabled?I18N.audOn:I18N.audOff;
+  var curMic=document.getElementById('curMicGain');if(curMic&&d.dsp_mic_gain!=null)curMic.textContent=Number(d.dsp_mic_gain).toFixed(1);
+}
+document.getElementById('opusStatus').textContent=d.opus?'●':'—';
+// System controls
+var sysLed=document.getElementById('sysLedMode');
+if(sysLed&&d.led_mode!=null&&!sysDirty){
+  var lm=+d.led_mode; if(lm===1)sysLed.value='1'; else sysLed.value='0'; /* 2=level → On */
+}
+}
+function updateLockIcons(){
+var b=document.getElementById('btnSettings');
+if(!b)return;
+if(isAuthenticated())b.classList.remove('locked');
+else b.classList.add('locked');
+}
+function refreshCsrfToken(){
+return fetch('/api/csrf',{headers:apiHeaders()}).then(function(r){return r.ok?r.json():null;})
+.then(function(j){if(j&&j.token)CSRF_TOKEN=j.token;}).catch(function(){});
+}
+function changePassword(){
+var u=(document.getElementById("sysNewUser").value||"").trim();
+var p=document.getElementById("sysNewPass").value;
+if(!u){toast(I18N.loginErr,true);return;}
+if(!p||p.length<8){toast(I18N.pwMin,true);return;}
+if(p.indexOf(':')>=0||p==='rtsp-mic-change-me'){toast(I18N.pwFail,true);return;}
+refreshCsrfToken().then(function(){
+return apiFetch("/api/system/password",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"user="+encodeURIComponent(u)+"&password="+encodeURIComponent(p)});
+}).then(function(r){return r.json().then(function(j){return {http:r.status,j:j||{}};});}).then(function(x){
+var st=(x.j&&x.j.status)||(x.http===429?'rate_limited':'error');
+toast(st==="ok"?I18N.pwChanged:apiStatusMsg(st),st!=="ok");
+if(st==="ok"){
+document.getElementById("sysNewPass").value="";
+authHeader="Basic "+btoa(u+":"+p);
+sessionStorage.setItem("rtspmic_auth",authHeader);
+var lu=document.getElementById("loginUser");if(lu)lu.value=u;
+RTSPMIC_DEFAULT_PW=0;updateDefaultPwBanner();
+return refreshCsrfToken();
+}
+}).catch(function(){toast(I18N.pwFail,true);});
+}
+/* SECTION:js-audio */
+function saveAudio(){
+const hpf=document.getElementById('audioHpf').value,agc=document.getElementById('audioAgc').checked,env=document.getElementById('audioEnv').value,mic=document.getElementById('audioMicGain').value;
+const loudspeaker=document.getElementById('audioLoudspeaker').checked?1:0;
+const asrout=loudspeaker?document.getElementById('audioAsrout').value:'1';
+const echo=loudspeaker&&document.getElementById('audioEcho').checked?1:0;
+apiFetch('/api/audio',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+body:'hpf_mode='+hpf+'&hpf='+hpf+'&agc='+(agc?1:0)+'&aec_env='+env+'&dsp_mic_gain='+mic+'&loudspeaker_present='+loudspeaker+'&asrout='+asrout+'&echo_suppression='+echo
+}).then(r=>r.json().then(j=>({ok:r.ok,j:j||{}}))).then(x=>{
+  if(!x.ok||x.j.status!=='ok'){toast(I18N.err,true);return;}
+  audioDirty=false;
+  applyDspUi({
+    dsp_agc_enabled:document.getElementById('audioAgc').checked,
+    loudspeaker_present:!!loudspeaker,
+    echo_suppression:!!echo,
+    asrout:+asrout,
+    dsp_mic_gain:+document.getElementById('audioMicGain').value
+  });
+  toast(I18N.audOk);
+}).catch(()=>toast(I18N.err,true));
+}
+function syncAudioSetupUi(on, fromUser){
+  var panel=document.getElementById('audioSetupPanel');
+  if(panel)panel.removeAttribute('hidden');
+}
+function toggleAudioSetupMode(){ /* RTSP setup-флаг не восстанавливаем */ }
+function scanNetworks(){
+if(demoMode){document.getElementById('netScanList').innerHTML='<option value="">'+I18N.sel+'</option>';return;}
+const sel=document.getElementById('netScanList');
+sel.innerHTML='<option value="">'+I18N.scanning+'</option>';
+apiFetch('/api/network/scan').then(r=>r.json()).then(nets=>{
+sel.innerHTML='<option value="">'+I18N.sel+'</option>';
+nets.sort((a,b)=>b.rssi-a.rssi).forEach(n=>{
+const o=document.createElement('option');o.value=n.ssid;
+o.textContent=n.ssid+(n.enc==='open'?' (open)':' ['+n.rssi+' dBm]');
+sel.appendChild(o);});
+}).catch(()=>{sel.innerHTML='<option value="">'+I18N.scanFail+'</option>';});
+}
+document.getElementById('netScanList').addEventListener('change',function(){
+if(this.value)document.getElementById('netSsidInput').value=this.value;
+});
+/* SECTION:js-network */
+function saveNetwork(){
+const ssid=document.getElementById('netSsidInput').value||document.getElementById('netScanList').value;
+const pass=document.getElementById('netPassInput').value;
+if(!ssid){toast(I18N.needSsid,true);return;}
+apiFetch('/api/network/config',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+body:'ssid='+encodeURIComponent(ssid)+'&password='+encodeURIComponent(pass)
+}).then(r=>r.text()).then(t=>toast(t)).catch(()=>toast(I18N.err,true));
+}
+function reboot(){if(confirm(I18N.rebootQ))apiFetch('/api/system/reboot',{method:'POST'}).then(r=>r.text()).then(t=>toast(t));}
+function factoryReset(){if(confirm(I18N.factoryQ))apiFetch('/api/system/factory_reset',{method:'POST'}).then(r=>r.text()).then(t=>toast(t));}
+function saveLedMode(){var v=document.getElementById('sysLedMode').value;var mode=(v==='1')?'off':'on';apiFetch('/api/system/led',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'mode='+mode}).then(r=>r.json()).then(j=>{if(j.status==='ok')sysDirty=false;toast(j.status==='ok'?I18N.saved:apiStatusMsg(j.status)||I18N.err,j.status!=='ok');}).catch(()=>toast(I18N.err,true));}
+function saveCalibration(){
+  const v=document.getElementById('calOffset').value;
+  audioDirty=true;
+  apiFetch('/api/audio',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+  body:'cal_offset='+v
+  }).then(r=>r.json()).then(j=>{if(j.status==='ok'){audioDirty=false;if(j.calibration_offset_db!=null)document.getElementById('calOffset').value=j.calibration_offset_db;}toast(j.status==='ok'?I18N.audOk:I18N.err,j.status!=='ok');}).catch(()=>toast(I18N.err,true));
+}
+/* SECTION:js-ota */
+function startOTA(){
+const file=document.getElementById('otaFile').files[0];
+if(!file){document.getElementById('otaStatus').textContent=I18N.otaPick;return;}
+document.getElementById('otaBtn').disabled=true;
+document.getElementById('otaStatus').textContent=I18N.otaUp;
+const form=new FormData();form.append('firmware',file);
+const headers={};
+const sig=document.getElementById('otaSig').value.trim();
+if(sig)headers['X-Firmware-Signature']=sig;
+apiFetch('/update',{method:'POST',headers,body:form}).then(r=>{
+document.getElementById('otaStatus').textContent=r.ok?I18N.otaOk:(I18N.err+': '+r.status);
+document.getElementById('otaBtn').disabled=false;
+}).catch(e=>{document.getElementById('otaStatus').textContent=I18N.err+': '+e.message;document.getElementById('otaBtn').disabled=false;});
+}
+function fillIntegrations(j){
+var ethSt=document.getElementById('intEthSt');
+if(ethSt){
+  ethSt.textContent=j.ethernet?I18N.yes:I18N.no;
+  ethSt.className=j.ethernet?'stat-value':'stat-value warn';
+}
+
+document.getElementById('intMqttEn').checked=!!j.mqtt_enabled;
+document.getElementById('intMqttHost').value=j.mqtt_host||'';
+document.getElementById('intMqttPort').value=j.mqtt_port||1883;
+document.getElementById('intMqttUser').value=j.mqtt_user||'';
+document.getElementById('intMqttPass').value=j.mqtt_pass||'';
+document.getElementById('intMqttSt').textContent=j.mqtt_connected?I18N.intConn:I18N.intDisc;
+document.getElementById('intMqttSt').className=j.mqtt_connected?'stat-value':'stat-value warn';
+document.getElementById('intNtpHost').value=j.ntp_host||'pool.ntp.org';
+var srEn=document.getElementById('intSchedResetEn');
+if(srEn)srEn.checked=!!j.scheduled_reset;
+var srT=document.getElementById('intSchedResetTime');
+if(srT){
+  var hh=(j.sched_reset_hh!=null)?j.sched_reset_hh:3;
+  var mm=(j.sched_reset_mm!=null)?j.sched_reset_mm:0;
+  srT.value=(hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm;
+}
+document.getElementById('intNtpSt').textContent=j.ntp_synced?I18N.intNtpOk:I18N.intNtpWait;
+document.getElementById('intNtpSt').className=j.ntp_synced?'stat-value':'stat-value warn';
+if(j.calibration_offset_db!=null)document.getElementById('calOffset').value=j.calibration_offset_db;
+}
+function demoProfile(){
+  return {
+    ethernet:false,
+    mqtt_enabled:true,mqtt_host:'homeassistant.local',mqtt_port:1883,mqtt_user:'',mqtt_pass:'',
+    mqtt_ha_discovery:true,mqtt_connected:true,
+    ntp_host:'pool.ntp.org',ntp_synced:true,
+    dsp_ns_stat:1,dsp_ns_nstat:1,dsp_agc_enabled:true,loudspeaker_present:false,asrout:1,echo_suppression:false,dsp_limiter_enabled:true,attns_mode:1
+  };
+}
+function demoIntegrations(){
+  var j=demoProfile();
+  fillIntegrations(j);loadEngineerSettings(j);
+}
+var DEFAULT_DSP={
+  dsp_agc_enabled:true,loudspeaker_present:false,echo_suppression:false,asrout:1,dsp_mic_gain:10,
+  dsp_ns_stat:1,dsp_ns_nstat:1,dsp_limiter_enabled:true,
+  dsp_agc_max_gain:125,dsp_agc_des_level:0.0045,dsp_limiter_threshold:0.47,
+  dsp_agc_time:0.9,dsp_agc_fasttime:0.1,dsp_agc_alpha_slow:0.984,dsp_agc_alpha_fast:0.36,
+  attns_mode:1,attns_nominal:1,attns_slope:0.2,ref_gain:1.5
+};
+function mergeDspCfg(j){
+  j=j||{};
+  var o={};
+  for(var k in DEFAULT_DSP)o[k]=j[k]!=null?j[k]:DEFAULT_DSP[k];
+  return o;
+}
+function applyLoudspeakerUi(has){
+  has=!!has;
+  ['audioEnv','audioAsrout','audioEcho','engRefGain','engSysDelay','engAsroutGain'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.disabled=!has;
+  });
+  if(!has){
+    var asr=document.getElementById('audioAsrout');if(asr)asr.value='1';
+    var echo=document.getElementById('audioEcho');if(echo)echo.checked=false;
+  }
+}
+function applyDspUi(j){
+  var s=mergeDspCfg(j);
+  var agcEl=document.getElementById('audioAgc');if(agcEl)agcEl.checked=!!s.dsp_agc_enabled;
+  var loudspeakerEl=document.getElementById('audioLoudspeaker');if(loudspeakerEl)loudspeakerEl.checked=!!s.loudspeaker_present;
+  var echoEl=document.getElementById('audioEcho');if(echoEl)echoEl.checked=!!s.echo_suppression;
+  var asrEl=document.getElementById('audioAsrout');if(asrEl)asrEl.value=String(s.asrout);
+  if(s.dsp_mic_gain!=null){
+    var micEl=document.getElementById('audioMicGain');
+    if(micEl){
+      micEl.value=s.dsp_mic_gain;
+      var micVal=document.getElementById('audioMicGainVal');
+      if(micVal)micVal.textContent=Number(s.dsp_mic_gain).toFixed(1);
+    }
+  }
+  var engLim=document.getElementById('engLimiterEn');if(engLim)engLim.checked=!!s.dsp_limiter_enabled;
+  var curAgc=document.getElementById('curAgc');if(curAgc)curAgc.textContent=s.dsp_agc_enabled?I18N.audOn:I18N.audOff;
+  var curLim=document.getElementById('curLimiter');if(curLim)curLim.textContent=s.dsp_limiter_enabled?I18N.audOn:I18N.audOff;
+  var curEcho=document.getElementById('curEcho');if(curEcho)curEcho.textContent=s.echo_suppression?I18N.audOn:I18N.audOff;
+  var curMic=document.getElementById('curMicGain');if(curMic)curMic.textContent=Number(s.dsp_mic_gain).toFixed(1);
+  var curAsr=document.getElementById('curAsrout');
+  if(curAsr)curAsr.textContent=(+s.asrout===1)?'beamforming':'AEC residuals';
+  applyLoudspeakerUi(s.loudspeaker_present);
+}
+function loadIntegrations(){
+if(demoMode){demoIntegrations();return;}
+apiFetch('/api/integrations').then(r=>{if(!r.ok)throw new Error('http');return r.json();}).then(j=>{
+fillIntegrations(j);loadEngineerSettings(j);
+})
+.catch(()=>{if(demoMode)demoIntegrations();else toast(I18N.err,true);});
+}
+/* SECTION:js-integrations */
+function saveIntegrations(){
+if(demoMode){toast(I18N.intOk);return;}
+const body={
+mqtt_enabled:document.getElementById('intMqttEn').checked,
+mqtt_host:document.getElementById('intMqttHost').value,
+mqtt_port:+document.getElementById('intMqttPort').value,
+mqtt_user:document.getElementById('intMqttUser').value,
+mqtt_pass:document.getElementById('intMqttPass').value,
+rtsp_remote_enabled:false,
+rtsp_remote_host:'',
+rtsp_remote_port:554,
+    ntp_host:document.getElementById('intNtpHost').value.trim()
+};
+(function(){
+  var srEn=document.getElementById('intSchedResetEn');
+  var srT=document.getElementById('intSchedResetTime');
+  if(srEn)body.scheduled_reset=srEn.checked;
+  if(srT&&srT.value){
+    var p=srT.value.split(':');
+    body.sched_reset_hh=Math.min(23,Math.max(0,parseInt(p[0]||'3',10)));
+    body.sched_reset_mm=Math.min(59,Math.max(0,parseInt(p[1]||'0',10)));
+  }
+})();
+apiFetch('/api/integrations',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+.then(r=>r.json()).then(j=>{toast(j.status==='ok'?I18N.intOk:apiStatusMsg(j.status),j.status!=='ok');if(j.status==='ok')loadIntegrations();})
+.catch(()=>toast(I18N.err,true));
+}
+function loadTlsCaStatus(){
+if(demoMode||!authHeader||mustChangePassword())return;
+var st=document.getElementById('tlsCaStatus');
+if(!st)return;
+apiFetch('/api/system/tls_ca').then(function(r){return r.ok?r.json():null;}).then(function(j){
+if(!j){st.textContent='—';return;}
+st.textContent=j.has?I18N.tlsCaHas:I18N.tlsCaMiss;
+}).catch(function(){st.textContent='—';});
+}
+function saveTlsCa(){
+if(demoMode){toast(I18N.saved);return;}
+var pem=(document.getElementById('tlsCaPem').value||'').trim();
+var fd=new FormData();
+fd.append('tls_ca',pem);
+apiFetch('/api/system/tls_ca',{method:'POST',body:fd})
+.then(function(r){return r.json();})
+.then(function(j){toast(j.status==='ok'?I18N.saved:apiStatusMsg(j.status),j.status!=='ok');if(j.status==='ok'){document.getElementById('tlsCaPem').value='';loadTlsCaStatus();}})
+.catch(function(){toast(I18N.err,true);});
+}
+(function(){
+  if(!document.body.classList.contains('profile-dev'))return;
+  var en=((document.documentElement.lang||'').toLowerCase().indexOf('en')===0);
+  var asr=document.getElementById('audioAsrout');
+  if(asr&&asr.options.length>=2){
+    asr.options[0].textContent=en?'Beamforming':'Лучевая диаграмма';
+    asr.options[1].textContent='AEC residuals';
+  }
+  // Гражданские подписи: функции те же (динамик / эхо / ASROUT).
+  var loudspeakerLbl=document.querySelector('label.check-row input#audioLoudspeaker');
+  if(loudspeakerLbl&&loudspeakerLbl.parentElement){
+    var lab=loudspeakerLbl.parentElement;
+    lab.childNodes.forEach(function(n){
+      if(n.nodeType===3&&n.textContent.trim()){
+        n.textContent=en?' Loudspeaker / monitor present':' Есть динамик / монитор';
+      }
+    });
+  }
+  var nodes=document.querySelectorAll('#audioSetupPanel p.hint');
+  nodes.forEach(function(el){
+    var t=el.textContent||'';
+    if(/loudspeaker|громкоговорител|monitor/i.test(t)){
+      el.textContent=en
+        ?'Without loudspeaker: echo and AEC residuals off, fields greyed. On — tune for monitor.'
+        :'Без динамика: эхо и AEC residuals выкл, поля серые. Вкл — настройка под монитор.';
+    }
+    if(/MEL|запис|recording|слаб|quiet|longer range/i.test(t)){
+      el.textContent=en
+        ?'On — boosts weak signals for longer range. Off — more stable MEL / recording.'
+        :'Вкл — слышит слабый сигнал дальше. Выкл — стабильнее спектр MEL / запись.';
+    }
+    if(/beamforming.*[Ss]iren|AEC residual/i.test(t)){
+      el.textContent=en
+        ?'I2S source: beamforming or AEC residuals.'
+        :'Источник на I2S: лучевая диаграмма или AEC residuals.';
+    }
+  });
+  var loudspeakerEl=document.getElementById('audioLoudspeaker');
+  applyLoudspeakerUi(loudspeakerEl?loudspeakerEl.checked:false);
+})();
+function saveEngineer(){
+  const loudspeaker=document.getElementById('audioLoudspeaker').checked;
+  const body={
+    dsp_ns_stat:(+document.getElementById('engNsStat').value)/100,
+    dsp_ns_nstat:(+document.getElementById('engNsNstat').value)/100,
+    dsp_agc_max_gain:+document.getElementById('engAgcMaxGain').value,
+    dsp_agc_des_level:+document.getElementById('engAgcDesLevel').value,
+    dsp_agc_enabled:document.getElementById('audioAgc').checked,
+    dsp_limiter_enabled:document.getElementById('engLimiterEn').checked,
+    dsp_limiter_threshold:(+document.getElementById('engLimiterThr').value)/100,
+    dsp_agc_time:+document.getElementById('engAgcTime').value,
+    dsp_agc_fasttime:+document.getElementById('engAgcFastTime').value,
+    dsp_agc_alpha_slow:(+document.getElementById('engAgcAlphaSlow').value)/100,
+    dsp_agc_alpha_fast:(+document.getElementById('engAgcAlphaFast').value)/100,
+    dsp_mic_gain:+document.getElementById('audioMicGain').value,
+    attns_mode:+document.getElementById('engAttnsMode').value,
+    attns_nominal:(+document.getElementById('engAttnsNom').value)/100,
+    attns_slope:(+document.getElementById('engAttnsSlope').value)/10,
+    ref_gain:+document.getElementById('engRefGain').value,
+    sys_delay:+document.getElementById('engSysDelay').value,
+    asrout_gain:+document.getElementById('engAsroutGain').value,
+    loudspeaker_present:loudspeaker,
+    asrout:loudspeaker?+document.getElementById('audioAsrout').value:1,
+    echo_suppression:!!(loudspeaker&&document.getElementById('audioEcho').checked)
+  };
+  apiFetch('/api/integrations',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(body)
+  }).then(r=>r.json()).then(j=>{
+    if(j.status==='ok'){
+      audioDirty=false;
+      applyDspUi(body);
+      toast(I18N.saved,false);
+    }else toast(I18N.err,true);
+  })
+  .catch(()=>toast(I18N.err,true));
+}
+function loadEngineerSettings(j){
+  applyDspUi(j);
+  if(j.dsp_ns_stat!=null){
+    document.getElementById('engNsStat').value=Math.round(j.dsp_ns_stat*100);
+    document.getElementById('engNsStatVal').textContent=Number(j.dsp_ns_stat).toFixed(2);
+  }
+  if(j.dsp_ns_nstat!=null){
+    document.getElementById('engNsNstat').value=Math.round(j.dsp_ns_nstat*100);
+    document.getElementById('engNsNstatVal').textContent=Number(j.dsp_ns_nstat).toFixed(2);
+  }
+  if(j.dsp_agc_max_gain!=null)document.getElementById('engAgcMaxGain').value=j.dsp_agc_max_gain;
+  if(j.dsp_agc_des_level!=null)document.getElementById('engAgcDesLevel').value=j.dsp_agc_des_level;
+  if(j.dsp_limiter_enabled!=null)document.getElementById('engLimiterEn').checked=j.dsp_limiter_enabled;
+  if(j.dsp_limiter_threshold!=null){
+    document.getElementById('engLimiterThr').value=Math.round(j.dsp_limiter_threshold*100);
+    document.getElementById('engLimiterThrVal').textContent=Number(j.dsp_limiter_threshold).toFixed(2);
+  }
+  if(j.dsp_agc_time!=null){
+    document.getElementById('engAgcTime').value=j.dsp_agc_time;
+    document.getElementById('engAgcTimeVal').textContent=Number(j.dsp_agc_time).toFixed(2);
+  }
+  if(j.dsp_agc_fasttime!=null){
+    document.getElementById('engAgcFastTime').value=j.dsp_agc_fasttime;
+    document.getElementById('engAgcFastTimeVal').textContent=Number(j.dsp_agc_fasttime).toFixed(2);
+  }
+  if(j.dsp_agc_alpha_slow!=null){
+    document.getElementById('engAgcAlphaSlow').value=Math.round(j.dsp_agc_alpha_slow*100);
+    document.getElementById('engAgcAlphaSlowVal').textContent=Number(j.dsp_agc_alpha_slow).toFixed(3);
+  }
+  if(j.dsp_agc_alpha_fast!=null){
+    document.getElementById('engAgcAlphaFast').value=Math.round(j.dsp_agc_alpha_fast*100);
+    document.getElementById('engAgcAlphaFastVal').textContent=Number(j.dsp_agc_alpha_fast).toFixed(2);
+  }
+  if(j.attns_mode!=null)document.getElementById('engAttnsMode').value=String(j.attns_mode);
+  if(j.attns_nominal!=null){document.getElementById('engAttnsNom').value=Math.round(j.attns_nominal*100);document.getElementById('engAttnsNomVal').textContent=Number(j.attns_nominal).toFixed(2);}
+  if(j.attns_slope!=null){document.getElementById('engAttnsSlope').value=Math.round(j.attns_slope*10);document.getElementById('engAttnsSlopeVal').textContent=Number(j.attns_slope).toFixed(2);}
+  if(j.ref_gain!=null)document.getElementById('engRefGain').value=j.ref_gain;
+  if(j.sys_delay!=null)document.getElementById('engSysDelay').value=j.sys_delay;
+  if(j.asrout_gain!=null)document.getElementById('engAsroutGain').value=j.asrout_gain;
+  applyLoudspeakerUi(j.loudspeaker_present!=null?j.loudspeaker_present:document.getElementById('audioLoudspeaker').checked);
+}
+document.getElementById('audioLoudspeaker').addEventListener('change',function(){
+  audioDirty=true;
+  applyLoudspeakerUi(this.checked);
+});
+</script>
+</body>
+</html>
+)rawliteral";
+
+#endif /* WEBUI_PAGE_H */
