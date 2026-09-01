@@ -2,7 +2,13 @@
 
 ## Русский
 
-Спасибо, что смотрите на **UAV-radar / NEVOD**.
+Спасибо, что смотрите на **UAV-radar / NEVOD** — DePIN-сеть акустических узлов.
+
+### Как помочь сильнее всего (без кода)
+
+1. **Собрать узел** по [DIY_GUIDE.md](docs/DIY_GUIDE.md) и рассказать в [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](../../issues/new/choose)
+2. Привести соседа / второй угол — плотность = сила сети
+3. Улучшить инструкцию: фото, неоднозначные шаги, битые ссылки, устаревшие релизы
 
 ### Что открыто для PR
 
@@ -12,20 +18,14 @@
 
 ### Что не принимаем сюда
 
-- Исходники модели детекции БПЛА и закрытой логики NEVOD DIY — они в подписанном `.bin`, не в этом репозитории
+- Исходники модели детекции БПЛА и закрытой логики NEVOD DIY — только подписанный `.bin`
 - Секреты, токены, приватные ключи, персональные координаты
-
-### Как помочь без кода
-
-- Собрать узел и описать опыт в [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) (когда включены) или Issue с меткой `build-report`
-- Улучшить инструкцию [DIY_GUIDE.md](docs/DIY_GUIDE.md) — особенно фото и неоднозначные шаги
-- Сообщить о битой ссылке / устаревшем релизе
 
 ### Процесс
 
 1. Issue с проблемой или идеей (шаблоны в `.github/ISSUE_TEMPLATE/`)
 2. Fork → ветка → PR в `main`
-3. Для mic: по возможности `pio test` / native tests из README
+3. Для mic: по возможности `pio test` / native tests из [BUILD.md](BUILD.md)
 
 Лицензия вкладов в открытую часть — [MIT](LICENSE), если не оговорено иное.
 
@@ -33,13 +33,21 @@
 
 ## English
 
+Thanks for looking at **UAV-radar / NEVOD** — a DePIN mesh of acoustic nodes.
+
+### Highest-leverage help (no code)
+
+1. **Build a node** with [DIY_GUIDE.md](docs/DIY_GUIDE.md) and share in [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](../../issues/new/choose) issue
+2. Recruit a neighbor / second angle — density is the product
+3. Patch the guide: photos, ambiguous steps, dead links, stale releases
+
 ### Welcome PRs
 
 Open **RTSP Mic** firmware, docs, BOM, enclosure STL, landing page, non-secret tooling.
 
 ### Out of scope here
 
-UAV detection model / closed NEVOD DIY logic (ships only as signed `.bin`). No secrets or personal coordinates in PRs.
+UAV detection model / closed NEVOD DIY logic (signed `.bin` only). No secrets or personal coordinates in PRs.
 
 ### Process
 
