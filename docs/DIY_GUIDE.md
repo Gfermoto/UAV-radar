@@ -532,4 +532,4 @@ High, open site; **¼″** through a **shock mount** / vibration isolator; orien
 
 ### Support
 
-[Issues](https://github.com/Gfermoto/UAV-radar/issues).
+[Issues](https://github.com/Gfermoto/UAV-radar/issues) · news: [Telegram @UAV_radar](https://t.me/UAV_radar).
