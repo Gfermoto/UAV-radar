@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.15.2-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.15.2-ota: ротация GitHub OTA PAT, NVS v22 — ночной auto-OTA снова работает. Подписанная прошивка XIAO ESP32-S3 + XVF3800.">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.15.2.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.15.2-ota">
+  <meta property="og:description" content="Подписанная USB-flash прошивка NEVOD DIY. GitHub OTA PAT rotation + NVS migration v22.">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.15.2.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta property="og:image:width" content="807">
+  <meta property="og:image:height" content="450">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NEVOD DIY v0.15.2-ota">
+  <meta name="twitter:description" content="GitHub OTA PAT fix для полевого флота.">
+  <meta name="twitter:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.15.2-ota">
+    </div>
+    <h1>NEVOD DIY v0.15.2-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + XVF3800).</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li><strong>GitHub OTA PAT:</strong> migration NVS v22 сбрасывает устаревший <code>ota_pat</code> — ночной auto-OTA больше не падает с <code>error: auth</code>.</li>
+        <li>Обновлён embedded <code>GITHUB_OTA_PAT_DEFAULT</code> в прошивке.</li>
+        <li>Всё из <code>0.15.1</code>: evidence FSM hardening, locator <code>energy_gated</code>, зачистка legacy <code>det_*</code>.</li>
+        <li>OTA: канал <code>diy-ota</code> → semver автоматически (окно ~01:30 после scheduled reset).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>183397e6f2e7f5256906d0dceb676477faa389ca2b3140c4be3dfbe7ffc75ac9</code></li>
+        <li>Model sha256: <code>60aa807af350804c9300ea21ab537c12fca9c34683650e84e1076b03407f5008</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.15.2-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">Инструкция DIY</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.ini": "ini"
+  },
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/.pio/build/rtsp_mic"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "MIC DEV",
+  "short_name": "MIC",
+  "description": "Сетевой микрофон для записи природы (RTSP)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220"
+}

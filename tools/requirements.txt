@@ -1,0 +1,6 @@
+# Host-side helpers for the open RTSP mic firmware
+# MEL LUT regen: tools/generate_mel_lut.py
+# HIL: tools/hil/ (needs pyserial)
+
+numpy>=1.24.0
+pyserial>=3.5

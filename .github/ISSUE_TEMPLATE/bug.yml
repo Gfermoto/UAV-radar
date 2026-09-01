@@ -1,0 +1,33 @@
+name: Bug report
+description: Проблема с открытым mic, документацией или DIY-сборкой
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Для закрытой логики детекции опишите симптом (WebUI / HA / облако), без просьб «открыть модель».
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - RTSP Mic (open)
+        - NEVOD DIY binary / WebUI
+        - Docs / DIY guide
+        - Enclosure / BOM
+        - Landing / Pages
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Steps, expected vs actual. Firmware version / tag if known.
+    validations:
+      required: true
+  - type: input
+    id: fw
+    attributes:
+      label: Firmware / tag
+      placeholder: e.g. nevod-diy-v0.16.25-ota or rtsp-mic 0.3.0
