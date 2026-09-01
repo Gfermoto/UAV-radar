@@ -2,7 +2,7 @@
 
 ## Русский
 
-Спасибо, что смотрите на **UAV-radar / NEVOD** — DePIN-сеть акустических узлов.
+Спасибо, что смотрите на **UAV-radar / NEVOD** — распределённую DePIN-сеть акустических узлов для раннего оповещения.
 
 ### Как помочь сильнее всего (без кода)
 
@@ -33,7 +33,7 @@
 
 ## English
 
-Thanks for looking at **UAV-radar / NEVOD** — a DePIN mesh of acoustic nodes.
+Thanks for looking at **UAV-radar / NEVOD** — a distributed DePIN network of acoustic nodes for early warning.
 
 ### Highest-leverage help (no code)
 

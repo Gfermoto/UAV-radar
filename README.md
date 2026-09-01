@@ -6,8 +6,8 @@
 [![Pages](https://img.shields.io/badge/site-landing-c8e84a?labelColor=0a1210)](https://gfermoto.github.io/UAV-radar/)
 [![Release](https://img.shields.io/github/v/release/Gfermoto/UAV-radar?include_prereleases&label=latest&labelColor=0a1210&color=c8e84a)](https://github.com/Gfermoto/UAV-radar/releases)
 
-**Свой акустический узел. Своя сеть. Без камеры.**  
-DIY DePIN: железо у вас дома → слух локально или в народном радаре.
+**Свой акустический узел. Раннее оповещение.**  
+DIY DePIN: железо у вас дома — акустика локально или в народном радаре.
 
 **[Landing](https://gfermoto.github.io/UAV-radar/)** ·
 **[DIY guide](docs/DIY_GUIDE.md)** ·
@@ -24,7 +24,7 @@ DIY DePIN: железо у вас дома → слух локально или 
 
 ### Зачем это DePIN
 
-**NEVOD** — физическая сеть слуха: каждый узел принадлежит человеку, который его собрал. Нет подписки «чтобы слышать свой двор». Облако — **opt-in** для общего раннего оповещения; координаты нод **не публикуются**; владельцам — преференции сервиса.
+**NEVOD** — физическая распределённая акустическая сеть: каждый узел принадлежит человеку, который его собрал. Нет подписки «чтобы слышать свой двор». Облако — **opt-in** для общего раннего оповещения; координаты нод **не публикуются**; владельцам — преференции от сервиса.
 
 | Ступень | Что делаете | Что получаете |
 |---------|-------------|----------------|
@@ -33,7 +33,7 @@ DIY DePIN: железо у вас дома → слух локально или 
 | **3. Собираете узел** | [Смета](docs/BOM.md) + [корпус](docs/ENCLOSURE.md) + `nevod-diy-*.bin` | Детекция 3 классов БПЛА на плате, DoA, MQTT / Home Assistant |
 | **4. Усиливаете сеть** | Cloud‑токен + координаты | Народный радар — больше узлов = меньше слепых зон |
 
-Каждый новый двор — новый сенсор в общей ткани. Органический рост = DIY, не дата‑центр.
+Новый узел — ещё один сектор покрытия. Сеть растёт от сборщиков, не из дата‑центра.
 
 ### Две прошивки — не смешивайте
 
@@ -82,7 +82,7 @@ DIY DePIN: железо у вас дома → слух локально или 
 
 ### История
 
-Сначала — RTSP‑слух неба для птиц. Затем та же плата — акустический мониторинг БПЛА. Имя **UAV-radar** — про этот вектор; **NEVOD** — про сеть узлов.
+Сначала — RTSP‑поток неба для птиц. Затем та же плата — акустический мониторинг БПЛА. Имя **UAV-radar** — про этот вектор; **NEVOD** — про сеть узлов.
 
 ### Смежные проекты
 
@@ -117,18 +117,21 @@ DIY DePIN: железо у вас дома → слух локально или 
 <a id="english"></a>
 ## English
 
+**Your acoustic node. Early warning.**  
+DIY DePIN: hardware at home — acoustics locally or on the people’s radar.
+
 ### Why this is DePIN
 
-**NEVOD** is a physical hearing network: every node is owned by the person who built it. No subscription just to listen to your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; owners get service preferences.
+**NEVOD** is a physical distributed acoustic network: every node is owned by the person who built it. No subscription just to monitor your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; owners get preferences from the service.
 
 | Step | You do | You get |
 |------|--------|---------|
 | **1. Browse** | Landing + this README | Clarity in two minutes |
 | **2. Try the board** | Open **RTSP Mic** ([MIT](LICENSE)) | Opus / RTSP / WebUI — garden, birds, [BirdNET](https://github.com/kahst/BirdNET-Analyzer) |
 | **3. Build a node** | [BOM](docs/BOM.md) + [enclosure](docs/ENCLOSURE.md) + `nevod-diy-*.bin` | On-device 3-class UAV detect, DoA, MQTT / Home Assistant |
-| **4. Grow the mesh** | Cloud token + coordinates | People’s radar — more nodes, fewer blind spots |
+| **4. Grow the network** | Cloud token + coordinates | People’s radar — more nodes, fewer blind spots |
 
-Growth is DIY density, not a data center.
+Each new node adds another coverage sector. The network grows from builders, not from a data center.
 
 ### Two firmwares — do not mix
 
