@@ -12,6 +12,7 @@ DIY DePIN: железо у вас дома — акустика локально
 **[Landing](https://gfermoto.github.io/UAV-radar/)** ·
 **[DIY guide](docs/DIY_GUIDE.md)** ·
 **[BOM ≈ ₽9 800](docs/BOM.md)** ·
+**[Habr](https://habr.com/ru/articles/1077580/)** ·
 **[Releases](https://github.com/Gfermoto/UAV-radar/releases)** ·
 **[Discussions](https://github.com/Gfermoto/UAV-radar/discussions)** ·
 **[Telegram](https://t.me/UAV_radar)**
@@ -48,7 +49,7 @@ DIY DePIN: железо у вас дома — акустика локально
 ### Старт за вечер
 
 1. **Смета ядра ≈ ₽9 793** (снимок) — [docs/BOM.md](docs/BOM.md)
-2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0)
+2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)
 3. **Прошивка + настройка + ветер / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md)
 4. Собрали? Опишите опыт — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose)
 
@@ -73,6 +74,7 @@ DIY DePIN: железо у вас дома — акустика локально
 | Материал | Где |
 |----------|-----|
 | Лендинг | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
+| Статья на Хабре | [Собери узел: DIY-сеть…](https://habr.com/ru/articles/1077580/) |
 | Новости (Telegram) | [t.me/UAV_radar](https://t.me/UAV_radar) |
 | Смета | [docs/BOM.md](docs/BOM.md) |
 | Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
@@ -147,7 +149,7 @@ Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 ### Start tonight
 
 1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md)  
-2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0)  
+2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)  
 3. **Flash + setup + wind / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md)  
 4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
 
@@ -172,6 +174,7 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet
 | Material | Where |
 |----------|-------|
 | Landing | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
+| Habr (RU) | [Собери узел: DIY-сеть…](https://habr.com/ru/articles/1077580/) |
 | News (Telegram) | [t.me/UAV_radar](https://t.me/UAV_radar) |
 | BOM | [docs/BOM.md](docs/BOM.md) |
 | Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |

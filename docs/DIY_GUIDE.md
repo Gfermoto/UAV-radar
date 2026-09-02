@@ -245,7 +245,7 @@ USB-прошивка из Releases остаётся запасным путём 
 ### 7. Сборка корпуса
 
 Сначала закончите прошивку и настройку (шаги 1–6) **на открытой плате**.  
-Детали корпуса: [ENCLOSURE.md](ENCLOSURE.md) · релиз [STL](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0).  
+Детали корпуса: [ENCLOSURE.md](ENCLOSURE.md) · релиз [STL](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1).  
 Мелочёвка из [BOM](BOM.md): жидкая изолента, клейкие шайбы/скотч, сетки IP65, USB‑C, антенна, кронштейн ¼″, опционально виброразвязка.
 
 Так выглядит собранный узел (ориентир по результату):
@@ -257,6 +257,8 @@ USB-прошивка из Releases остаётся запасным путём 
 #### 7.0. Печать и химическая постобработка
 
 > **Безопасность.** Пары ацетона, ТГФ и хлористого метилена токсичны и огнеопасны. Работайте только с **вытяжкой**, в **перчатках**, без открытого огня и нагревателей рядом. Не делайте химическое сглаживание, если нет опыта и нормальной вентиляции — можно оставить корпус «как с принтера».
+
+**Летний комплект (рекомендуется):** `nevod-diy-body-v0.1.3.stl` + `nevod-diy-lid-monoblock-v0.1.2.stl` + gasket/led-ring **0.1.0** — см. [ENCLOSURE.md](ENCLOSURE.md). Body **0.1.3** лучше держит салфетку ветрозащиты; monoblock — одна деталь сверху (проще герметизация; DoA через AMS, прозрачный пруток слои **91–105** при 0.2 мм). Базовые body/lid **0.1.0** остаются в дереве.
 
 Печатайте body / lid из **ASA** или **PETG**; **LED‑ring** — из **прозрачного** или **матового просвечивающегося** филамента **того же состава**, что и корпус (ASA к ASA, PETG к PETG); уплотнитель между корпусом и крышкой — **TPU** (химией не обрабатывают) **либо** резиновая прокладка / **O‑ring** того же посадочного размера вместо печати.
 
@@ -318,7 +320,7 @@ TPU‑прокладку (и резиновый уплотнитель / O‑rin
 
 #### 7.4. Летняя ветрозащита
 
-Для уличной установки летом накройте микрофоны лёгкой **ветрозащитой** из салфеток для робота‑мойщика окон (тонкая нетканка): она гасит шум ветра и не перекрывает акустический канал так же сильно, как плотный поролон.
+Для уличной установки летом накройте микрофоны лёгкой **ветрозащитой** из салфеток для робота‑мойщика окон (тонкая нетканка): она гасит шум ветра и не перекрывает акустический канал так же сильно, как плотный поролон. Низ корпуса **body 0.1.3** лучше фиксирует салфетку, чем body 0.1.0.
 
 ![Летняя ветрозащита из салфеток для робота‑мойщика окон](../img/wind_ok.jpg)
 
@@ -470,7 +472,7 @@ Default mode is **detection**. Mic-setup / RTSP is for bench tuning only, not 24
 
 ### 7. Enclosure build
 
-Finish steps 1–6 on the open board first. Parts: [ENCLOSURE.md](ENCLOSURE.md) · [STL release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.0). Consumables: [BOM](BOM.md).
+Finish steps 1–6 on the open board first. Parts: [ENCLOSURE.md](ENCLOSURE.md) · [STL release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1). Consumables: [BOM](BOM.md).
 
 Assembled node (what you are aiming for):
 
@@ -478,7 +480,9 @@ Assembled node (what you are aiming for):
 
 ![Assembled NEVOD DIY mic — view 2](../img/mic1_ok.jpg)
 
-**7.0 Print / chemical finish** (body/lid: **ASA** or **PETG**; **LED‑ring**: **clear** or **matte translucent** filament of the **same polymer** as the body — ASA with ASA, PETG with PETG; lid seal = printed **TPU** gasket **or** a rubber gasket / **O‑ring** of matching seat size; no solvent on elastomers).
+**7.0 Print / chemical finish.** **Summer kit (recommended):** `nevod-diy-body-v0.1.3.stl` + `nevod-diy-lid-monoblock-v0.1.2.stl` + gasket/led-ring **0.1.0** — see [ENCLOSURE.md](ENCLOSURE.md). Body **0.1.3** holds the wind-screen wipe better; monoblock lid is one piece (easier seal; DoA via AMS, clear filament layers **91–105** at 0.2 mm). Baseline body/lid **0.1.0** stay in the tree.
+
+Body/lid: **ASA** or **PETG**; **LED‑ring**: **clear** or **matte translucent** filament of the **same polymer** as the body — ASA with ASA, PETG with PETG; lid seal = printed **TPU** gasket **or** a rubber gasket / **O‑ring** of matching seat size; no solvent on elastomers.
 
 > **Safety.** Acetone, THF, and methylene chloride fumes are toxic and flammable. Use **ventilation**, **gloves**, no open flame. Skip vapor smoothing if you lack experience — as-printed parts are fine.
 
@@ -519,7 +523,7 @@ Stick the rings over the mic ports so the channel stays sealed.
 (c) Outdoor USB‑C with **5 mm** O‑ring. (d) Screw the Wi‑Fi antenna **onto the SMA** (from 7.2.c; **6 mm** O‑ring).
 
 **7.4 Summer wind screen**  
-For outdoor summer use, cover the mics with a light wind screen made from **robot window-washer wipes** (thin nonwoven). It cuts wind noise without blocking the acoustic path as much as dense foam.
+For outdoor summer use, cover the mics with a light wind screen made from **robot window-washer wipes** (thin nonwoven). It cuts wind noise without blocking the acoustic path as much as dense foam. Body **0.1.3** holds the wipe better than body 0.1.0.
 
 ![Summer wind screen from robot window-washer wipes](../img/wind_ok.jpg)
 
