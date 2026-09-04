@@ -34,21 +34,33 @@
 | 3 | solid color |
 | 4 | **doa** |
 
-«Вкл» в WebUI возвращает **DoA** (как у Seeed после заводской прошивки), не радугу и не «моргает всё кольцо». Красный LED mute — GPO пин **30**, это не RGB-кольцо.
+«Вкл» в домашней сети — **DoA** (как у Seeed после заводской прошивки), не радуга. Красный LED mute — GPO пин **30**, это не RGB-кольцо.
+
+### Точка настройки `NV…`
+
+Пока плата раздаёт свою сеть (первый старт или recovery, если домашняя сеть не отвечает):
+
+| Кольцо в WebUI | Кольцо на плате |
+|----------------|-----------------|
+| Вкл | **Красное дыхание** (effect 1), не азимут |
+| Выкл | Темно — выкл уважается |
+
+Режим в настройки не записывается. Вышли в домашнюю сеть — снова DoA (если Вкл). Настройка Wi‑Fi: [DIY_GUIDE.md](DIY_GUIDE.md) §3.
 
 ### Путь в коде
 
 ```text
 WebUI / MQTT → led_mode → applyLedMode()
                  ├─ LedIndicator (GPIO21)
-                 └─ setLedRingEnabled() → LED_EFFECT 0 or 4
+                 └─ AP: красное дыхание (1)  |  STA: DoA (4)  |  Выкл: 0
 ```
 
 ### Проверка на плате
 
-1. Кольцо Вкл → DoA следует речи (не залипшее свечение всего кольца).  
-2. Кольцо Выкл → темно; UART: `XVF ring off (effect 0) → OK`.  
-3. GPIO21 показывает Wi‑Fi, когда режим кольца «вкл».
+1. Кольцо Вкл, домашняя сеть → DoA следует речи (не залипшее свечение всего кольца).  
+2. Кольцо Выкл → темно.  
+3. Кольцо Вкл + точка `NV…` → красное дыхание. Выкл + точка → всё равно темно.  
+4. GPIO21 показывает Wi‑Fi, когда режим кольца «вкл».
 
 ---
 
@@ -80,18 +92,30 @@ From [reSpeaker host_control](https://github.com/respeaker/reSpeaker_XVF3800_USB
 | 3 | solid color |
 | 4 | **doa** |
 
-«On» restores **doa** (Seeed factory default), not a full-ring blink. Mute red LED is GPO pin **30** — not this ring.
+«On» on the home LAN restores **doa** (Seeed factory default), not a full-ring blink. Mute red LED is GPO pin **30** — not this ring.
+
+### Setup AP `NV…`
+
+While the board is its own access point (first boot or recovery):
+
+| Ring setting | What you see |
+|--------------|--------------|
+| On | **Red breath** (effect 1), not DoA |
+| Off | Dark — off is respected |
+
+This overlay is not saved. After home Wi‑Fi, DoA returns if the ring is On. Wi‑Fi steps: [DIY_GUIDE.md](DIY_GUIDE.md) §3.
 
 ### Code path
 
 ```text
 WebUI / MQTT → led_mode → applyLedMode()
                  ├─ LedIndicator (GPIO21)
-                 └─ setLedRingEnabled() → LED_EFFECT 0 or 4
+                 └─ AP: red breath (1)  |  STA: DoA (4)  |  Off: 0
 ```
 
 ### Quick check
 
-1. Ring On → DoA moves with speech (not all LEDs solid).  
-2. Ring Off → dark; UART: `XVF ring off (effect 0) → OK`.  
-3. GPIO21 still shows Wi‑Fi when ring mode is on.
+1. Ring On on the home LAN → DoA moves with speech (not all LEDs solid).  
+2. Ring Off → dark.  
+3. Ring On + AP `NV…` → red breath. Off + AP → still dark.  
+4. GPIO21 still shows Wi‑Fi when ring mode is on.
