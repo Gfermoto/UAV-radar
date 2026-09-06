@@ -24,20 +24,22 @@
 
   <header class="top">
     <a class="brand" href="./">NEVOD<span>.</span></a>
-    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
-      <span class="nav-toggle-bars" aria-hidden="true"></span>
-      <span class="nav-toggle-label" data-i18n="nav.menu">Меню</span>
-    </button>
     <nav class="top-nav" id="site-nav" aria-label="Основная">
       <a href="./hour1.html" data-i18n="nav.hour1">Час 1</a>
       <a href="#kit" data-i18n="nav.kit">Сборка</a>
       <a href="https://habr.com/ru/articles/1077580/" rel="noopener noreferrer">Habr</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
+    </nav>
+    <div class="top-tools">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-ru" aria-pressed="true">RU</button>
         <button type="button" id="lang-en" aria-pressed="false">EN</button>
       </div>
-    </nav>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="nav-toggle-label" data-i18n="nav.menu">Меню</span>
+      </button>
+    </div>
   </header>
 
   <main id="main">
@@ -45,11 +47,13 @@
       <p class="eyebrow">NEVOD</p>
       <h1 data-i18n="hero.title">Соберите акустический узел раннего оповещения</h1>
       <p class="lead" data-i18n="hero.lead">Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#flash" data-i18n="hero.cta1">Прошить в браузере</a>
+      <div class="cta-row flash-hero" id="flash-hero">
+        <esp-web-install-button manifest="./flash/manifest.json">
+          <button type="button" slot="activate" class="btn btn-primary" data-i18n="hero.cta1">Прошить плату</button>
+        </esp-web-install-button>
         <a class="btn btn-ghost" href="./hour1.html" data-i18n="hero.cta2">Час 1: узел живой</a>
       </div>
-      <p class="flash-note mast-note" data-i18n="hero.hint">Chrome / Edge · USB в XIAO · полный гайд — после первого хлопка</p>
+      <p class="flash-note mast-note" data-i18n="hero.hint">Не переход на другой сайт: откроет выбор USB-порта здесь (Chrome/Edge). Кабель в XIAO.</p>
     </header>
 
     <figure class="shot">
@@ -75,9 +79,9 @@
         <h3 id="flash" data-i18n="flash.h">Прошивка</h3>
         <div class="flash-box">
           <esp-web-install-button manifest="./flash/manifest.json">
-            <button type="button" slot="activate" class="btn btn-primary" data-i18n="flash.install">Прошить в браузере</button>
+            <button type="button" slot="activate" class="btn btn-primary" data-i18n="flash.install">Прошить плату</button>
           </esp-web-install-button>
-          <p class="flash-note" data-i18n-html="flash.note">Канал <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас 0.17.2). Chrome / Edge на ПК. Телефон — только скачать .bin.</p>
+          <p class="flash-note" data-i18n-html="flash.note">Канал <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас 0.17.2). Кнопка шьёт с этой страницы через Web Serial — не уводит на чужой сайт. Телефон: только скачать .bin.</p>
           <p class="flash-note">
             <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="flash.bin">Скачать .bin</a>
             · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> (<code>0x0</code>)
@@ -127,9 +131,9 @@
           "nav.kit": "Сборка",
           "hero.title": "Соберите акустический узел раннего оповещения",
           "hero.lead": "Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака.",
-          "hero.cta1": "Прошить в браузере",
+          "hero.cta1": "Прошить плату",
           "hero.cta2": "Час 1: узел живой",
-          "hero.hint": "Chrome / Edge · USB в XIAO · полный гайд — после первого хлопка",
+          "hero.hint": "Не переход на другой сайт: откроет выбор USB-порта здесь (Chrome/Edge). Кабель в XIAO.",
           "shot.cap": "В WebUI сразу видно направление, откуда идёт звук.",
           "how.h": "Как это работает",
           "how.p": "Четыре микрофона (XVF3800) + нейросеть на плате: распознаёт пропеллер или ДВС локально, без отправки аудио. Пеленг и спектр — в браузере у вас дома.",
@@ -138,8 +142,8 @@
           "kit.h": "С чего начать",
           "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">корпус STL</a>.",
           "flash.h": "Прошивка",
-          "flash.install": "Прошить в браузере",
-          "flash.note": "Канал <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (сейчас 0.17.2). Chrome / Edge на ПК. Телефон — только скачать .bin.",
+          "flash.install": "Прошить плату",
+          "flash.note": "Канал <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (сейчас 0.17.2). Кнопка шьёт с этой страницы через Web Serial — не уводит на чужой сайт. Телефон: только скачать .bin.",
           "flash.bin": "Скачать .bin",
           "tech.1": "<strong>Час 1.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href=\"./hour1.html\">hour1</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.",
@@ -157,9 +161,9 @@
           "nav.kit": "Build",
           "hero.title": "Build an acoustic early-warning node",
           "hero.lead": "An ESP32-S3 acoustic node hears drones over your property, shows bearing in the web UI, and alerts via MQTT or Home Assistant — no cloud required.",
-          "hero.cta1": "Install firmware",
+          "hero.cta1": "Flash the board",
           "hero.cta2": "Hour 1: get it running",
-          "hero.hint": "Chrome / Edge · USB on XIAO · full guide after the first clap",
+          "hero.hint": "Stays on this page: opens a USB port picker here (Chrome/Edge). Cable on XIAO.",
           "shot.cap": "The web UI shows where the sound is coming from.",
           "how.h": "How it works",
           "how.p": "Four mics (XVF3800) plus an on-board neural net: props or ICE locally, audio stays off the wire. Bearing and spectrum in your browser.",
@@ -168,8 +172,8 @@
           "kit.h": "Where to start",
           "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure STL</a>.",
           "flash.h": "Firmware",
-          "flash.install": "Install firmware",
-          "flash.note": "Channel <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (now 0.17.2). Chrome / Edge on a PC. Phone — download .bin only.",
+          "flash.install": "Flash the board",
+          "flash.note": "Channel <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (now 0.17.2). The button flashes from this page via Web Serial — it does not send you elsewhere. Phone: download .bin only.",
           "flash.bin": "Download .bin",
           "tech.1": "<strong>Hour 1.</strong> Flash → <code>NV…</code> AP → clap and bearing. Details: <a href=\"./hour1.html\">hour1</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> AP password = SSID in caps; change the WebUI password after joining home Wi‑Fi.",
@@ -183,9 +187,14 @@
         }
       };
 
+      var titles = {
+        ru: "NEVOD · акустический узел раннего оповещения о дронах",
+        en: "NEVOD · acoustic early-warning node for drones"
+      };
       function apply(lang) {
         try {
           document.documentElement.lang = lang;
+          if (titles[lang]) document.title = titles[lang];
           document.querySelectorAll("[data-i18n]").forEach(function (el) {
             var k = el.getAttribute("data-i18n");
             if (dict[lang][k]) el.textContent = dict[lang][k];
