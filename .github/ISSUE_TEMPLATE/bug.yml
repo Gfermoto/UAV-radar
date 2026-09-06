@@ -30,4 +30,4 @@ body:
     id: fw
     attributes:
       label: Firmware / tag
-      placeholder: e.g. nevod-diy-v0.16.25-ota or rtsp-mic 0.3.0
+      placeholder: e.g. nevod-diy-v0.17.2-ota or rtsp-mic 0.3.0

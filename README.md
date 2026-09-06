@@ -50,7 +50,7 @@ DIY DePIN: железо у вас дома — акустика локально
 
 1. **Смета ядра ≈ ₽9 793** (снимок) — [docs/BOM.md](docs/BOM.md)
 2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)
-3. **Прошивка + настройка + ветер / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md)
+3. **Прошивка 0.17.2 + настройка + ветер / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) · [релиз](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)
 4. Собрали? Опишите опыт — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose)
 
 Локально достаточно WebUI / MQTT / Home Assistant. Народный радар — когда готовы: [кабинет](https://nevod.endorphine.agency).
@@ -79,7 +79,7 @@ DIY DePIN: железо у вас дома — акустика локально
 | Смета | [docs/BOM.md](docs/BOM.md) |
 | Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
 | Полная инструкция DIY | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
-| Бинарник датчика | [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
+| Бинарник датчика | [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) · [все `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
 | Открытый mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Фото сборки | [`img/`](img/) |
 | Участие | [CONTRIBUTING.md](CONTRIBUTING.md) |
@@ -150,7 +150,7 @@ Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 
 1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md)  
 2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)  
-3. **Flash + setup + wind / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md)  
+3. **Flash 0.17.2 + setup + wind / IP** — [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) · [release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)  
 4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
 
 Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet](https://nevod.endorphine.agency).
@@ -179,7 +179,7 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet
 | BOM | [docs/BOM.md](docs/BOM.md) |
 | Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
 | Full DIY guide | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
-| Sensor binary | [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
+| Sensor binary | [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) · [all `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
 | Open mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Build photos | [`img/`](img/) |
 | Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |
