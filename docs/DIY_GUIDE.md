@@ -2,7 +2,7 @@
 
 **[Русский](#русский)** · **[English](#english)**
 
-Готовый бинарник: [Releases](https://github.com/Gfermoto/UAV-radar/releases) → последний тег **`nevod-diy-*`**.  
+Готовый бинарник: [Releases](https://github.com/Gfermoto/UAV-radar/releases) → актуальный **[`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)** (канал OTA: `diy-ota`).  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
 
 **Полная инструкция DIY** — от чипа XVF и ESP до корпуса, ветрозащиты и монтажа на месте. Не только прошивка.
@@ -47,7 +47,7 @@
 5. Из релиза NEVOD DIY три файла:
    - `firmware-nevod_diy.bin`
    - `firmware-nevod_diy.bin.sig`
-   - `firmware-nevod_diy.bin.manifest.json`
+   - `firmware-nevod_diy.manifest.json`
 6. Домашний Wi‑Fi **только 2.4 ГГц** (плата не видит 5 ГГц).
 7. Для калибровки громкости — **любой шумомер** (бытовой ок, лучше с A‑взвешиванием / LAeq). Без него узел работает, но цифры «дБ» на экране будут условными.
 8. Телефон или ноутбук для настройки Wi‑Fi.
@@ -94,12 +94,12 @@ SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de
 
 ### 2. Прошивка ESP (XIAO)
 
-1. Скачайте последний [`nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases).
+1. Скачайте актуальный [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) (или новее из [`nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases)).
 2. Проверьте файл:
 
 ```bash
 sha256sum firmware-nevod_diy.bin
-# сумма должна совпасть с полем sha256 в firmware-nevod_diy.bin.manifest.json
+# сумма должна совпасть с полем sha256 в firmware-nevod_diy.manifest.json
 ```
 
 3. Кабель — в USB‑C **на XIAO** (не у 3.5 mm).
@@ -437,7 +437,9 @@ NEVOD DIY **fully replaces** RTSP Mic.
 
 ### Gear
 
-Kit from [BOM](BOM.md), data USB cable, `pip install esptool`, latest `nevod-diy-*` assets, **2.4 GHz** Wi‑Fi, optional SPL meter for calibration.
+Kit from [BOM](BOM.md), data USB cable, `pip install esptool`, current [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) assets, **2.4 GHz** Wi‑Fi, optional SPL meter for calibration.
+
+Release files: `firmware-nevod_diy.bin`, `firmware-nevod_diy.bin.sig`, `firmware-nevod_diy.manifest.json`.
 
 Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
