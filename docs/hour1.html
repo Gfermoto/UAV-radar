@@ -17,20 +17,22 @@
   <a class="skip" href="#main">К содержимому</a>
   <header class="top">
     <a class="brand" href="./">NEVOD<span>.</span></a>
-    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
-      <span class="nav-toggle-bars" aria-hidden="true"></span>
-      <span class="nav-toggle-label" data-i18n="nav.menu">Меню</span>
-    </button>
     <nav class="top-nav" id="site-nav" aria-label="Основная">
       <a href="./" data-i18n="nav.home">Лендинг</a>
       <a href="#flash" data-i18n="nav.flash">Прошивка</a>
       <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="nav.full">Полный гайд</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
+    </nav>
+    <div class="top-tools">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-ru" aria-pressed="true">RU</button>
         <button type="button" id="lang-en" aria-pressed="false">EN</button>
       </div>
-    </nav>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="nav-toggle-label" data-i18n="nav.menu">Меню</span>
+      </button>
+    </div>
   </header>
 
   <main id="main">
@@ -46,9 +48,9 @@
         <p data-i18n="s1.p">Chrome или Edge, USB‑C в модуль <strong>XIAO</strong> (не у разъёма 3.5 mm). Нажмите Install, выберите порт. При необходимости: BOOT → короткий RESET → отпустить BOOT.</p>
         <div class="flash-box">
           <esp-web-install-button manifest="./flash/manifest.json">
-            <button type="button" slot="activate" class="btn btn-primary" data-i18n="install">Прошить в браузере</button>
+            <button type="button" slot="activate" class="btn btn-primary" data-i18n="install">Прошить плату</button>
           </esp-web-install-button>
-          <p class="flash-note" data-i18n="s1.note">Нужен Chrome / Edge на компьютере (Web Serial). На телефоне — скачайте .bin и прошейте с ПК.</p>
+          <p class="flash-note" data-i18n="s1.note">Кнопка шьёт прямо здесь (Web Serial), без перехода на другой сайт. Нужен Chrome / Edge на ПК. Телефон — скачайте .bin.</p>
           <p class="flash-note"><a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="s1.bin">Скачать .bin (diy-ota)</a>
             · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> · адрес <code>0x0</code></p>
         </div>
@@ -85,8 +87,8 @@
           "lead": "Плата прошита, слышит хлопок, пеленг на экране. MQTT, корпус и облако — потом.",
           "s1.h": "1. Прошивка",
           "s1.p": "Chrome или Edge, USB‑C в модуль XIAO (не у разъёма 3.5 mm). Нажмите Install, выберите порт. При необходимости: BOOT → короткий RESET → отпустить BOOT.",
-          "install": "Прошить в браузере",
-          "s1.note": "Нужен Chrome / Edge на компьютере (Web Serial). На телефоне — скачайте .bin и прошейте с ПК.",
+          "install": "Прошить плату",
+          "s1.note": "Кнопка шьёт прямо здесь (Web Serial), без перехода на другой сайт. Нужен Chrome / Edge на ПК. Телефон — скачайте .bin.",
           "s1.bin": "Скачать .bin (diy-ota)",
           "s2.h": "2. Wi‑Fi",
           "s2.p": "Подключитесь к точке <code>NV…</code> (пароль = SSID, <strong>ЗАГЛАВНЫЕ</strong>). Откройте <code>http://192.168.4.1</code>, укажите домашнюю сеть <strong>2.4 ГГц</strong>. После — войдите в WebUI (<code>admin</code> / <code>nevod-change-me</code>) и сразу смените пароль.",
@@ -103,8 +105,8 @@
           "lead": "Flash the board, hear a clap, see bearing on screen. MQTT, enclosure, and cloud come later.",
           "s1.h": "1. Flash",
           "s1.p": "Chrome or Edge, USB‑C on the XIAO module (not the 3.5 mm jack side). Hit Install and pick the port. If needed: hold BOOT → short RESET → release BOOT.",
-          "install": "Install firmware",
-          "s1.note": "Needs Chrome / Edge on a computer (Web Serial). On a phone — download the .bin and flash from a PC.",
+          "install": "Flash the board",
+          "s1.note": "The button flashes right here (Web Serial) — no other site. Needs Chrome / Edge on a PC. Phone — download the .bin.",
           "s1.bin": "Download .bin (diy-ota)",
           "s2.h": "2. Wi‑Fi",
           "s2.p": "Join the <code>NV…</code> AP (password = SSID, <strong>UPPERCASE</strong>). Open <code>http://192.168.4.1</code>, add your <strong>2.4 GHz</strong> home network. Then open the WebUI (<code>admin</code> / <code>nevod-change-me</code>) and change the password right away.",
@@ -114,8 +116,10 @@
         }
       };
 
+      var titles = { ru: "Час 1: узел живой · NEVOD", en: "Hour 1: node alive · NEVOD" };
       function apply(lang) {
         document.documentElement.lang = lang;
+        if (titles[lang]) document.title = titles[lang];
         document.querySelectorAll("[data-i18n]").forEach(function (el) {
           var k = el.getAttribute("data-i18n");
           if (dict[lang][k]) el.textContent = dict[lang][k];

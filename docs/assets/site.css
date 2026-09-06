@@ -100,11 +100,17 @@ code {
   color: var(--signal);
 }
 
+.top-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  flex: 0 0 auto;
+}
 .nav-toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin-left: auto;
   font: inherit;
   font-size: 0.9rem;
   font-weight: 600;
@@ -158,7 +164,10 @@ code {
 .lang {
   display: inline-flex;
   gap: 0.15rem;
-  padding: 0.5rem 0 0;
+  padding: 0;
+}
+.top-nav .lang {
+  display: none;
 }
 .lang button {
   font: inherit;
@@ -188,10 +197,13 @@ code {
   .top-nav {
     display: flex;
     position: static;
+    flex: 1 1 auto;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
     gap: 1.15rem;
     padding: 0;
+    margin-right: 0.75rem;
     background: transparent;
     border: 0;
   }
@@ -205,8 +217,8 @@ code {
     color: var(--muted);
     font-size: 0.95rem;
   }
-  .lang {
-    padding: 0;
+  .top-tools .nav-toggle {
+    display: none;
   }
 }
 
@@ -496,4 +508,17 @@ code {
   margin-top: 1.75rem;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.flash-hero {
+  align-items: stretch;
+}
+.flash-hero esp-web-install-button {
+  display: block;
+  flex: 1 1 14rem;
+  max-width: 22rem;
+}
+.flash-hero esp-web-install-button .btn,
+.flash-hero esp-web-install-button button {
+  width: 100%;
 }
