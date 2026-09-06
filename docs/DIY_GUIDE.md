@@ -2,7 +2,9 @@
 
 **[Русский](#русский)** · **[English](#english)**
 
-Готовый бинарник: [Releases](https://github.com/Gfermoto/UAV-radar/releases) → актуальный **[`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)** (канал OTA: `diy-ota`).  
+Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.17.2** · versioned [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)).
+
+**Быстрый путь ESP:** скачать `firmware-nevod_diy.bin` → открыть [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) (Chrome/Edge) → Connect → файл на адрес **`0x0`** → Program. Кабель в **XIAO**. Подробности — шаг 2.  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
 
 **Полная инструкция DIY** — от чипа XVF и ESP до корпуса, ветрозащиты и монтажа на месте. Не только прошивка.
@@ -42,15 +44,11 @@
 
 1. Комплект платы по [BOM](BOM.md) (XIAO + XVF3800).
 2. USB‑кабель **с данными** (дешёвые «только зарядка» не подойдут).
-3. Компьютер: Windows / Linux / macOS.
-4. [esptool](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/): `pip install esptool`.
-5. Из релиза NEVOD DIY три файла:
-   - `firmware-nevod_diy.bin`
-   - `firmware-nevod_diy.bin.sig`
-   - `firmware-nevod_diy.manifest.json`
-6. Домашний Wi‑Fi **только 2.4 ГГц** (плата не видит 5 ГГц).
-7. Для калибровки громкости — **любой шумомер** (бытовой ок, лучше с A‑взвешиванием / LAeq). Без него узел работает, но цифры «дБ» на экране будут условными.
-8. Телефон или ноутбук для настройки Wi‑Fi.
+3. Компьютер с **Chrome / Edge / Opera** (нужен Web Serial) — Windows / macOS / Linux. На телефоне не шьём.
+4. Из релиза [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) / [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) файл **`firmware-nevod_diy.bin`** (рядом `.sig` и `firmware-nevod_diy.manifest.json` — для проверки).
+5. Домашний Wi‑Fi **только 2.4 ГГц** (плата не видит 5 ГГц).
+6. Для калибровки громкости — **любой шумомер** (бытовой ок). Без него узел работает, но цифры «дБ» условные.
+7. Телефон или ноутбук для настройки Wi‑Fi.
 
 **Два разных USB‑C на плате — не перепутайте:**
 
@@ -94,29 +92,31 @@ SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de
 
 ### 2. Прошивка ESP (XIAO)
 
-1. Скачайте актуальный [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) (или новее из [`nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases)).
-2. Проверьте файл:
+Наш `firmware-nevod_diy.bin` — **полный образ** (bootloader + app). Его шьют по адресу **`0x0`**.
+
+#### Способ A — в браузере (рекомендуется)
+
+Без `pip` и командной строки: [ESPWebTool (esptool.spacehuhn.com)](https://esptool.spacehuhn.com/).
+
+1. Скачайте `firmware-nevod_diy.bin` из [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) (сейчас 0.17.2) или versioned [`nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases).
+2. По желанию сверьте sha256 с полем `sha256` в `firmware-nevod_diy.manifest.json`.
+3. Кабель в USB‑C **на XIAO** (не у 3.5 mm).
+4. Откройте [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) в **Chrome / Edge / Opera**.
+5. **Connect** → выберите порт платы. Если порта нет: зажмите **BOOT** на XIAO → коротко **RESET** → отпустите **BOOT**, снова Connect.
+6. Добавьте `.bin`, адрес **`0x0`** (не `0x10000`).
+7. **Program** → дождитесь успеха → RESET / переподключите питание.
+
+**Важно:** запись с `0x0` **стирает** Wi‑Fi и настройки — потом шаг 3 заново. Safari / Firefox / телефон не подойдут (нет Web Serial). WSL часто не видит USB — лучше Windows/macOS или Linux без WSL.
+
+#### Способ B — командная строка (запасной)
 
 ```bash
-sha256sum firmware-nevod_diy.bin
-# сумма должна совпасть с полем sha256 в firmware-nevod_diy.manifest.json
-```
-
-3. Кабель — в USB‑C **на XIAO** (не у 3.5 mm).
-4. Узнайте порт: Linux `/dev/ttyACM0`, Windows `COMx` (Диспетчер устройств → порты).
-5. Если порт не появляется: зажмите **BOOT** на XIAO → коротко **RESET** → отпустите **BOOT**.
-6. Прошейте:
-
-```bash
+pip install esptool
 esptool.py --chip esp32s3 --port /dev/ttyACM0 --baud 921600 \
   write_flash 0x0 firmware-nevod_diy.bin
 ```
 
-Windows: замените порт на `COM5` (свой номер).
-
-**Важно:** запись с `0x0` **стирает** сохранённый Wi‑Fi и настройки. После полной прошивки сеть настраиваете заново (шаг 3).
-
-Дождитесь `Hash of data verified` / Leaving. Отключите и снова подайте питание (или RESET).
+Windows: свой `COMx` вместо `/dev/ttyACM0`. Дождитесь `Hash of data verified` / Leaving.
 
 ---
 
@@ -437,9 +437,7 @@ NEVOD DIY **fully replaces** RTSP Mic.
 
 ### Gear
 
-Kit from [BOM](BOM.md), data USB cable, `pip install esptool`, current [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) assets, **2.4 GHz** Wi‑Fi, optional SPL meter for calibration.
-
-Release files: `firmware-nevod_diy.bin`, `firmware-nevod_diy.bin.sig`, `firmware-nevod_diy.manifest.json`.
+Kit from [BOM](BOM.md), data USB cable, **Chrome / Edge / Opera**, current [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) / [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) `firmware-nevod_diy.bin`, **2.4 GHz** Wi‑Fi, optional SPL meter.
 
 Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
@@ -453,14 +451,19 @@ On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, one retry.
 
 ### 2. Flash ESP
 
-Cable on **XIAO**. Verify sha256 vs `manifest.json`. Then:
+Full image → address **`0x0`**.
+
+**A (recommended):** [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) in Chrome/Edge/Opera → Connect → add `firmware-nevod_diy.bin` at **`0x0`** → Program. Cable on **XIAO**. BOOT+RESET if no port. Safari/Firefox/phone: no Web Serial.
+
+**B (CLI fallback):**
 
 ```bash
+pip install esptool
 esptool.py --chip esp32s3 --port /dev/ttyACM0 --baud 921600 \
   write_flash 0x0 firmware-nevod_diy.bin
 ```
 
-`0x0` write **erases** Wi‑Fi settings. BOOT+RESET if the port is missing.
+`0x0` write **erases** Wi‑Fi settings.
 
 ### 3. First Wi‑Fi
 
