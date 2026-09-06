@@ -78,14 +78,15 @@
 
         <h3 data-i18n="tech.h">Важные технические моменты</h3>
         <ul class="tech">
-          <li data-i18n-html="tech.fw"><strong>Два образа прошивки.</strong> На том же железе — датчик NEVOD либо открытая прошивка RTSP Mic для чистого стриминга звука. Образы разные, не заливайте не тот <code>.bin</code>.</li>
+          <li data-i18n-html="tech.fw"><strong>Прошивка без терминала.</strong> Скачайте <code>firmware-nevod_diy.bin</code> из <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> и залейте через <a href="https://esptool.spacehuhn.com/">esptool.spacehuhn.com</a> (Chrome/Edge, адрес <code>0x0</code>, кабель в XIAO). На том же железе есть и открытый RTSP Mic — образы разные.</li>
           <li data-i18n-html="tech.wifi"><strong>Быстрая настройка.</strong> Из коробки точка <code>NV…</code>, пароль = SSID (ЗАГЛАВНЫЕ). На точке кольцо красно дышит, микрофон — <code>rtsp://SSID:SSID@192.168.4.1:554/</code>. После домашней сети смените пароль WebUI.</li>
           <li data-i18n-html="tech.sig"><strong>Безопасность.</strong> Актуальный канал OTA / USB: <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас <strong>0.17.2</strong>). Берите <code>firmware-nevod_diy.bin</code>, <code>.sig</code> и <code>firmware-nevod_diy.manifest.json</code>.</li>
         </ul>
 
         <div class="cta-row">
           <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="start.cta0">Полная инструкция</a>
-          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="start.cta1">Прошивка</a>
+          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="start.cta1">Скачать .bin</a>
+          <a class="btn btn-ghost" href="https://esptool.spacehuhn.com/" rel="noopener noreferrer" data-i18n="start.ctaFlash">Прошить в браузере</a>
           <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md" data-i18n="start.cta3">Смета</a>
           <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1" data-i18n="start.cta2">Корпус STL</a>
         </div>
@@ -129,11 +130,12 @@
           "kit.h": "Что внутри и сколько стоит",
           "kit.p": "Железо обойдётся примерно в <strong>9 800 ₽</strong>. Состав и ссылки — в <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">смете</a>.",
           "tech.h": "Важные технические моменты",
-          "tech.fw": "<strong>Два образа прошивки.</strong> На том же железе — датчик NEVOD либо открытая прошивка RTSP Mic для чистого стриминга звука. Образы разные, не заливайте не тот <code>.bin</code>.",
+          "tech.fw": "<strong>Прошивка без терминала.</strong> Скачайте <code>firmware-nevod_diy.bin</code> из <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> и залейте через <a href=\"https://esptool.spacehuhn.com/\">esptool.spacehuhn.com</a> (Chrome/Edge, адрес <code>0x0</code>, кабель в XIAO). На том же железе есть и открытый RTSP Mic — образы разные.",
           "tech.wifi": "<strong>Быстрая настройка.</strong> Из коробки точка <code>NV…</code>, пароль = SSID (ЗАГЛАВНЫЕ). На точке кольцо красно дышит, микрофон — <code>rtsp://SSID:SSID@192.168.4.1:554/</code>. После домашней сети смените пароль WebUI.",
           "tech.sig": "<strong>Безопасность.</strong> Актуальный канал OTA / USB: <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас <strong>0.17.2</strong>). Берите <code>firmware-nevod_diy.bin</code>, <code>.sig</code> и <code>firmware-nevod_diy.manifest.json</code>.",
           "start.cta0": "Полная инструкция",
-          "start.cta1": "Прошивка",
+          "start.cta1": "Скачать .bin",
+          "start.ctaFlash": "Прошить в браузере",
           "start.cta2": "Корпус STL",
           "start.cta3": "Смета",
           "close": "Хочешь тишину над своим участком — собирай датчик. Хочешь знать о дронах ещё на подлёте к району — объединяйся с соседями.",
@@ -159,11 +161,12 @@
           "kit.h": "What's inside and what it costs",
           "kit.p": "Hardware is about <strong>9,800 ₽</strong>. Parts and links are in the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a>.",
           "tech.h": "Important technical notes",
-          "tech.fw": "<strong>Two firmware images.</strong> Same hardware: the NEVOD sensor, or open RTSP Mic for clean audio streaming. Different images — do not flash the wrong <code>.bin</code>.",
+          "tech.fw": "<strong>Flash without a terminal.</strong> Download <code>firmware-nevod_diy.bin</code> from <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> and flash at <a href=\"https://esptool.spacehuhn.com/\">esptool.spacehuhn.com</a> (Chrome/Edge, address <code>0x0</code>, cable on XIAO). Same board also runs open RTSP Mic — different images.",
           "tech.wifi": "<strong>Quick setup.</strong> Out of the box the AP is <code>NV…</code>; password = SSID (UPPERCASE). On the AP the ring breathes red; mic is <code>rtsp://SSID:SSID@192.168.4.1:554/</code>. After home Wi‑Fi, change the WebUI password.",
           "tech.sig": "<strong>Safety.</strong> Current OTA / USB channel: <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (now <strong>0.17.2</strong>). Take <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, and <code>firmware-nevod_diy.manifest.json</code>.",
           "start.cta0": "Full guide",
-          "start.cta1": "Firmware",
+          "start.cta1": "Download .bin",
+          "start.ctaFlash": "Flash in browser",
           "start.cta2": "Enclosure STL",
           "start.cta3": "BOM",
           "close": "Want quiet over your plot — build the sensor. Want to know about drones before they reach the district — team up with neighbours.",
