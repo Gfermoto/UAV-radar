@@ -1,0 +1,16 @@
+{
+  "name": "NEVOD DIY",
+  "version": "0.17.2",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        {
+          "path": "https://github.com/Gfermoto/UAV-radar/releases/download/diy-ota/firmware-nevod_diy.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NEVOD · соберите свой радар для обнаружения дронов</title>
-  <meta name="description" content="Сборка акустического узла: микрофонный массив слышит беспилотники у вас во дворе. Нейросеть на ESP32-S3, без облака. Железо ≈ 9 800 ₽." />
+  <title>NEVOD · акустический узел раннего оповещения о дронах</title>
+  <meta name="description" content="DIY-узел на ESP32-S3: слышит дроны над участком, пеленг в WebUI, алерты в MQTT / Home Assistant. Прошивка в браузере. Железо ≈ 9 800 ₽." />
   <meta name="theme-color" content="#0a1210" />
   <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/" />
-  <meta property="og:title" content="NEVOD · соберите свой радар для обнаружения дронов" />
-  <meta property="og:description" content="Акустический DIY-узел слышит дроны во дворе. Распознавание на плате, пеленг в WebUI, MQTT / Home Assistant без облака." />
+  <meta property="og:title" content="NEVOD · акустический узел раннего оповещения о дронах" />
+  <meta property="og:description" content="Слышит дроны над участком, пеленг в WebUI, MQTT / HA без облака. Прошивка в браузере." />
   <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/gui.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css" />
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 </head>
 <body class="home">
   <a class="skip" href="#main">К содержимому</a>
@@ -28,10 +29,9 @@
       <span class="nav-toggle-label" data-i18n="nav.menu">Меню</span>
     </button>
     <nav class="top-nav" id="site-nav" aria-label="Основная">
-      <a href="#how" data-i18n="nav.how">Как работает</a>
-      <a href="#yard" data-i18n="nav.yard">Двор</a>
-      <a href="#net" data-i18n="nav.net">Сеть</a>
+      <a href="./hour1.html" data-i18n="nav.hour1">Час 1</a>
       <a href="#kit" data-i18n="nav.kit">Сборка</a>
+      <a href="https://habr.com/ru/articles/1077580/" rel="noopener noreferrer">Habr</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-ru" aria-pressed="true">RU</button>
@@ -43,66 +43,77 @@
   <main id="main">
     <header class="mast">
       <p class="eyebrow">NEVOD</p>
-      <h1 data-i18n="hero.title">Соберите свой радар для обнаружения дронов</h1>
-      <p class="lead" data-i18n="hero.lead">Это инструкция по сборке акустического узла, который слышит беспилотники прямо у вас во дворе.</p>
+      <h1 data-i18n="hero.title">Соберите акустический узел раннего оповещения</h1>
+      <p class="lead" data-i18n="hero.lead">Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#kit" data-i18n="hero.cta1">Собрать узел</a>
-        <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="hero.cta2">Полная инструкция</a>
+        <a class="btn btn-primary" href="#flash" data-i18n="hero.cta1">Прошить в браузере</a>
+        <a class="btn btn-ghost" href="./hour1.html" data-i18n="hero.cta2">Час 1: узел живой</a>
       </div>
+      <p class="flash-note mast-note" data-i18n="hero.hint">Chrome / Edge · USB в XIAO · полный гайд — после первого хлопка</p>
     </header>
 
     <figure class="shot">
       <img src="assets/gui.jpg" alt="" width="1280" height="763" fetchpriority="high" />
-      <figcaption data-i18n="shot.cap">На веб-интерфейсе сразу видно, откуда летит аппарат.</figcaption>
+      <figcaption data-i18n="shot.cap">В WebUI сразу видно направление, откуда идёт звук.</figcaption>
     </figure>
 
     <div class="prose">
       <section id="how">
         <h2 data-i18n="how.h">Как это работает</h2>
-        <p data-i18n="how.p">Микрофонный массив (XVF3800) на базе ESP32-S3 слушает небо. Нейросеть распознаёт характерный звук пропеллеров или двигателя внутреннего сгорания прямо на борту, без отправки аудио в интернет. На веб-интерфейсе вы сразу видите направление, откуда летит аппарат.</p>
+        <p data-i18n="how.p">Четыре микрофона (XVF3800) + нейросеть на плате: распознаёт пропеллер или ДВС локально, без отправки аудио. Пеленг и спектр — в браузере у вас дома.</p>
       </section>
 
       <section id="yard">
-        <h2 data-i18n="yard.h">Ваша первая цель — собственный двор</h2>
-        <p data-i18n="yard.p">Собрали устройство, подключили к Wi‑Fi, настроили MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Алерты приходят локально, облако NEVOD для этого не нужно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.</p>
-      </section>
-
-      <section id="net">
-        <h2 data-i18n="net.h">Когда будете готовы — включайтесь в народный радар</h2>
-        <p data-i18n-html="net.p">Если захотите помочь другим, добавьте токен из <a href="https://nevod.endorphine.agency">личного кабинета</a> и координаты установки. Узел станет частью распределённой сети раннего оповещения (DePIN). Чем больше людей ставят датчики, тем выше шансы среагировать ранее. Точные координаты сеть не публикует; за участие владельцы нод получают бонусы от сервиса.</p>
+        <h2 data-i18n="yard.h">Сначала — свой двор</h2>
+        <p data-i18n="yard.p">Прошили, Wi‑Fi, MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Облако NEVOD не обязательно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.</p>
       </section>
 
       <section id="kit">
-        <h2 data-i18n="kit.h">Что внутри и сколько стоит</h2>
-        <p class="price" data-i18n-html="kit.p">Железо обойдётся примерно в <strong>9 800 ₽</strong>. Состав и ссылки — в <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md">смете</a>.</p>
+        <h2 data-i18n="kit.h">С чего начать</h2>
+        <p class="price" data-i18n-html="kit.p">Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md">Смета</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1">корпус STL</a>.</p>
 
-        <h3 data-i18n="tech.h">Важные технические моменты</h3>
+        <h3 id="flash" data-i18n="flash.h">Прошивка</h3>
+        <div class="flash-box">
+          <esp-web-install-button manifest="./flash/manifest.json">
+            <button type="button" slot="activate" class="btn btn-primary" data-i18n="flash.install">Прошить в браузере</button>
+          </esp-web-install-button>
+          <p class="flash-note" data-i18n-html="flash.note">Канал <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас 0.17.2). Chrome / Edge на ПК. Телефон — только скачать .bin.</p>
+          <p class="flash-note">
+            <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="flash.bin">Скачать .bin</a>
+            · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> (<code>0x0</code>)
+          </p>
+        </div>
+
         <ul class="tech">
-          <li data-i18n-html="tech.fw"><strong>Прошивка без терминала.</strong> Скачайте <code>firmware-nevod_diy.bin</code> из <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> и залейте через <a href="https://esptool.spacehuhn.com/">esptool.spacehuhn.com</a> (Chrome/Edge, адрес <code>0x0</code>, кабель в XIAO). На том же железе есть и открытый RTSP Mic — образы разные.</li>
-          <li data-i18n-html="tech.wifi"><strong>Быстрая настройка.</strong> Из коробки точка <code>NV…</code>, пароль = SSID (ЗАГЛАВНЫЕ). На точке кольцо красно дышит, микрофон — <code>rtsp://SSID:SSID@192.168.4.1:554/</code>. После домашней сети смените пароль WebUI.</li>
-          <li data-i18n-html="tech.sig"><strong>Безопасность.</strong> Актуальный канал OTA / USB: <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас <strong>0.17.2</strong>). Берите <code>firmware-nevod_diy.bin</code>, <code>.sig</code> и <code>firmware-nevod_diy.manifest.json</code>.</li>
+          <li data-i18n-html="tech.1"><strong>Час 1.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href="./hour1.html">hour1</a>.</li>
+          <li data-i18n-html="tech.2"><strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.</li>
+          <li data-i18n-html="tech.3"><strong>Дальше.</strong> Корпус, калибровка, HA и народный радар — в <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">полной инструкции</a>.</li>
         </ul>
 
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="start.cta0">Полная инструкция</a>
-          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="start.cta1">Скачать .bin</a>
-          <a class="btn btn-ghost" href="https://esptool.spacehuhn.com/" rel="noopener noreferrer" data-i18n="start.ctaFlash">Прошить в браузере</a>
-          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md" data-i18n="start.cta3">Смета</a>
-          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1" data-i18n="start.cta2">Корпус STL</a>
+          <a class="btn btn-ghost" href="./hour1.html" data-i18n="start.hour1">Час 1: узел живой</a>
+          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md" data-i18n="start.bom">Смета и корпус</a>
         </div>
       </section>
 
-      <p class="close" data-i18n="close">Хочешь тишину над своим участком — собирай датчик. Хочешь знать о дронах ещё на подлёте к району — объединяйся с соседями.</p>
+      <section id="net">
+        <h2 data-i18n="net.h">Когда готовы — народный радар</h2>
+        <p data-i18n-html="net.p">Токен из <a href="https://nevod.endorphine.agency">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать ранее. Координаты нод сеть не публикует.</p>
+      </section>
+
+      <p class="close" data-i18n="close">Раннее оповещение начинается с одного рабочего узла — своего или соседского.</p>
     </div>
   </main>
 
   <footer class="site-foot">
     <div class="inner">
-      <p data-i18n="foot">NEVOD · DIY · акустика · MQTT · Home Assistant</p>
+      <p data-i18n="foot">NEVOD · DIY · MQTT · Home Assistant</p>
       <p>
         <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
         ·
         <a href="https://t.me/UAV_radar" rel="noopener noreferrer">Telegram</a>
+        ·
+        <a href="https://habr.com/ru/articles/1077580/" rel="noopener noreferrer">Habr</a>
       </p>
     </div>
   </footer>
@@ -112,81 +123,83 @@
       var dict = {
         ru: {
           "nav.menu": "Меню",
-          "nav.how": "Как работает",
-          "nav.yard": "Двор",
-          "nav.net": "Сеть",
+          "nav.hour1": "Час 1",
           "nav.kit": "Сборка",
-          "hero.title": "Соберите свой радар для обнаружения дронов",
-          "hero.lead": "Это инструкция по сборке акустического узла, который слышит беспилотники прямо у вас во дворе.",
-          "hero.cta1": "Собрать узел",
-          "hero.cta2": "Полная инструкция",
-          "shot.cap": "На веб-интерфейсе сразу видно, откуда летит аппарат.",
+          "hero.title": "Соберите акустический узел раннего оповещения",
+          "hero.lead": "Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака.",
+          "hero.cta1": "Прошить в браузере",
+          "hero.cta2": "Час 1: узел живой",
+          "hero.hint": "Chrome / Edge · USB в XIAO · полный гайд — после первого хлопка",
+          "shot.cap": "В WebUI сразу видно направление, откуда идёт звук.",
           "how.h": "Как это работает",
-          "how.p": "Микрофонный массив (XVF3800) на базе ESP32-S3 слушает небо. Нейросеть распознаёт характерный звук пропеллеров или двигателя внутреннего сгорания прямо на борту, без отправки аудио в интернет. На веб-интерфейсе вы сразу видите направление, откуда летит аппарат.",
-          "yard.h": "Ваша первая цель — собственный двор",
-          "yard.p": "Собрали устройство, подключили к Wi‑Fi, настроили MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Алерты приходят локально, облако NEVOD для этого не нужно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.",
-          "net.h": "Когда будете готовы — включайтесь в народный радар",
-          "net.p": "Если захотите помочь другим, добавьте токен из <a href=\"https://nevod.endorphine.agency\">личного кабинета</a> и координаты установки. Узел станет частью распределённой сети раннего оповещения (DePIN). Чем больше людей ставят датчики, тем выше шансы среагировать ранее. Точные координаты сеть не публикует; за участие владельцы нод получают бонусы от сервиса.",
-          "kit.h": "Что внутри и сколько стоит",
-          "kit.p": "Железо обойдётся примерно в <strong>9 800 ₽</strong>. Состав и ссылки — в <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">смете</a>.",
-          "tech.h": "Важные технические моменты",
-          "tech.fw": "<strong>Прошивка без терминала.</strong> Скачайте <code>firmware-nevod_diy.bin</code> из <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> и залейте через <a href=\"https://esptool.spacehuhn.com/\">esptool.spacehuhn.com</a> (Chrome/Edge, адрес <code>0x0</code>, кабель в XIAO). На том же железе есть и открытый RTSP Mic — образы разные.",
-          "tech.wifi": "<strong>Быстрая настройка.</strong> Из коробки точка <code>NV…</code>, пароль = SSID (ЗАГЛАВНЫЕ). На точке кольцо красно дышит, микрофон — <code>rtsp://SSID:SSID@192.168.4.1:554/</code>. После домашней сети смените пароль WebUI.",
-          "tech.sig": "<strong>Безопасность.</strong> Актуальный канал OTA / USB: <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас <strong>0.17.2</strong>). Берите <code>firmware-nevod_diy.bin</code>, <code>.sig</code> и <code>firmware-nevod_diy.manifest.json</code>.",
-          "start.cta0": "Полная инструкция",
-          "start.cta1": "Скачать .bin",
-          "start.ctaFlash": "Прошить в браузере",
-          "start.cta2": "Корпус STL",
-          "start.cta3": "Смета",
-          "close": "Хочешь тишину над своим участком — собирай датчик. Хочешь знать о дронах ещё на подлёте к району — объединяйся с соседями.",
-          "foot": "NEVOD · DIY · акустика · MQTT · Home Assistant"
+          "how.p": "Четыре микрофона (XVF3800) + нейросеть на плате: распознаёт пропеллер или ДВС локально, без отправки аудио. Пеленг и спектр — в браузере у вас дома.",
+          "yard.h": "Сначала — свой двор",
+          "yard.p": "Прошили, Wi‑Fi, MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Облако NEVOD не обязательно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.",
+          "kit.h": "С чего начать",
+          "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">корпус STL</a>.",
+          "flash.h": "Прошивка",
+          "flash.install": "Прошить в браузере",
+          "flash.note": "Канал <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (сейчас 0.17.2). Chrome / Edge на ПК. Телефон — только скачать .bin.",
+          "flash.bin": "Скачать .bin",
+          "tech.1": "<strong>Час 1.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href=\"./hour1.html\">hour1</a>.",
+          "tech.2": "<strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.",
+          "tech.3": "<strong>Дальше.</strong> Корпус, калибровка, HA и народный радар — в <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">полной инструкции</a>.",
+          "start.hour1": "Час 1: узел живой",
+          "start.bom": "Смета и корпус",
+          "net.h": "Когда готовы — народный радар",
+          "net.p": "Токен из <a href=\"https://nevod.endorphine.agency\">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать ранее. Координаты нод сеть не публикует.",
+          "close": "Раннее оповещение начинается с одного рабочего узла — своего или соседского.",
+          "foot": "NEVOD · DIY · MQTT · Home Assistant"
         },
         en: {
           "nav.menu": "Menu",
-          "nav.how": "How it works",
-          "nav.yard": "Your yard",
-          "nav.net": "Network",
+          "nav.hour1": "Hour 1",
           "nav.kit": "Build",
-          "hero.title": "Build your own drone-detection radar",
-          "hero.lead": "A build guide for an acoustic node that hears UAVs right in your yard.",
-          "hero.cta1": "Build a node",
-          "hero.cta2": "Full guide",
-          "shot.cap": "The web UI shows the direction the aircraft is coming from.",
+          "hero.title": "Build an acoustic early-warning node",
+          "hero.lead": "An ESP32-S3 acoustic node hears drones over your property, shows bearing in the web UI, and alerts via MQTT or Home Assistant — no cloud required.",
+          "hero.cta1": "Install firmware",
+          "hero.cta2": "Hour 1: get it running",
+          "hero.hint": "Chrome / Edge · USB on XIAO · full guide after the first clap",
+          "shot.cap": "The web UI shows where the sound is coming from.",
           "how.h": "How it works",
-          "how.p": "A mic array (XVF3800) on an ESP32-S3 listens to the sky. A neural net recognizes the sound of propellers or an ICE engine on the board — audio is not sent to the internet. The web UI shows the direction the aircraft is coming from.",
-          "yard.h": "Your first goal is your own yard",
-          "yard.p": "Build it, join Wi‑Fi, set up MQTT or Home Assistant — you are informed and can react, including automatically. Alerts stay local; you do not need the NEVOD cloud. One node covers a sector of your plot; a neighbor’s second node expands coverage.",
-          "net.h": "When you are ready — join the community radar",
-          "net.p": "If you want to help others, add a token from your <a href=\"https://nevod.endorphine.agency\">account</a> and the install coordinates. Your node joins a distributed early-warning network (DePIN). The more people install sensors, the better the chance to react earlier. Exact coordinates are not published; node owners get service bonuses for taking part.",
-          "kit.h": "What's inside and what it costs",
-          "kit.p": "Hardware is about <strong>9,800 ₽</strong>. Parts and links are in the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a>.",
-          "tech.h": "Important technical notes",
-          "tech.fw": "<strong>Flash without a terminal.</strong> Download <code>firmware-nevod_diy.bin</code> from <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> and flash at <a href=\"https://esptool.spacehuhn.com/\">esptool.spacehuhn.com</a> (Chrome/Edge, address <code>0x0</code>, cable on XIAO). Same board also runs open RTSP Mic — different images.",
-          "tech.wifi": "<strong>Quick setup.</strong> Out of the box the AP is <code>NV…</code>; password = SSID (UPPERCASE). On the AP the ring breathes red; mic is <code>rtsp://SSID:SSID@192.168.4.1:554/</code>. After home Wi‑Fi, change the WebUI password.",
-          "tech.sig": "<strong>Safety.</strong> Current OTA / USB channel: <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (now <strong>0.17.2</strong>). Take <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, and <code>firmware-nevod_diy.manifest.json</code>.",
-          "start.cta0": "Full guide",
-          "start.cta1": "Download .bin",
-          "start.ctaFlash": "Flash in browser",
-          "start.cta2": "Enclosure STL",
-          "start.cta3": "BOM",
-          "close": "Want quiet over your plot — build the sensor. Want to know about drones before they reach the district — team up with neighbours.",
-          "foot": "NEVOD · DIY · acoustics · MQTT · Home Assistant"
+          "how.p": "Four mics (XVF3800) plus an on-board neural net: props or ICE locally, audio stays off the wire. Bearing and spectrum in your browser.",
+          "yard.h": "Start with your own yard",
+          "yard.p": "Flash, Wi‑Fi, MQTT or Home Assistant — you get a local alert and can act on it, including automatically. NEVOD cloud is optional. One node covers a sector; a neighbor’s second node expands coverage.",
+          "kit.h": "Where to start",
+          "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure STL</a>.",
+          "flash.h": "Firmware",
+          "flash.install": "Install firmware",
+          "flash.note": "Channel <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (now 0.17.2). Chrome / Edge on a PC. Phone — download .bin only.",
+          "flash.bin": "Download .bin",
+          "tech.1": "<strong>Hour 1.</strong> Flash → <code>NV…</code> AP → clap and bearing. Details: <a href=\"./hour1.html\">hour1</a>.",
+          "tech.2": "<strong>Wi‑Fi.</strong> AP password = SSID in caps; change the WebUI password after joining home Wi‑Fi.",
+          "tech.3": "<strong>Next.</strong> Enclosure, calibration, HA, and people’s radar — in the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">full guide</a>.",
+          "start.hour1": "Hour 1: get it running",
+          "start.bom": "Parts & enclosure",
+          "net.h": "When ready — people’s radar",
+          "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on the shared early-warning network. More sensors — better chance to react earlier. Node coordinates are not published.",
+          "close": "Early warning starts with one working node — yours or a neighbor’s.",
+          "foot": "NEVOD · DIY · MQTT · Home Assistant"
         }
       };
 
       function apply(lang) {
-        document.documentElement.lang = lang;
-        document.querySelectorAll("[data-i18n]").forEach(function (el) {
-          var k = el.getAttribute("data-i18n");
-          if (dict[lang][k]) el.textContent = dict[lang][k];
-        });
-        document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
-          var k = el.getAttribute("data-i18n-html");
-          if (dict[lang][k]) el.innerHTML = dict[lang][k];
-        });
-        document.getElementById("lang-ru").setAttribute("aria-pressed", lang === "ru" ? "true" : "false");
-        document.getElementById("lang-en").setAttribute("aria-pressed", lang === "en" ? "true" : "false");
-        try { localStorage.setItem("nevod-lang", lang); } catch (e) {}
+        try {
+          document.documentElement.lang = lang;
+          document.querySelectorAll("[data-i18n]").forEach(function (el) {
+            var k = el.getAttribute("data-i18n");
+            if (dict[lang][k]) el.textContent = dict[lang][k];
+          });
+          document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+            var k = el.getAttribute("data-i18n-html");
+            if (dict[lang][k]) el.innerHTML = dict[lang][k];
+          });
+          document.getElementById("lang-ru").setAttribute("aria-pressed", lang === "ru" ? "true" : "false");
+          document.getElementById("lang-en").setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+          try { localStorage.setItem("nevod-lang", lang); } catch (e) {}
+        } catch (err) {
+          console.error("i18n apply failed", err);
+        }
       }
 
       document.getElementById("lang-ru").addEventListener("click", function () { apply("ru"); });
