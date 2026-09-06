@@ -25,7 +25,7 @@
   <header class="top">
     <a class="brand" href="./">NEVOD<span>.</span></a>
     <nav class="top-nav" id="site-nav" aria-label="Основная">
-      <a href="./hour1.html" data-i18n="nav.hour1">Час 1</a>
+      <a href="./hour1.html" data-i18n="nav.hour1">За час</a>
       <a href="#kit" data-i18n="nav.kit">Сборка</a>
       <a href="https://habr.com/ru/articles/1077580/" rel="noopener noreferrer">Habr</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
@@ -51,7 +51,7 @@
         <esp-web-install-button manifest="./flash/manifest.json">
           <button type="button" slot="activate" class="btn btn-primary" data-i18n="hero.cta1">Прошить плату</button>
         </esp-web-install-button>
-        <a class="btn btn-ghost" href="./hour1.html" data-i18n="hero.cta2">Час 1: узел живой</a>
+        <a class="btn btn-ghost" href="./hour1.html" data-i18n="hero.cta2">За час: узел живой</a>
       </div>
       <p class="flash-note mast-note" data-i18n="hero.hint">Не переход на другой сайт: откроет выбор USB-порта здесь (Chrome/Edge). Кабель в XIAO.</p>
     </header>
@@ -89,13 +89,14 @@
         </div>
 
         <ul class="tech">
-          <li data-i18n-html="tech.1"><strong>Час 1.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href="./hour1.html">hour1</a>.</li>
+          <li data-i18n-html="tech.1"><strong>За час.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href="./hour1.html">за час</a>.</li>
+          <li data-i18n-html="tech.dsp"><strong>DSP 1.0.8.</strong> Желательно прошить чип XVF3800 образом I²S slave <strong>1.0.8</strong> — азимут стабильнее. Многие комплекты уже с ним; иначе — <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">гайд §1</a>.</li>
           <li data-i18n-html="tech.2"><strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.</li>
           <li data-i18n-html="tech.3"><strong>Дальше.</strong> Корпус, калибровка, HA и народный радар — в <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">полной инструкции</a>.</li>
         </ul>
 
         <div class="cta-row">
-          <a class="btn btn-ghost" href="./hour1.html" data-i18n="start.hour1">Час 1: узел живой</a>
+          <a class="btn btn-ghost" href="./hour1.html" data-i18n="start.hour1">За час: узел живой</a>
           <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md" data-i18n="start.bom">Смета и корпус</a>
         </div>
       </section>
@@ -127,12 +128,12 @@
       var dict = {
         ru: {
           "nav.menu": "Меню",
-          "nav.hour1": "Час 1",
+          "nav.hour1": "За час",
           "nav.kit": "Сборка",
           "hero.title": "Соберите акустический узел раннего оповещения",
           "hero.lead": "Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака.",
           "hero.cta1": "Прошить плату",
-          "hero.cta2": "Час 1: узел живой",
+          "hero.cta2": "За час: узел живой",
           "hero.hint": "Не переход на другой сайт: откроет выбор USB-порта здесь (Chrome/Edge). Кабель в XIAO.",
           "shot.cap": "В WebUI сразу видно направление, откуда идёт звук.",
           "how.h": "Как это работает",
@@ -145,10 +146,10 @@
           "flash.install": "Прошить плату",
           "flash.note": "Канал <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (сейчас 0.17.2). Кнопка шьёт с этой страницы через Web Serial — не уводит на чужой сайт. Телефон: только скачать .bin.",
           "flash.bin": "Скачать .bin",
-          "tech.1": "<strong>Час 1.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href=\"./hour1.html\">hour1</a>.",
+          "tech.1": "<strong>За час.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href=\"./hour1.html\">за час</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.",
           "tech.3": "<strong>Дальше.</strong> Корпус, калибровка, HA и народный радар — в <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">полной инструкции</a>.",
-          "start.hour1": "Час 1: узел живой",
+          "start.hour1": "За час: узел живой",
           "start.bom": "Смета и корпус",
           "net.h": "Когда готовы — народный радар",
           "net.p": "Токен из <a href=\"https://nevod.endorphine.agency\">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать ранее. Координаты нод сеть не публикует.",
@@ -157,12 +158,12 @@
         },
         en: {
           "nav.menu": "Menu",
-          "nav.hour1": "Hour 1",
+          "nav.hour1": "In an hour",
           "nav.kit": "Build",
           "hero.title": "Build an acoustic early-warning node",
           "hero.lead": "An ESP32-S3 acoustic node hears drones over your property, shows bearing in the web UI, and alerts via MQTT or Home Assistant — no cloud required.",
           "hero.cta1": "Flash the board",
-          "hero.cta2": "Hour 1: get it running",
+          "hero.cta2": "Alive in an hour",
           "hero.hint": "Stays on this page: opens a USB port picker here (Chrome/Edge). Cable on XIAO.",
           "shot.cap": "The web UI shows where the sound is coming from.",
           "how.h": "How it works",
@@ -175,10 +176,10 @@
           "flash.install": "Flash the board",
           "flash.note": "Channel <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (now 0.17.2). The button flashes from this page via Web Serial — it does not send you elsewhere. Phone: download .bin only.",
           "flash.bin": "Download .bin",
-          "tech.1": "<strong>Hour 1.</strong> Flash → <code>NV…</code> AP → clap and bearing. Details: <a href=\"./hour1.html\">hour1</a>.",
+          "tech.1": "<strong>In an hour.</strong> Flash → <code>NV…</code> AP → clap and bearing. Details: <a href=\"./hour1.html\">quick start</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> AP password = SSID in caps; change the WebUI password after joining home Wi‑Fi.",
           "tech.3": "<strong>Next.</strong> Enclosure, calibration, HA, and people’s radar — in the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">full guide</a>.",
-          "start.hour1": "Hour 1: get it running",
+          "start.hour1": "Alive in an hour",
           "start.bom": "Parts & enclosure",
           "net.h": "When ready — people’s radar",
           "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on the shared early-warning network. More sensors — better chance to react earlier. Node coordinates are not published.",

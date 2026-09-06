@@ -4,7 +4,7 @@
 
 Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.17.2** · versioned [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)).
 
-**Быстрый путь:** [Час 1](https://gfermoto.github.io/UAV-radar/hour1.html) — Install в браузере (ESP Web Tools) → Wi‑Fi → хлопок. Запасной путь: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**. Кабель в **XIAO**.  
+**Быстрый путь:** [За час](https://gfermoto.github.io/UAV-radar/hour1.html) — Install (ESP Web Tools) → Wi‑Fi → хлопок; желательно DSP XVF **1.0.8** (стабильнее азимут). Запасной путь: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**. Кабель в **XIAO**.  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
 
 **Полная инструкция DIY** — от чипа XVF и ESP до корпуса, ветрозащиты и монтажа на месте. Не только прошивка.
@@ -61,7 +61,7 @@
 
 ### 1. Микрофонный чип (XVF3800) — один раз
 
-Нужна прошивка Seeed: **I²S, slave, 16 кГц**.
+Нужна прошивка Seeed: **I²S, slave, 16 кГц** (**v1.0.8**). С ней **азимут стабильнее**; без неё узел может работать, но пеленг хуже.
 
 Скачать:  
 [`application_xvf3800_i2s_slave_v1.0.8_16k.bin`](https://github.com/respeaker/reSpeaker_XVF3800_USB_4MIC_ARRAY/raw/master/xmos_firmwares/i2s/application_xvf3800_i2s_slave_v1.0.8_16k.bin)  
@@ -98,7 +98,7 @@ SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de
 
 Без `pip` и командной строки:
 
-1. Откройте [Час 1 / Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) **или** этот лендинг → **Прошить в браузере** (ESP Web Tools, канал `diy-ota`).
+1. Откройте [За час / Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) **или** лендинг → **Прошить плату** (ESP Web Tools, канал `diy-ota`).
 2. Кабель в USB‑C **на XIAO** (не у 3.5 mm). Chrome / Edge.
 3. **Install** → выберите порт. Если порта нет: **BOOT** → короткий **RESET** → отпустить **BOOT**.
 4. Дождитесь успеха → RESET / переподключите питание.
@@ -452,7 +452,7 @@ On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, one retry.
 
 Full image → address **`0x0`**.
 
-**A (recommended):** [Hour 1 Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) (ESP Web Tools) or [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with `firmware-nevod_diy.bin` at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port. Safari/Firefox/phone: no Web Serial.
+**A (recommended):** [In an hour / Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) (ESP Web Tools) or [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with `firmware-nevod_diy.bin` at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port. Safari/Firefox/phone: no Web Serial.
 
 **B (CLI fallback):**
 
