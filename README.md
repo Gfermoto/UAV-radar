@@ -50,7 +50,7 @@ DIY DePIN: железо у вас дома — акустика локально
 
 1. **Смета ядра ≈ ₽9 793** (снимок) — [docs/BOM.md](docs/BOM.md)
 2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)
-3. **Час 1** — [hour1](https://gfermoto.github.io/UAV-radar/hour1.html): Install в браузере → Wi‑Fi → хлопок · полный гайд: [DIY_GUIDE](docs/DIY_GUIDE.md)
+3. **За час** — [quick start](https://gfermoto.github.io/UAV-radar/hour1.html): Install → Wi‑Fi → хлопок; желательно DSP XVF **1.0.8** · полный гайд: [DIY_GUIDE](docs/DIY_GUIDE.md)
 4. Собрали? Опишите опыт — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose)
 
 Локально достаточно WebUI / MQTT / Home Assistant. Народный радар — когда готовы: [кабинет](https://nevod.endorphine.agency).
@@ -150,7 +150,7 @@ Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 
 1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md)  
 2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)  
-3. **Hour 1** — [hour1](https://gfermoto.github.io/UAV-radar/hour1.html): browser Install → Wi‑Fi → clap · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md)  
+3. **In an hour** — [quick start](https://gfermoto.github.io/UAV-radar/hour1.html): Install → Wi‑Fi → clap; preferably DSP XVF **1.0.8** · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md)  
 4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
 
 Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet](https://nevod.endorphine.agency).

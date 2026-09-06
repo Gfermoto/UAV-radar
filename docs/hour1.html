@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Час 1: узел живой · NEVOD</title>
+  <title>За час: узел живой · NEVOD</title>
   <meta name="description" content="За час: прошить NEVOD DIY в браузере, подключить Wi‑Fi, проверить хлопок и пеленг." />
   <meta name="theme-color" content="#0a1210" />
   <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/hour1.html" />
@@ -38,7 +38,7 @@
   <main id="main">
     <header class="mast">
       <p class="eyebrow">NEVOD</p>
-      <h1 data-i18n="h1">Час 1: узел живой</h1>
+      <h1 data-i18n="h1">За час: узел живой</h1>
       <p class="lead" data-i18n="lead">Плата прошита, слышит хлопок, пеленг на экране. MQTT, корпус и облако — потом.</p>
     </header>
 
@@ -61,7 +61,11 @@
       </li>
       <li>
         <h2 data-i18n="s3.h">3. Проверка</h2>
-        <p data-i18n="s3.p">Хлопните рядом с микрофонами — уровень и азимут в WebUI должны дёрнуться. Тишина? Смотрите полный гайд, шаг про чип XVF (часто уже 1.0.8 — тогда не трогайте).</p>
+        <p data-i18n="s3.p">Хлопните рядом с микрофонами — уровень и азимут в WebUI должны дёрнуться.</p>
+      </li>
+      <li>
+        <h2 data-i18n="s4.h">DSP 1.0.8 (желательно)</h2>
+        <p data-i18n-html="s4.p">Для <strong>стабильнее азимута</strong> прошейте чип XVF3800 образом Seeed <strong>I²S slave 1.0.8 / 16 kHz</strong> (разъём у 3.5 mm, DFU). Многие платы уже с ним — тогда пропустите. Иначе — <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">полный гайд §1</a>.</p>
       </li>
     </ol>
 
@@ -70,7 +74,7 @@
 
   <footer class="site-foot">
     <div class="inner">
-      <p>NEVOD · Hour 1</p>
+      <p>NEVOD · In an hour</p>
       <p><a href="./">← Landing</a> · <a href="https://t.me/UAV_radar" rel="noopener noreferrer">Telegram</a></p>
     </div>
   </footer>
@@ -83,7 +87,7 @@
           "nav.home": "Лендинг",
           "nav.flash": "Прошивка",
           "nav.full": "Полный гайд",
-          "h1": "Час 1: узел живой",
+          "h1": "За час: узел живой",
           "lead": "Плата прошита, слышит хлопок, пеленг на экране. MQTT, корпус и облако — потом.",
           "s1.h": "1. Прошивка",
           "s1.p": "Chrome или Edge, USB‑C в модуль XIAO (не у разъёма 3.5 mm). Нажмите Install, выберите порт. При необходимости: BOOT → короткий RESET → отпустить BOOT.",
@@ -93,7 +97,9 @@
           "s2.h": "2. Wi‑Fi",
           "s2.p": "Подключитесь к точке <code>NV…</code> (пароль = SSID, <strong>ЗАГЛАВНЫЕ</strong>). Откройте <code>http://192.168.4.1</code>, укажите домашнюю сеть <strong>2.4 ГГц</strong>. После — войдите в WebUI (<code>admin</code> / <code>nevod-change-me</code>) и сразу смените пароль.",
           "s3.h": "3. Проверка",
-          "s3.p": "Хлопните рядом с микрофонами — уровень и азимут в WebUI должны дёрнуться. Тишина? Смотрите полный гайд, шаг про чип XVF (часто уже 1.0.8 — тогда не трогайте).",
+          "s3.p": "Хлопните рядом с микрофонами — уровень и азимут в WebUI должны дёрнуться.",
+          "s4.h": "DSP 1.0.8 (желательно)",
+          "s4.p": "Для <strong>стабильнее азимута</strong> прошейте чип XVF3800 образом Seeed <strong>I²S slave 1.0.8 / 16 kHz</strong> (разъём у 3.5 mm, DFU). Многие платы уже с ним — тогда пропустите. Иначе — <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">полный гайд §1</a>.",
           "next": "Дальше — калибровка, корпус, MQTT / HA и облако в <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">полной инструкции</a>."
         },
         en: {
@@ -101,7 +107,7 @@
           "nav.home": "Landing",
           "nav.flash": "Flash",
           "nav.full": "Full guide",
-          "h1": "Hour 1: node alive",
+          "h1": "Alive in an hour",
           "lead": "Flash the board, hear a clap, see bearing on screen. MQTT, enclosure, and cloud come later.",
           "s1.h": "1. Flash",
           "s1.p": "Chrome or Edge, USB‑C on the XIAO module (not the 3.5 mm jack side). Hit Install and pick the port. If needed: hold BOOT → short RESET → release BOOT.",
@@ -111,12 +117,14 @@
           "s2.h": "2. Wi‑Fi",
           "s2.p": "Join the <code>NV…</code> AP (password = SSID, <strong>UPPERCASE</strong>). Open <code>http://192.168.4.1</code>, add your <strong>2.4 GHz</strong> home network. Then open the WebUI (<code>admin</code> / <code>nevod-change-me</code>) and change the password right away.",
           "s3.h": "3. Check",
-          "s3.p": "Clap near the mics — level and bearing in the WebUI should jump. Silence? See the full guide, XVF chip step (many boards already ship 1.0.8 — leave them alone).",
+          "s3.p": "Clap near the mics — level and bearing in the WebUI should jump.",
+          "s4.h": "DSP 1.0.8 (recommended)",
+          "s4.p": "For <strong>steadier bearing</strong>, flash the XVF3800 with Seeed <strong>I²S slave 1.0.8 / 16 kHz</strong> (port by the 3.5 mm jack, DFU). Many boards already have it — skip then. Otherwise — <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">full guide §1</a>.",
           "next": "Next — calibration, enclosure, MQTT / HA, and cloud in the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">full guide</a>."
         }
       };
 
-      var titles = { ru: "Час 1: узел живой · NEVOD", en: "Hour 1: node alive · NEVOD" };
+      var titles = { ru: "За час: узел живой · NEVOD", en: "Alive in an hour · NEVOD" };
       function apply(lang) {
         document.documentElement.lang = lang;
         if (titles[lang]) document.title = titles[lang];
