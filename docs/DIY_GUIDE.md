@@ -4,7 +4,7 @@
 
 Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.17.2** · versioned [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)).
 
-**Быстрый путь ESP:** скачать `firmware-nevod_diy.bin` → открыть [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) (Chrome/Edge) → Connect → файл на адрес **`0x0`** → Program. Кабель в **XIAO**. Подробности — шаг 2.  
+**Быстрый путь:** [Час 1](https://gfermoto.github.io/UAV-radar/hour1.html) — Install в браузере (ESP Web Tools) → Wi‑Fi → хлопок. Запасной путь: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**. Кабель в **XIAO**.  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
 
 **Полная инструкция DIY** — от чипа XVF и ESP до корпуса, ветрозащиты и монтажа на месте. Не только прошивка.
@@ -96,15 +96,14 @@ SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de
 
 #### Способ A — в браузере (рекомендуется)
 
-Без `pip` и командной строки: [ESPWebTool (esptool.spacehuhn.com)](https://esptool.spacehuhn.com/).
+Без `pip` и командной строки:
 
-1. Скачайте `firmware-nevod_diy.bin` из [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) (сейчас 0.17.2) или versioned [`nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases).
-2. По желанию сверьте sha256 с полем `sha256` в `firmware-nevod_diy.manifest.json`.
-3. Кабель в USB‑C **на XIAO** (не у 3.5 mm).
-4. Откройте [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) в **Chrome / Edge / Opera**.
-5. **Connect** → выберите порт платы. Если порта нет: зажмите **BOOT** на XIAO → коротко **RESET** → отпустите **BOOT**, снова Connect.
-6. Добавьте `.bin`, адрес **`0x0`** (не `0x10000`).
-7. **Program** → дождитесь успеха → RESET / переподключите питание.
+1. Откройте [Час 1 / Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) **или** этот лендинг → **Прошить в браузере** (ESP Web Tools, канал `diy-ota`).
+2. Кабель в USB‑C **на XIAO** (не у 3.5 mm). Chrome / Edge.
+3. **Install** → выберите порт. Если порта нет: **BOOT** → короткий **RESET** → отпустить **BOOT**.
+4. Дождитесь успеха → RESET / переподключите питание.
+
+Запасной web‑flasher без манифеста: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) — файл `firmware-nevod_diy.bin`, адрес **`0x0`**.
 
 **Важно:** запись с `0x0` **стирает** Wi‑Fi и настройки — потом шаг 3 заново. Safari / Firefox / телефон не подойдут (нет Web Serial). WSL часто не видит USB — лучше Windows/macOS или Linux без WSL.
 
@@ -453,7 +452,7 @@ On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, one retry.
 
 Full image → address **`0x0`**.
 
-**A (recommended):** [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) in Chrome/Edge/Opera → Connect → add `firmware-nevod_diy.bin` at **`0x0`** → Program. Cable on **XIAO**. BOOT+RESET if no port. Safari/Firefox/phone: no Web Serial.
+**A (recommended):** [Hour 1 Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) (ESP Web Tools) or [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with `firmware-nevod_diy.bin` at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port. Safari/Firefox/phone: no Web Serial.
 
 **B (CLI fallback):**
 

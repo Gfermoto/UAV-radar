@@ -242,10 +242,51 @@ code {
   line-height: 1.6;
 }
 
-.cta-row {
+.flash-box {
+  margin: 0.85rem 0 1.25rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink-soft);
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 0.65rem;
+}
+.flash-box esp-web-install-button {
+  display: block;
+  width: 100%;
+}
+.flash-box esp-web-install-button button,
+.flash-box .btn {
+  width: 100%;
+  max-width: 22rem;
+  min-height: 3rem;
+}
+.flash-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.mast-note {
+  margin-top: 0.85rem;
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.steps > li {
+  padding: 1.5rem 0 0;
+  scroll-margin-top: 4.25rem;
+}
+.steps h2 {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
+}
+.steps p {
+  margin: 0 0 0.75rem;
 }
 
 .btn {
