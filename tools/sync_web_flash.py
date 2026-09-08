@@ -63,10 +63,18 @@ def assert_factory_image(blob: bytes) -> None:
         raise FlashSyncError(f"factory image too small: {len(blob)}")
     if blob[0] != 0xE9:
         raise FlashSyncError("missing bootloader magic at 0x0")
+    if blob[2] != 0x02:
+        raise FlashSyncError(
+            f"bootloader flash mode must be DIO (2), got {blob[2]}"
+        )
     if blob[0x8000] != 0xAA:
         raise FlashSyncError("missing partition magic at 0x8000")
     if blob[0x10000] != 0xE9:
         raise FlashSyncError("missing app magic at 0x10000")
+    if blob[0x10002] != 0x02:
+        raise FlashSyncError(
+            f"app flash mode must be DIO (2), got {blob[0x10002]}"
+        )
 
 
 def merge_factory(app: Path, out: Path) -> None:
@@ -84,7 +92,7 @@ def merge_factory(app: Path, out: Path) -> None:
         "esp32s3",
         "merge-bin",
         "--flash-mode",
-        "qio",
+        "dio",
         "--flash-freq",
         "80m",
         "--flash-size",
