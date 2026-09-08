@@ -4,7 +4,7 @@
 
 Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.17.2** · versioned [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)).
 
-**Быстрый путь:** [За час](https://gfermoto.github.io/UAV-radar/hour1.html) — Install (ESP Web Tools) → Wi‑Fi → хлопок; желательно DSP XVF **1.0.8** (стабильнее азимут). Запасной путь: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**. Кабель в **XIAO**.  
+**Быстрый путь:** [лендинг](https://gfermoto.github.io/UAV-radar/) → **Прошить плату** (Chrome / Edge, кабель в XIAO). Запасной файл: [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) на [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**.  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
 
 **Полная инструкция DIY** — от чипа XVF и ESP до корпуса, ветрозащиты и монтажа на месте. Не только прошивка.
@@ -45,7 +45,7 @@
 1. Комплект платы по [BOM](BOM.md) (XIAO + XVF3800).
 2. USB‑кабель **с данными** (дешёвые «только зарядка» не подойдут).
 3. Компьютер с **Chrome / Edge / Opera** (нужен Web Serial) — Windows / macOS / Linux. На телефоне не шьём.
-4. Из релиза [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) / [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) файл **`firmware-nevod_diy.bin`** (рядом `.sig` и `firmware-nevod_diy.manifest.json` — для проверки).
+4. Первый USB-flash: кнопка **Прошить плату** на [лендинге](https://gfermoto.github.io/UAV-radar/) или файл [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) (полный образ на `0x0`). Релиз [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) — канал OTA уже прошитого узла, не для первой заливки.
 5. Домашний Wi‑Fi **только 2.4 ГГц** (плата не видит 5 ГГц).
 6. Для калибровки громкости — **любой шумомер** (бытовой ок). Без него узел работает, но цифры «дБ» условные.
 7. Телефон или ноутбук для настройки Wi‑Fi.
@@ -92,18 +92,18 @@ SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de
 
 ### 2. Прошивка ESP (XIAO)
 
-Наш `firmware-nevod_diy.bin` — **полный образ** (bootloader + app). Его шьют по адресу **`0x0`**.
+На лендинге лежит **полный образ** (bootloader + app). Его шьют по адресу **`0x0`**.
 
 #### Способ A — в браузере (рекомендуется)
 
 Без `pip` и командной строки:
 
-1. Откройте [За час / Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) **или** лендинг → **Прошить плату** (ESP Web Tools, канал `diy-ota`).
+1. Откройте [лендинг](https://gfermoto.github.io/UAV-radar/) → **Прошить плату** (или [За час](https://gfermoto.github.io/UAV-radar/hour1.html#flash)).
 2. Кабель в USB‑C **на XIAO** (не у 3.5 mm). Chrome / Edge.
-3. **Install** → выберите порт. Если порта нет: **BOOT** → короткий **RESET** → отпустить **BOOT**.
+3. Выберите порт. Если порта нет: **BOOT** → короткий **RESET** → отпустить **BOOT**.
 4. Дождитесь успеха → RESET / переподключите питание.
 
-Запасной web‑flasher без манифеста: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) — файл `firmware-nevod_diy.bin`, адрес **`0x0`**.
+Запасной web‑flasher: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) — тот же файл с лендинга, адрес **`0x0`**.
 
 **Важно:** запись с `0x0` **стирает** Wi‑Fi и настройки — потом шаг 3 заново. Safari / Firefox / телефон не подойдут (нет Web Serial). WSL часто не видит USB — лучше Windows/macOS или Linux без WSL.
 
@@ -436,7 +436,7 @@ NEVOD DIY **fully replaces** RTSP Mic.
 
 ### Gear
 
-Kit from [BOM](BOM.md), data USB cable, **Chrome / Edge / Opera**, current [`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) / [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) `firmware-nevod_diy.bin`, **2.4 GHz** Wi‑Fi, optional SPL meter.
+Kit from [BOM](BOM.md), data USB cable, **Chrome / Edge / Opera**, first flash from the [landing](https://gfermoto.github.io/UAV-radar/) (factory `.bin` on Pages), **2.4 GHz** Wi‑Fi, optional SPL meter.
 
 Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
@@ -452,7 +452,7 @@ On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, one retry.
 
 Full image → address **`0x0`**.
 
-**A (recommended):** [In an hour / Install](https://gfermoto.github.io/UAV-radar/hour1.html#flash) (ESP Web Tools) or [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with `firmware-nevod_diy.bin` at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port. Safari/Firefox/phone: no Web Serial.
+**A (recommended):** [Landing → Flash](https://gfermoto.github.io/UAV-radar/) (or [In an hour](https://gfermoto.github.io/UAV-radar/hour1.html#flash)). Same-page Web Serial. Fallback: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with the [landing `.bin`](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port.
 
 **B (CLI fallback):**
 

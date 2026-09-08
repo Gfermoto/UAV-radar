@@ -53,7 +53,7 @@
         </esp-web-install-button>
         <a class="btn btn-ghost" href="./hour1.html" data-i18n="hero.cta2">За час: узел живой</a>
       </div>
-      <p class="flash-note mast-note" data-i18n="hero.hint">Не переход на другой сайт: откроет выбор USB-порта здесь (Chrome/Edge). Кабель в XIAO.</p>
+      <p class="flash-note mast-note" data-i18n="hero.hint">Chrome или Edge, кабель в XIAO. Один клик на этой странице.</p>
     </header>
 
     <figure class="shot">
@@ -81,9 +81,9 @@
           <esp-web-install-button manifest="./flash/manifest.json">
             <button type="button" slot="activate" class="btn btn-primary" data-i18n="flash.install">Прошить плату</button>
           </esp-web-install-button>
-          <p class="flash-note" data-i18n-html="flash.note">Канал <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota"><code>diy-ota</code></a> (сейчас 0.17.2). Кнопка шьёт с этой страницы через Web Serial — не уводит на чужой сайт. Телефон: только скачать .bin.</p>
+          <p class="flash-note" data-i18n="flash.note">Chrome / Edge, кабель в XIAO. Телефон — скачайте файл.</p>
           <p class="flash-note">
-            <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="flash.bin">Скачать .bin</a>
+            <a href="./flash/firmware-nevod_diy.bin" data-i18n="flash.bin">Скачать .bin</a>
             · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> (<code>0x0</code>)
           </p>
         </div>
@@ -134,7 +134,7 @@
           "hero.lead": "Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака.",
           "hero.cta1": "Прошить плату",
           "hero.cta2": "За час: узел живой",
-          "hero.hint": "Не переход на другой сайт: откроет выбор USB-порта здесь (Chrome/Edge). Кабель в XIAO.",
+          "hero.hint": "Chrome или Edge, кабель в XIAO. Один клик на этой странице.",
           "shot.cap": "В WebUI сразу видно направление, откуда идёт звук.",
           "how.h": "Как это работает",
           "how.p": "Четыре микрофона (XVF3800) + нейросеть на плате: распознаёт пропеллер или ДВС локально, без отправки аудио. Пеленг и спектр — в браузере у вас дома.",
@@ -144,7 +144,7 @@
           "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">корпус STL</a>.",
           "flash.h": "Прошивка",
           "flash.install": "Прошить плату",
-          "flash.note": "Канал <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (сейчас 0.17.2). Кнопка шьёт с этой страницы через Web Serial — не уводит на чужой сайт. Телефон: только скачать .bin.",
+          "flash.note": "Chrome / Edge, кабель в XIAO. Телефон — скачайте файл.",
           "flash.bin": "Скачать .bin",
           "tech.1": "<strong>За час.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href=\"./hour1.html\">за час</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.",
@@ -164,7 +164,7 @@
           "hero.lead": "An ESP32-S3 acoustic node hears drones over your property, shows bearing in the web UI, and alerts via MQTT or Home Assistant — no cloud required.",
           "hero.cta1": "Flash the board",
           "hero.cta2": "Alive in an hour",
-          "hero.hint": "Stays on this page: opens a USB port picker here (Chrome/Edge). Cable on XIAO.",
+          "hero.hint": "Chrome or Edge, cable on XIAO. One click on this page.",
           "shot.cap": "The web UI shows where the sound is coming from.",
           "how.h": "How it works",
           "how.p": "Four mics (XVF3800) plus an on-board neural net: props or ICE locally, audio stays off the wire. Bearing and spectrum in your browser.",
@@ -174,7 +174,7 @@
           "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure STL</a>.",
           "flash.h": "Firmware",
           "flash.install": "Flash the board",
-          "flash.note": "Channel <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota\"><code>diy-ota</code></a> (now 0.17.2). The button flashes from this page via Web Serial — it does not send you elsewhere. Phone: download .bin only.",
+          "flash.note": "Chrome / Edge, cable on XIAO. Phone — download the file.",
           "flash.bin": "Download .bin",
           "tech.1": "<strong>In an hour.</strong> Flash → <code>NV…</code> AP → clap and bearing. Details: <a href=\"./hour1.html\">quick start</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> AP password = SSID in caps; change the WebUI password after joining home Wi‑Fi.",
