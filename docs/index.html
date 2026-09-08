@@ -81,7 +81,7 @@
           <esp-web-install-button manifest="./flash/manifest.json">
             <button type="button" slot="activate" class="btn btn-primary" data-i18n="flash.install">Прошить плату</button>
           </esp-web-install-button>
-          <p class="flash-note" data-i18n="flash.note">После 100% закройте окно. Erase device — нет. Телефон — скачайте файл.</p>
+          <p class="flash-note" data-i18n="flash.note">После 100% закройте окно. Erase по умолчанию снят; галочка ок, если порт не моргает. Телефон — скачайте файл.</p>
           <p class="flash-note">
             <a href="./flash/firmware-nevod_diy.bin" data-i18n="flash.bin">Скачать .bin</a>
             · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> (<code>0x0</code>)
@@ -144,7 +144,7 @@
           "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">корпус STL</a>.",
           "flash.h": "Прошивка",
           "flash.install": "Прошить плату",
-          "flash.note": "После 100% закройте окно. Erase device — нет. Телефон — скачайте файл.",
+          "flash.note": "После 100% закройте окно. Erase по умолчанию снят; галочка ок, если порт не моргает. Телефон — скачайте файл.",
           "flash.bin": "Скачать .bin",
           "tech.1": "<strong>За час.</strong> Flash → точка <code>NV…</code> → хлопок и пеленг. Подробно: <a href=\"./hour1.html\">за час</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> Пароль точки = SSID заглавными; после домашней сети смените пароль WebUI.",
@@ -174,7 +174,7 @@
           "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure STL</a>.",
           "flash.h": "Firmware",
           "flash.install": "Flash the board",
-          "flash.note": "After 100% close the dialog. Erase device — No. Phone — download the file.",
+          "flash.note": "After 100% close the dialog. Erase is off by default; check it if the port is stable. Phone — download the file.",
           "flash.bin": "Download .bin",
           "tech.1": "<strong>In an hour.</strong> Flash → <code>NV…</code> AP → clap and bearing. Details: <a href=\"./hour1.html\">quick start</a>.",
           "tech.2": "<strong>Wi‑Fi.</strong> AP password = SSID in caps; change the WebUI password after joining home Wi‑Fi.",
