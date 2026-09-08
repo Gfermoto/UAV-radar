@@ -15,11 +15,14 @@ from sync_web_flash import (  # noqa: E402
     FlashSyncError,
     assert_cors_safe_manifest,
     assert_factory_image,
+    semver_from_ota_title,
 )
 
 
 class WebFlashManifestTests(unittest.TestCase):
-    def test_checked_in_manifest_is_cors_safe(self) -> None:
+    def test_semver_from_ota_title(self) -> None:
+        self.assertEqual(semver_from_ota_title("nevod-diy-v0.17.2-ota"), "0.17.2")
+        self.assertEqual(semver_from_ota_title("v0.17.2-ota"), "0.17.2")
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
         assert_cors_safe_manifest(man)
         self.assertEqual(man["version"], "0.17.2")

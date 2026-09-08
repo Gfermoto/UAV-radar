@@ -1,0 +1,59 @@
+name: sync-web-flash
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published, edited, released]
+
+concurrency:
+  group: sync-web-flash
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  factory:
+    if: github.event_name == 'workflow_dispatch' || github.event.release.tag_name == 'diy-ota'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install esptool
+        run: pip install 'esptool>=4.8'
+      - name: Download diy-ota app
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/diy-ota
+          gh release download diy-ota --repo "${{ github.repository }}" \
+            --pattern firmware-nevod_diy.bin --dir /tmp/diy-ota --clobber
+          NAME=$(gh release view diy-ota --repo "${{ github.repository }}" --json name --jq .name)
+          echo "OTA_TITLE=$NAME" >> "$GITHUB_ENV"
+      - name: Merge factory for Pages
+        run: |
+          VER=$(python3 - <<'PY'
+          import os, sys
+          sys.path.insert(0, "tools")
+          from sync_web_flash import semver_from_ota_title
+          print(semver_from_ota_title(os.environ["OTA_TITLE"]))
+          PY
+          )
+          python3 tools/sync_web_flash.py --app /tmp/diy-ota/firmware-nevod_diy.bin --version "$VER"
+      - name: Commit factory if changed
+        env:
+          OTA_TITLE: ${{ env.OTA_TITLE }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/flash/firmware-nevod_diy.bin docs/flash/manifest.json
+          if git diff --cached --quiet; then
+            echo "landing factory already current"
+            exit 0
+          fi
+          git commit -m "chore(landing): factory ${OTA_TITLE} с diy-ota"
+          git push origin HEAD:main
