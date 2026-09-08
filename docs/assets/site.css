@@ -254,6 +254,13 @@ code {
   line-height: 1.6;
 }
 
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.15rem;
+}
+
 .flash-box {
   margin: 0.85rem 0 1.25rem;
   padding: 1.1rem 1.15rem;
@@ -513,10 +520,11 @@ code {
 .flash-hero {
   align-items: stretch;
 }
-.flash-hero esp-web-install-button {
-  display: block;
-  flex: 1 1 14rem;
-  max-width: 22rem;
+.flash-hero esp-web-install-button,
+.flash-hero > .btn {
+  display: flex;
+  flex: 1 1 12rem;
+  min-width: min(100%, 12rem);
 }
 .flash-hero esp-web-install-button .btn,
 .flash-hero esp-web-install-button button {
