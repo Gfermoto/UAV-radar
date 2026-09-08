@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -18,10 +19,20 @@ PARTS = FLASH / "parts"
 MANIFEST = FLASH / "manifest.json"
 FACTORY = FLASH / "firmware-nevod_diy.bin"
 FACTORY_REL = "firmware-nevod_diy.bin"
+SEMVER_RE = re.compile(
+    r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
+)
 
 
 class FlashSyncError(RuntimeError):
     """Fail-closed web-flash sync error."""
+
+
+def semver_from_ota_title(name: str) -> str:
+    match = SEMVER_RE.search(name or "")
+    if match is None:
+        raise FlashSyncError(f"no semver in OTA title: {name!r}")
+    return match.group(0)
 
 
 def assert_cors_safe_manifest(man: dict) -> None:
