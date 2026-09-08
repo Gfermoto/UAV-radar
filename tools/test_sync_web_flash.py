@@ -26,6 +26,8 @@ class WebFlashManifestTests(unittest.TestCase):
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
         assert_cors_safe_manifest(man)
         self.assertEqual(man["version"], "0.17.2")
+        self.assertEqual(man["new_install_improv_wait_time"], 0)
+        self.assertIs(man["new_install_prompt_erase"], True)
 
     def test_rejects_github_release_url(self) -> None:
         man = {
@@ -43,6 +45,16 @@ class WebFlashManifestTests(unittest.TestCase):
                 }
             ],
         }
+        with self.assertRaises(FlashSyncError):
+            assert_cors_safe_manifest(man)
+
+    def test_rejects_improv_wait_and_auto_erase(self) -> None:
+        man = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        man["new_install_improv_wait_time"] = 10
+        with self.assertRaises(FlashSyncError):
+            assert_cors_safe_manifest(man)
+        man["new_install_improv_wait_time"] = 0
+        man["new_install_prompt_erase"] = False
         with self.assertRaises(FlashSyncError):
             assert_cors_safe_manifest(man)
 
