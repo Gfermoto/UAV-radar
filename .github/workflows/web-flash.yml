@@ -1,0 +1,27 @@
+name: web-flash
+
+on:
+  push:
+    paths:
+      - "docs/flash/**"
+      - "tools/sync_web_flash.py"
+      - "tools/test_sync_web_flash.py"
+      - ".github/workflows/web-flash.yml"
+  pull_request:
+    paths:
+      - "docs/flash/**"
+      - "tools/sync_web_flash.py"
+      - "tools/test_sync_web_flash.py"
+      - ".github/workflows/web-flash.yml"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Manifest + factory layout
+        run: python3 tools/test_sync_web_flash.py

@@ -50,8 +50,8 @@
           <esp-web-install-button manifest="./flash/manifest.json">
             <button type="button" slot="activate" class="btn btn-primary" data-i18n="install">Прошить плату</button>
           </esp-web-install-button>
-          <p class="flash-note" data-i18n="s1.note">Кнопка шьёт прямо здесь (Web Serial), без перехода на другой сайт. Нужен Chrome / Edge на ПК. Телефон — скачайте .bin.</p>
-          <p class="flash-note"><a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota" data-i18n="s1.bin">Скачать .bin (diy-ota)</a>
+          <p class="flash-note" data-i18n="s1.note">Chrome / Edge, кабель в XIAO. Телефон — скачайте файл.</p>
+          <p class="flash-note"><a href="./flash/firmware-nevod_diy.bin" data-i18n="s1.bin">Скачать .bin</a>
             · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> · адрес <code>0x0</code></p>
         </div>
       </li>
@@ -92,8 +92,8 @@
           "s1.h": "1. Прошивка",
           "s1.p": "Chrome или Edge, USB‑C в модуль XIAO (не у разъёма 3.5 mm). Нажмите Install, выберите порт. При необходимости: BOOT → короткий RESET → отпустить BOOT.",
           "install": "Прошить плату",
-          "s1.note": "Кнопка шьёт прямо здесь (Web Serial), без перехода на другой сайт. Нужен Chrome / Edge на ПК. Телефон — скачайте .bin.",
-          "s1.bin": "Скачать .bin (diy-ota)",
+          "s1.note": "Chrome / Edge, кабель в XIAO. Телефон — скачайте файл.",
+          "s1.bin": "Скачать .bin",
           "s2.h": "2. Wi‑Fi",
           "s2.p": "Подключитесь к точке <code>NV…</code> (пароль = SSID, <strong>ЗАГЛАВНЫЕ</strong>). Откройте <code>http://192.168.4.1</code>, укажите домашнюю сеть <strong>2.4 ГГц</strong>. После — войдите в WebUI (<code>admin</code> / <code>nevod-change-me</code>) и сразу смените пароль.",
           "s3.h": "3. Проверка",
@@ -112,8 +112,8 @@
           "s1.h": "1. Flash",
           "s1.p": "Chrome or Edge, USB‑C on the XIAO module (not the 3.5 mm jack side). Hit Install and pick the port. If needed: hold BOOT → short RESET → release BOOT.",
           "install": "Flash the board",
-          "s1.note": "The button flashes right here (Web Serial) — no other site. Needs Chrome / Edge on a PC. Phone — download the .bin.",
-          "s1.bin": "Download .bin (diy-ota)",
+          "s1.note": "Chrome / Edge, cable on XIAO. Phone — download the file.",
+          "s1.bin": "Download .bin",
           "s2.h": "2. Wi‑Fi",
           "s2.p": "Join the <code>NV…</code> AP (password = SSID, <strong>UPPERCASE</strong>). Open <code>http://192.168.4.1</code>, add your <strong>2.4 GHz</strong> home network. Then open the WebUI (<code>admin</code> / <code>nevod-change-me</code>) and change the password right away.",
           "s3.h": "3. Check",
