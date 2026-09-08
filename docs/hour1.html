@@ -45,7 +45,7 @@
     <ol class="steps">
       <li id="flash">
         <h2 data-i18n="s1.h">1. Прошивка</h2>
-        <p data-i18n="s1.p">Chrome или Edge, USB‑C в модуль <strong>XIAO</strong> (не у разъёма 3.5 mm). Install → порт. Erase device — нет. После 100% сразу закройте окно. Если COM моргает — выньте USB на секунду.</p>
+        <p data-i18n="s1.p">Chrome или Edge, USB‑C в модуль <strong>XIAO</strong> (не у разъёма 3.5 mm). Install → порт. Erase по умолчанию снят; галочка ок, если COM не моргает. После 100% сразу закройте окно. Если COM моргает — выньте USB на секунду.</p>
         <div class="flash-box">
           <esp-web-install-button manifest="./flash/manifest.json">
             <button type="button" slot="activate" class="btn btn-primary" data-i18n="install">Прошить плату</button>
@@ -90,7 +90,7 @@
           "h1": "За час: узел живой",
           "lead": "Плата прошита, слышит хлопок, пеленг на экране. MQTT, корпус и облако — потом.",
           "s1.h": "1. Прошивка",
-          "s1.p": "Chrome или Edge, USB‑C в модуль XIAO (не у разъёма 3.5 mm). Install → порт. Erase device — нет. После 100% сразу закройте окно. Если COM моргает — выньте USB на секунду.",
+          "s1.p": "Chrome или Edge, USB‑C в модуль XIAO (не у разъёма 3.5 mm). Install → порт. Erase по умолчанию снят; галочка ок, если COM не моргает. После 100% сразу закройте окно. Если COM моргает — выньте USB на секунду.",
           "install": "Прошить плату",
           "s1.note": "После 100% закройте окно. Не оставляйте вкладку с открытым портом. Телефон — скачайте файл.",
           "s1.bin": "Скачать .bin",
@@ -110,7 +110,7 @@
           "h1": "Alive in an hour",
           "lead": "Flash the board, hear a clap, see bearing on screen. MQTT, enclosure, and cloud come later.",
           "s1.h": "1. Flash",
-          "s1.p": "Chrome or Edge, USB‑C on the XIAO module (not the 3.5 mm jack side). Install → pick the port. Erase device — No. After 100% close the dialog. If COM blinks, unplug USB for a second.",
+          "s1.p": "Chrome or Edge, USB‑C on the XIAO module (not the 3.5 mm jack side). Install → pick the port. Erase is off by default; check it if COM is stable. After 100% close the dialog. If COM blinks, unplug USB for a second.",
           "install": "Flash the board",
           "s1.note": "After 100% close the dialog. Do not leave the tab holding the serial port. Phone — download the file.",
           "s1.bin": "Download .bin",
