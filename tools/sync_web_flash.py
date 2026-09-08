@@ -56,6 +56,16 @@ def assert_cors_safe_manifest(man: dict) -> None:
                 raise FlashSyncError(f"unexpected part path {path!r}")
             if int(part.get("offset", -1)) != 0:
                 raise FlashSyncError("factory image offset must be 0")
+    if man.get("new_install_improv_wait_time") != 0:
+        raise FlashSyncError(
+            "new_install_improv_wait_time must be 0 "
+            "(XIAO CDC DTR reset loop after Install)"
+        )
+    if man.get("new_install_prompt_erase") is not True:
+        raise FlashSyncError(
+            "new_install_prompt_erase must be true "
+            "(false = ESP Web Tools v10 auto-erases the whole chip)"
+        )
 
 
 def assert_factory_image(blob: bytes) -> None:
@@ -116,7 +126,10 @@ def write_manifest(version: str) -> None:
     man = {
         "name": "NEVOD DIY",
         "version": version,
+        # false → v10 стирает весь чип. true → диалог; в UI: Erase — нет.
         "new_install_prompt_erase": True,
+        # 0: не открывать COM после записи (Improv). Иначе DTR → цикл COM.
+        "new_install_improv_wait_time": 0,
         "builds": [
             {
                 "chipFamily": "ESP32-S3",
