@@ -49,6 +49,8 @@ class WebFlashManifestTests(unittest.TestCase):
     def test_factory_image_layout(self) -> None:
         blob = FACTORY.read_bytes()
         assert_factory_image(blob)
+        self.assertEqual(blob[2], 0x02)
+        self.assertEqual(blob[0x10002], 0x02)
         self.assertGreater(len(blob), 0x10000)
 
 
