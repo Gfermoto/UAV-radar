@@ -50,7 +50,7 @@ DIY DePIN: железо у вас дома — акустика локально
 
 1. **Смета ядра ≈ ₽9 793** (снимок) — [docs/BOM.md](docs/BOM.md)
 2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)
-3. **За час** — [quick start](https://gfermoto.github.io/UAV-radar/hour1.html): Install → Wi‑Fi → хлопок; желательно DSP XVF **1.0.8** · полный гайд: [DIY_GUIDE](docs/DIY_GUIDE.md)
+3. **Прошить** — [лендинг](https://gfermoto.github.io/UAV-radar/) → **Прошить плату** → Wi‑Fi → хлопок · полный гайд: [DIY_GUIDE](docs/DIY_GUIDE.md)
 4. Собрали? Опишите опыт — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose)
 
 Локально достаточно WebUI / MQTT / Home Assistant. Народный радар — когда готовы: [кабинет](https://nevod.endorphine.agency).
