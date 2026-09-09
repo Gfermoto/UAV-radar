@@ -73,7 +73,7 @@
 
       <section id="kit">
         <h2 data-i18n="kit.h">Сборка</h2>
-        <p class="price" data-i18n-html="kit.p">Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md">Смета</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1">корпус STL</a>.</p>
+        <p class="price" data-i18n-html="kit.p">Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md">Смета</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1">корпус</a>.</p>
         <table class="ports">
           <thead>
             <tr>
@@ -122,7 +122,7 @@
           <esp-web-install-button manifest="./flash/manifest.json">
             <button type="button" slot="activate" class="btn btn-primary" data-i18n="esp.btn">Прошить ESP</button>
           </esp-web-install-button>
-          <p class="flash-note" data-i18n="esp.note">Erase по умолчанию снят; галочка ок, если порт не моргает. Телефон — скачайте файл.</p>
+          <p class="flash-note" data-i18n="esp.note">Erase по умолчанию снят; галочка ок, если порт не моргает.</p>
           <p class="flash-note">
             <a href="./flash/firmware-nevod_diy.bin" data-i18n="esp.bin">Скачать .bin</a>
             · <a href="https://esptool.spacehuhn.com/" rel="noopener noreferrer">esptool.spacehuhn.com</a> (<code>0x0</code>)
@@ -137,7 +137,10 @@
           <li data-i18n="check.2">Откройте WebUI, хлопните — пеленг должен сдвинуться.</li>
           <li data-i18n="check.3">После домашней Wi‑Fi смените пароль WebUI.</li>
         </ul>
-        <p class="flash-note" data-i18n-html="check.more">Корпус, калибровка, HA — в <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md">полной инструкции</a> на GitHub.</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="guide.cta">Полная инструкция DIY</a>
+        </div>
+        <p class="flash-note" data-i18n="check.more">Там же: корпус, калибровка микрофона, MQTT / Home Assistant и OTA.</p>
       </section>
 
       <section id="net">
@@ -183,7 +186,7 @@
           "yard.h": "Сначала — свой двор",
           "yard.p": "Прошили, Wi‑Fi, MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Облако NEVOD не обязательно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.",
           "kit.h": "Сборка",
-          "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">корпус STL</a>.",
+          "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">корпус</a>.",
           "ports.th.port": "USB‑C",
           "ports.th.use": "Зачем",
           "ports.dsp": "У гнезда 3.5 mm (сторона XVF)",
@@ -203,13 +206,14 @@
           "esp.h": "Прошивка ESP",
           "esp.lead": "Кабель в модуль <strong>XIAO</strong> (не у 3.5 mm). Chrome или Edge. После 100% закройте окно; если порт моргает — выньте USB на секунду.",
           "esp.btn": "Прошить ESP",
-          "esp.note": "Erase по умолчанию снят; галочка ок, если порт не моргает. Телефон — скачайте файл.",
+          "esp.note": "Erase по умолчанию снят; галочка ок, если порт не моргает.",
           "esp.bin": "Скачать .bin",
           "check.h": "Проверка",
           "check.1": "Точка <code>NV…</code>, пароль = SSID заглавными.",
           "check.2": "Откройте WebUI, хлопните — пеленг должен сдвинуться.",
           "check.3": "После домашней Wi‑Fi смените пароль WebUI.",
-          "check.more": "Корпус, калибровка, HA — в <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">полной инструкции</a> на GitHub.",
+          "guide.cta": "Полная инструкция DIY",
+          "check.more": "Там же: корпус, калибровка микрофона, MQTT / Home Assistant и OTA.",
           "net.h": "Когда готовы — народный радар",
           "net.p": "Токен из <a href=\"https://nevod.endorphine.agency\">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать ранее. Координаты нод сеть не публикует.",
           "close": "Раннее оповещение начинается с одного рабочего узла — своего или соседского.",
@@ -231,7 +235,7 @@
           "yard.h": "Start with your own yard",
           "yard.p": "Flash, Wi‑Fi, MQTT or Home Assistant — you get a local alert and can act on it, including automatically. NEVOD cloud is optional. One node covers a sector; a neighbor’s second node expands coverage.",
           "kit.h": "Build",
-          "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure STL</a>.",
+          "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure</a>.",
           "ports.th.port": "USB‑C",
           "ports.th.use": "Use",
           "ports.dsp": "By the 3.5 mm jack (XVF side)",
@@ -251,13 +255,14 @@
           "esp.h": "Flash ESP",
           "esp.lead": "Cable on the <strong>XIAO</strong> (not the 3.5 mm side). Chrome or Edge. After 100% close the dialog; if the port blinks, unplug USB for a second.",
           "esp.btn": "Flash ESP",
-          "esp.note": "Erase is off by default; check it if the port is stable. Phone — download the file.",
+          "esp.note": "Erase is off by default; check it if the port is stable.",
           "esp.bin": "Download .bin",
           "check.h": "Check",
           "check.1": "AP <code>NV…</code>, password = SSID in caps.",
           "check.2": "Open the web UI, clap — bearing should move.",
           "check.3": "After joining home Wi‑Fi, change the WebUI password.",
-          "check.more": "Enclosure, calibration, HA — in the <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md\">full guide</a> on GitHub.",
+          "guide.cta": "Full DIY guide",
+          "check.more": "Same guide: enclosure, mic calibration, MQTT / Home Assistant, and OTA.",
           "net.h": "When ready — people’s radar",
           "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on the shared early-warning network. More sensors — better chance to react earlier. Node coordinates are not published.",
           "close": "Early warning starts with one working node — yours or a neighbor’s.",
