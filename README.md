@@ -110,9 +110,6 @@ DIY DePIN: железо у вас дома — акустика локально
 | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Корпус |
 | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Полный DIY |
 | [docs/LED.md](docs/LED.md) | Кольцо DoA / статус |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Ядра, аудио, задачи |
-| [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | MQTT, NVS, команды |
-| [openapi-webui.yaml](openapi-webui.yaml) | HTTP API |
 | [SECURITY.md](SECURITY.md) | Уязвимости |
 | [tools/hil/README.md](tools/hil/README.md) | Проверки на устройстве |
 
@@ -210,8 +207,5 @@ Started as RTSP sky-listening for birds. Same board later for UAV acoustic monit
 | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Enclosure |
 | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Full DIY |
 | [docs/LED.md](docs/LED.md) | DoA ring / status LED |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Cores, audio, tasks |
-| [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | MQTT, NVS, commands |
-| [openapi-webui.yaml](openapi-webui.yaml) | HTTP API |
 | [SECURITY.md](SECURITY.md) | Vulnerability reporting |
 | [tools/hil/README.md](tools/hil/README.md) | On-device checks |

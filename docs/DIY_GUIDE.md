@@ -69,7 +69,7 @@
 
 Инструмент: [dfu-util](https://dfu-util.sourceforge.net/) (часто `dfu-util-static.exe` в поставке Seeed).
 
-Многие комплекты уже с нужным образом. **Перешивайте только если версия прошивки чипа не 1.0.8** (нужен именно `…_i2s_slave_v1.0.8_16k`). Не ориентируйтесь на «тишину» в WebUI и **не** на живой азимут: . Сначала проверьте/поставьте **1.0.8**.
+Многие комплекты уже с нужным образом. **Перешивайте только если версия прошивки чипа не 1.0.8** (нужен именно `…_i2s_slave_v1.0.8_16k`). Не решайте по тишине или азимуту в WebUI — сначала проверьте/поставьте **1.0.8**.
 
 **Не берите** файл *I²S master / 48 kHz* — с этим комплектом звук обычно пропадает.
 
@@ -444,7 +444,7 @@ Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
 Flash Seeed **I²S slave 16 kHz v1.0.8**  
 ([bin](https://github.com/respeaker/reSpeaker_XVF3800_USB_4MIC_ARRAY/raw/master/xmos_firmwares/i2s/application_xvf3800_i2s_slave_v1.0.8_16k.bin)).  
-**Reflash only if the chip firmware is not 1.0.8** — do not decide from WebUI silence or a moving azimuth .  
+**Reflash only if the chip firmware is not 1.0.8** — do not decide from WebUI silence or azimuth.  
 DFU **alt=1** only. Do **not** use I²S master 48 kHz.  
 On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, one retry.
 

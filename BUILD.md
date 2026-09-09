@@ -70,8 +70,6 @@ python3 tools/generate_mel_lut.py
 
 Настройки в NVS `rtspmic`. После крупных апгрейдов полезен factory reset.
 
-NVS / MQTT: [docs/API_REFERENCE.md](docs/API_REFERENCE.md). Архитектура: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
 ### Динамик / AEC
 
 Галочка «громкоговоритель / монитор» включает подавление эха и путь ASROUT. Без динамика оставьте выключенной.
@@ -163,8 +161,6 @@ python3 tools/generate_mel_lut.py
 3. In VLC: Media → Open Network → `rtsp://<ip>:554/`
 
 Settings live in NVS namespace `rtspmic`. After major upgrades, a factory reset helps migrations.
-
-NVS / MQTT: [docs/API_REFERENCE.md](docs/API_REFERENCE.md). Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ### Loudspeaker / AEC
 
