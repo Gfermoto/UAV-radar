@@ -129,7 +129,7 @@ DIY DePIN: hardware at home — acoustics locally or on the people’s radar.
 |------|--------|---------|
 | **1. Browse** | Landing + this README | Clarity in two minutes |
 | **2. Try the board** | Open **RTSP Mic** ([MIT](LICENSE)) | Opus / RTSP / WebUI — garden, birds, [BirdNET](https://github.com/kahst/BirdNET-Analyzer) |
-| **3. Build a node** | [BOM](docs/BOM.md) + [enclosure](docs/ENCLOSURE.md) + `nevod-diy-*.bin` | On-device 3-class UAV detect, DoA, MQTT / Home Assistant |
+| **3. Build a node** | [BOM](docs/BOM.md#english) + [enclosure](docs/ENCLOSURE.md#english) + `nevod-diy-*.bin` | On-device 3-class UAV detect, DoA, MQTT / Home Assistant |
 | **4. Grow the network** | Cloud token + coordinates | People’s radar — more nodes, fewer blind spots |
 
 Each new node adds another coverage sector. The network grows from builders, not from a data center.
@@ -139,15 +139,15 @@ Each new node adds another coverage sector. The network grows from builders, not
 | Piece | What you get |
 |-------|----------------|
 | **Open mic** ([MIT](LICENSE), sources here) | Audio → Opus → RTSP + WebUI. [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) · `rtsp-mic-0.3.0.bin` |
-| **NEVOD DIY (sensor)** | Signed `.bin` with **three UAV classes** on ESP32-S3. [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) · full build [DIY_GUIDE.md](docs/DIY_GUIDE.md) |
+| **NEVOD DIY (sensor)** | Signed `.bin` with **three UAV classes** on ESP32-S3. [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) · full build [DIY_GUIDE.md](docs/DIY_GUIDE.md#english) |
 
 Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 
 ### Start tonight
 
-1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md)  
+1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md#english)  
 2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)  
-3. **Landing** — [flash DSP + ESP in browser](https://gfermoto.github.io/UAV-radar/): DSP 1.0.8 → ESP Install → Wi‑Fi → clap · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md)  
+3. **Landing** — [flash DSP + ESP in browser](https://gfermoto.github.io/UAV-radar/): DSP 1.0.8 → ESP Install → Wi‑Fi → clap · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md#english)  
 4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
 
 Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet](https://nevod.endorphine.agency).
@@ -172,9 +172,9 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet
 |----------|-------|
 | Landing | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
 | News (Telegram) | [t.me/UAV_radar](https://t.me/UAV_radar) |
-| BOM | [docs/BOM.md](docs/BOM.md) |
-| Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
-| Full DIY guide | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
+| BOM | [docs/BOM.md](docs/BOM.md#english) |
+| Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md#english) |
+| Full DIY guide | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md#english) |
 | Sensor binary | [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) · [all `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
 | Open mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Build photos | [`img/`](img/) |
@@ -202,9 +202,9 @@ Started as RTSP sky-listening for birds. Same board later for UAV acoustic monit
 | File | About |
 |------|--------|
 | [BUILD.md](BUILD.md) | Build, flash, pins, tests |
-| [docs/BOM.md](docs/BOM.md) | Parts list |
-| [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Enclosure |
-| [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Full DIY |
+| [docs/BOM.md](docs/BOM.md#english) | Parts list |
+| [docs/ENCLOSURE.md](docs/ENCLOSURE.md#english) | Enclosure |
+| [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md#english) | Full DIY |
 | [docs/LED.md](docs/LED.md) | DoA ring / status LED |
 | [SECURITY.md](SECURITY.md) | Vulnerability reporting |
 | [tools/hil/README.md](tools/hil/README.md) | On-device checks |
