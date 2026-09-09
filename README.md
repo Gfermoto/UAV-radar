@@ -12,7 +12,6 @@ DIY DePIN: железо у вас дома — акустика локально
 **[Landing](https://gfermoto.github.io/UAV-radar/)** ·
 **[DIY guide](docs/DIY_GUIDE.md)** ·
 **[BOM ≈ ₽9 800](docs/BOM.md)** ·
-**[Habr](https://habr.com/ru/articles/1077718/)** ·
 **[Releases](https://github.com/Gfermoto/UAV-radar/releases)** ·
 **[Discussions](https://github.com/Gfermoto/UAV-radar/discussions)** ·
 **[Telegram](https://t.me/UAV_radar)**
@@ -74,7 +73,6 @@ DIY DePIN: железо у вас дома — акустика локально
 | Материал | Где |
 |----------|-----|
 | Лендинг | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
-| Статья на Хабре | [Собери узел: DIY-сеть…](https://habr.com/ru/articles/1077718/) |
 | Новости (Telegram) | [t.me/UAV_radar](https://t.me/UAV_radar) |
 | Смета | [docs/BOM.md](docs/BOM.md) |
 | Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
@@ -171,7 +169,6 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet
 | Material | Where |
 |----------|-------|
 | Landing | [gfermoto.github.io/UAV-radar](https://gfermoto.github.io/UAV-radar/) |
-| Habr (RU) | [Собери узел: DIY-сеть…](https://habr.com/ru/articles/1077718/) |
 | News (Telegram) | [t.me/UAV_radar](https://t.me/UAV_radar) |
 | BOM | [docs/BOM.md](docs/BOM.md) |
 | Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
