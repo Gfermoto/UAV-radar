@@ -9,4 +9,4 @@
 ### Что открыто для PR
 - Прошивка **RTSP Mic** (`src/`, `BUILD.md`, тесты)
 ... (24 more lines)
-[lean-ctx: 631→223 tok, -65%]
+[lean-ctx: 629→223 tok, -65%]
