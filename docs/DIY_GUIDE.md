@@ -63,11 +63,15 @@
 
 Нужна прошивка Seeed: **I²S, slave, 16 кГц** (**v1.0.8**). С ней **азимут стабильнее**; без неё узел может работать, но пеленг хуже.
 
+**Быстрый путь (браузер):** [страница DSP](https://gfermoto.github.io/UAV-radar/dsp.html) — Chrome/Edge, WebDFU.
+
+**Вход в DFU (всегда):** кабель в USB‑C **у 3.5 mm** → зажать **Mute** → коротко **Reset** на ReSpeaker (кнопки на противоположных краях) → Mute мигает, кольцо гаснет.
+
 Скачать:  
 [`application_xvf3800_i2s_slave_v1.0.8_16k.bin`](https://github.com/respeaker/reSpeaker_XVF3800_USB_4MIC_ARRAY/raw/master/xmos_firmwares/i2s/application_xvf3800_i2s_slave_v1.0.8_16k.bin)  
 (репозиторий [reSpeaker XVF3800](https://github.com/respeaker/reSpeaker_XVF3800_USB_4MIC_ARRAY)).
 
-Инструмент: [dfu-util](https://dfu-util.sourceforge.net/) (часто `dfu-util-static.exe` в поставке Seeed).
+Инструмент: [dfu-util](https://dfu-util.sourceforge.net/) (часто `dfu-util-static.exe` в поставке Seeed). На Windows при необходимости — [Zadig](https://zadig.akeo.ie/) → WinUSB.
 
 Многие комплекты уже с нужным образом. **Перешивайте только если версия прошивки чипа не 1.0.8** (нужен именно `…_i2s_slave_v1.0.8_16k`). Не решайте по тишине или азимуту в WebUI — сначала проверьте/поставьте **1.0.8**.
 
@@ -81,10 +85,10 @@ dfu-util-static.exe -d 2886:001a -t 4096 -a 1 -D application_xvf3800_i2s_slave_v
 Пошагово:
 
 1. Кабель в USB‑C **у 3.5 mm**.
-2. Плата в режиме DFU (как в инструкции Seeed к ReSpeaker).
+2. Mute → короткий Reset (см. выше) до мигания Mute.
 3. Пишите в слот **Upgrade** (`-a 1`), не Factory (`-a 0`).
 4. Дождитесь 100% и Done. Выньте/вставьте питание.
-5. Если `LIBUSB_ERROR_TIMEOUT` — **не** долбите retry: закройте dfu-util, выдерните кабель ~10 с, потом **одна** новая попытка.
+5. Если `LIBUSB_ERROR_TIMEOUT` — **не** долбите retry: закройте dfu-util, выдерните кабель ~10 с, потом снова Mute+Reset и **одна** новая попытка.
 
 SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de6eef6f2d99eb8`.
 
@@ -444,9 +448,11 @@ Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
 Flash Seeed **I²S slave 16 kHz v1.0.8**  
 ([bin](https://github.com/respeaker/reSpeaker_XVF3800_USB_4MIC_ARRAY/raw/master/xmos_firmwares/i2s/application_xvf3800_i2s_slave_v1.0.8_16k.bin)).  
+**Quick path:** [DSP page](https://gfermoto.github.io/UAV-radar/dsp.html) (Chrome/Edge WebDFU).  
+**DFU entry:** cable at **3.5 mm** → hold **Mute** → short **Reset** on ReSpeaker → Mute blinks, ring off.  
 **Reflash only if the chip firmware is not 1.0.8** — do not decide from WebUI silence or azimuth.  
 DFU **alt=1** only. Do **not** use I²S master 48 kHz.  
-On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, one retry.
+On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, Mute+Reset, one retry.
 
 ### 2. Flash ESP
 
