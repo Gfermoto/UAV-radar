@@ -654,10 +654,18 @@ var dfu = {};
         try {
             await this.device_.reset();
         } catch (error) {
-            if (error == "NetworkError: Unable to reset the device." ||
-                error == "NotFoundError: Device unavailable." ||
-                error == "NotFoundError: The device was disconnected.") {
-                this.logDebug("Ignored reset error");
+            // Chrome throws DOMException; string == never matches. Firmware is
+            // usually already written — ignore known post-download reset failures.
+            const msg = String(error && error.message ? error.message : error);
+            const name = error && error.name ? String(error.name) : "";
+            if (
+                /Unable to reset the device/i.test(msg) ||
+                /Device unavailable/i.test(msg) ||
+                /device was disconnected/i.test(msg) ||
+                name === "NetworkError" ||
+                name === "NotFoundError"
+            ) {
+                this.logDebug("Ignored reset error: " + msg);
             } else {
                 throw "Error during reset for manifestation: " + error;
             }
