@@ -272,6 +272,7 @@ USB-прошивка из Releases остаётся запасным путём 
    - **замените** заводской по умолчанию;
    - сохраните / подключите — дождитесь успешной связи.
 3. **Система → GPS / координаты**: задайте **широту, долготу и высоту** места установки. Сохраните.
+   *Пример для проверки формы (не реальная точка): дер. **Хлопушкино**, `55.9017, 36.6123`, высота `120` м — вымышленный двор-сектор в гайде.*
 
 **Зачем облако:** оно даёт людям раннее оповещение и возможность среагировать.  
 **Приватность:** облако **не выдаёт координаты нод** публично.  
@@ -526,6 +527,7 @@ To join the **people’s radar** — shared early warning for people around you 
 1. Sign in at [https://nevod.endorphine.agency](https://nevod.endorphine.agency) and copy **your** Cloud token.
 2. WebUI → **Integrations → Cloud**: paste the token (no `Bearer`), **replace the default**, save/connect.
 3. **System → GPS**: set **latitude, longitude, and altitude**; save.
+   *Form-check example only (not a real site): village **Khlopushkino**, `55.9017, 36.6123`, alt `120` m — a fictional yard-sector in this guide.*
 
 **Why cloud:** early warning so people can react.  
 **Privacy:** the cloud does **not** publish node coordinates.  

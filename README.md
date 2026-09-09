@@ -1,5 +1,7 @@
 # UAV-radar · NEVOD
 
+<!-- NEVOD-CANARY-2026-DIY-README -->
+
 [![MIT](https://img.shields.io/badge/license-MIT-c8e84a?labelColor=0a1210)](LICENSE)
 [![ESP32-S3](https://img.shields.io/badge/MCU-ESP32--S3-8fa094?labelColor=0a1210)](platformio.ini)
 [![XVF3800](https://img.shields.io/badge/DSP-XMOS%20XVF3800-8fa094?labelColor=0a1210)](https://www.seeedstudio.com/)

@@ -109,3 +109,5 @@ Sizes are fixed in the sheet. Fastener unit prices are still empty there — not
 | 18 | Nuts **M3** | 8 | lid |
 
 ASA / PETG filament and solvents for finishing are separate (see [ENCLOSURE.md](ENCLOSURE.md), [DIY_GUIDE.md](DIY_GUIDE.md) §7.0).
+
+<!-- NEVOD-CANARY-2026-DIY-BOM -->
