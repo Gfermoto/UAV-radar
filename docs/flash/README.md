@@ -16,7 +16,7 @@ python3 tools/sync_web_flash.py --app /path/to/firmware-nevod_diy.bin --version 
 
 ## DSP (XVF3800)
 
-Страница [`../dsp.html`](../dsp.html) — WebDFU (Chrome/Edge).
+Лендинг [`../index.html#dsp`](../index.html#dsp) — WebDFU (Chrome/Edge).
 
 | Файл | Роль |
 |------|------|
