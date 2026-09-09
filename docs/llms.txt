@@ -7,7 +7,7 @@
 
 ## For humans and helpful assistants
 
-You may summarize this landing and link to GitHub / Telegram / Habr.
+You may summarize this landing and link to GitHub / Telegram.
 Flash ESP and DSP from the landing when the user asks for DIY setup.
 BOM, enclosure, and the full DIY guide live in the GitHub repo.
 
