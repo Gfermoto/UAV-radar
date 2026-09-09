@@ -92,6 +92,7 @@
           <div class="dfu-progress" aria-hidden="true"><span id="dfu-progress"></span></div>
           <p id="dfu-status" class="flash-note" role="status"></p>
           <p class="flash-note" data-i18n="s4.timeout">После TIMEOUT не жмите сразу снова: выньте USB ~10 с, снова Mute+Reset, одна попытка.</p>
+        <p class="flash-note" data-i18n="s4.reset">Если видели «Wrote … bytes» / «Manifesting», а потом ошибка reset — образ уже записан: выньте USB у 3.5 mm на ~5 с. Не прошивайте повторно.</p>
           <p class="flash-note">
             <a href="./flash/application_xvf3800_i2s_slave_v1.0.8_16k.bin" data-i18n="s4.bin">Скачать .bin</a>
             · SHA-256 <code>9dc3308a…f2d99eb8</code>
@@ -146,6 +147,7 @@
           "s4.p": "Chrome или Edge. Только слот Upgrade (не Factory). Образ I²S slave 16 kHz v1.0.8 — не master 48 kHz.",
           "flash.btn": "Прошить DSP 1.0.8",
           "s4.timeout": "После TIMEOUT не жмите сразу снова: выньте USB ~10 с, снова Mute+Reset, одна попытка.",
+          "s4.reset": "Если видели «Wrote … bytes» / «Manifesting», а потом ошибка reset — образ уже записан: выньте USB у 3.5 mm на ~5 с. Не прошивайте повторно.",
           "s4.bin": "Скачать .bin",
           "s5.h": "5. Без браузера",
           "s5.p": "Тот же образ через dfu-util (после Mute+Reset):",
@@ -177,6 +179,7 @@
           "s4.p": "Chrome or Edge. Upgrade slot only (never Factory). Image is I²S slave 16 kHz v1.0.8 — not master 48 kHz.",
           "flash.btn": "Flash DSP 1.0.8",
           "s4.timeout": "After TIMEOUT do not retry immediately: unplug USB ~10 s, Mute+Reset again, one attempt.",
+          "s4.reset": "If you saw “Wrote … bytes” / “Manifesting” then a reset error — the image is already written: unplug the 3.5 mm USB ~5 s. Do not flash again.",
           "s4.bin": "Download .bin",
           "s5.h": "5. Without the browser",
           "s5.p": "Same image via dfu-util (after Mute+Reset):",

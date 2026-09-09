@@ -124,10 +124,19 @@
       setProgress(progressEl, firmware.byteLength, firmware.byteLength);
       setStatus(
         statusEl,
-        "Готово. Выньте кабель у 3.5 mm. ESP шьётся на XIAO (лендинг / «за час»)."
+        "Готово. Выньте кабель у 3.5 mm на ~5 с и вставьте снова. ESP шьётся на XIAO."
       );
     } catch (e) {
       var msg = String(e && e.message ? e.message : e);
+      // Write usually finished; browser/OS often cannot USB-reset XVF3800.
+      if (/reset for manifestation|Unable to reset the device/i.test(msg)) {
+        setProgress(progressEl, firmware.byteLength, firmware.byteLength);
+        setStatus(
+          statusEl,
+          "Запись, скорее всего, прошла (сбой только USB reset). Выньте питание/USB у 3.5 mm на ~5 с и вставьте снова — не жмите Flash повторно."
+        );
+        return;
+      }
       if (/timeout|Timeout|NETWORK_ERR|TransferError/i.test(msg)) {
         msg =
           "TIMEOUT / сбой передачи. Не жмите кнопку снова сразу: выньте USB ~10 с, снова Mute+Reset, одна попытка. " +
