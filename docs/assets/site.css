@@ -530,3 +530,53 @@ code {
 .flash-hero esp-web-install-button button {
   width: 100%;
 }
+
+.ports {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.95rem;
+}
+.ports th,
+.ports td {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid rgba(200, 232, 74, 0.15);
+}
+.ports th {
+  color: #8fa094;
+  font-weight: 600;
+}
+.dfu-progress {
+  display: block;
+  height: 0.35rem;
+  margin: 0.75rem 0 0.35rem;
+  background: rgba(143, 160, 148, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.dfu-progress > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #c8e84a;
+  transition: width 0.15s ease;
+  font-size: 0;
+  color: transparent;
+}
+#dfu-status {
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  color: #8fa094;
+}
+code.cmd {
+  display: block;
+  white-space: pre-wrap;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+.flash-section + .flash-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(200, 232, 74, 0.12);
+}

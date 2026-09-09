@@ -147,7 +147,7 @@ Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 
 1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md)  
 2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)  
-3. **In an hour** — [quick start](https://gfermoto.github.io/UAV-radar/hour1.html): Install → Wi‑Fi → clap; preferably DSP XVF **1.0.8** · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md)  
+3. **Landing** — [flash DSP + ESP in browser](https://gfermoto.github.io/UAV-radar/): DSP 1.0.8 → ESP Install → Wi‑Fi → clap · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md)  
 4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
 
 Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet](https://nevod.endorphine.agency).

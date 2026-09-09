@@ -4,7 +4,7 @@
 
 Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.17.2** · versioned [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)).
 
-**Быстрый путь:** [лендинг](https://gfermoto.github.io/UAV-radar/) → **Прошить плату** (Chrome / Edge, кабель в XIAO). Запасной файл: [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) на [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**.  
+**Быстрый путь:** [лендинг](https://gfermoto.github.io/UAV-radar/) — [#dsp](https://gfermoto.github.io/UAV-radar/#dsp) затем [#esp](https://gfermoto.github.io/UAV-radar/#esp) (Chrome / Edge). Запасной файл: [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) на [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**.  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
 
 **Полная инструкция DIY** — от чипа XVF и ESP до корпуса, ветрозащиты и монтажа на месте. Не только прошивка.
@@ -63,7 +63,7 @@
 
 Нужна прошивка Seeed: **I²S, slave, 16 кГц** (**v1.0.8**). С ней **азимут стабильнее**; без неё узел может работать, но пеленг хуже.
 
-**Быстрый путь (браузер):** [страница DSP](https://gfermoto.github.io/UAV-radar/dsp.html) — Chrome/Edge, WebDFU.
+**Быстрый путь (браузер):** [лендинг → DSP](https://gfermoto.github.io/UAV-radar/#dsp) — Chrome/Edge, WebDFU.
 
 **Вход в DFU (всегда):** кабель в USB‑C **у 3.5 mm** → зажать **Mute** → коротко **Reset** на ReSpeaker (кнопки на противоположных краях) → Mute мигает, кольцо гаснет.
 
@@ -102,7 +102,7 @@ SHA-256 образа Seeed: `9dc3308a4db8570603bcc88103d2f0de0291cc92a384d2b25de
 
 Без `pip` и командной строки:
 
-1. Откройте [лендинг](https://gfermoto.github.io/UAV-radar/) → **Прошить плату** (или [За час](https://gfermoto.github.io/UAV-radar/hour1.html#flash)).
+1. Откройте [лендинг](https://gfermoto.github.io/UAV-radar/) → секция **[ESP](https://gfermoto.github.io/UAV-radar/#esp)**.
 2. Кабель в USB‑C **на XIAO** (не у 3.5 mm). Chrome / Edge.
 3. Выберите порт. Если порта нет: **BOOT** → короткий **RESET** → отпустить **BOOT**.
 4. Дождитесь успеха → RESET / переподключите питание.
@@ -448,7 +448,7 @@ Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
 Flash Seeed **I²S slave 16 kHz v1.0.8**  
 ([bin](https://github.com/respeaker/reSpeaker_XVF3800_USB_4MIC_ARRAY/raw/master/xmos_firmwares/i2s/application_xvf3800_i2s_slave_v1.0.8_16k.bin)).  
-**Quick path:** [DSP page](https://gfermoto.github.io/UAV-radar/dsp.html) (Chrome/Edge WebDFU).  
+**Quick path:** [landing → DSP](https://gfermoto.github.io/UAV-radar/#dsp) (Chrome/Edge WebDFU).  
 **DFU entry:** cable at **3.5 mm** → hold **Mute** → short **Reset** on ReSpeaker → Mute blinks, ring off.  
 **Reflash only if the chip firmware is not 1.0.8** — do not decide from WebUI silence or azimuth.  
 DFU **alt=1** only. Do **not** use I²S master 48 kHz.  
@@ -458,7 +458,7 @@ On `LIBUSB_ERROR_TIMEOUT`: unplug ~10 s, Mute+Reset, one retry.
 
 Full image → address **`0x0`**.
 
-**A (recommended):** [Landing → Flash](https://gfermoto.github.io/UAV-radar/) (or [In an hour](https://gfermoto.github.io/UAV-radar/hour1.html#flash)). Same-page Web Serial. Fallback: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with the [landing `.bin`](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port.
+**A (recommended):** [Landing → ESP](https://gfermoto.github.io/UAV-radar/#esp). Same-page Web Serial. Fallback: [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) with the [landing `.bin`](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) at **`0x0`**. Chrome/Edge. Cable on **XIAO**. BOOT+RESET if no port.
 
 **B (CLI fallback):**
 
