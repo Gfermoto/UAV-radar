@@ -144,7 +144,7 @@
           <li data-i18n="check.3">После домашней Wi‑Fi смените пароль WebUI.</li>
         </ul>
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-i18n="guide.cta">Полная инструкция DIY</a>
+          <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-href-ru="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-href-en="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md#english" data-i18n="guide.cta">Полная инструкция DIY</a>
         </div>
         <p class="flash-note" data-i18n="check.more">Там же: корпус, калибровка микрофона, MQTT / Home Assistant и OTA.</p>
       </section>
@@ -239,7 +239,7 @@
           "yard.h": "Start with your own yard",
           "yard.p": "Flash, Wi‑Fi, MQTT or Home Assistant — you get a local alert and can act on it, including automatically. NEVOD cloud is optional. One node covers a sector; a neighbor’s second node expands coverage.",
           "kit.h": "Build",
-          "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure</a>.",
+          "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md#english\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1\">enclosure</a>.",
           "ports.th.port": "USB‑C",
           "ports.th.use": "Use",
           "ports.dsp": "By the 3.5 mm jack (XVF side)",
@@ -289,6 +289,10 @@
           document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
             var k = el.getAttribute("data-i18n-html");
             if (dict[lang][k]) el.innerHTML = dict[lang][k];
+          });
+          document.querySelectorAll("[data-href-ru][data-href-en]").forEach(function (el) {
+            var href = lang === "en" ? el.getAttribute("data-href-en") : el.getAttribute("data-href-ru");
+            if (href) el.setAttribute("href", href);
           });
           document.getElementById("lang-ru").setAttribute("aria-pressed", lang === "ru" ? "true" : "false");
           document.getElementById("lang-en").setAttribute("aria-pressed", lang === "en" ? "true" : "false");
