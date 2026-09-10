@@ -1,0 +1,110 @@
+name: Build Report
+description: Отчёт о сборке узла NEVOD DIY (время, сложность, фото, улучшения)
+title: "[Build Report] "
+labels: ["build-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Предпочтительно опубликовать тот же отчёт в **Discussions → Build report** (удобнее для фото и обсуждения). Issue тоже ок, если Discussions недоступны.
+
+        **Безопасность фото:** снимите EXIF/GPS. Не публикуйте точный адрес, координаты, номер дома, лица соседей.
+
+        Лендинг: https://gfermoto.github.io/UAV-radar/
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Сложность
+      description: Насколько тяжело было собрать и запустить (ваш субъективный опыт).
+      options:
+        - "1 — собрал почти без сюрпризов"
+        - "2 — мелочи, но справился"
+        - "3 — нормально, пришлось разбираться"
+        - "4 — тяжело (документация / железо / прошивка)"
+        - "5 — застрял, нужна помощь сообщества"
+    validations:
+      required: true
+
+  - type: input
+    id: build_time
+    attributes:
+      label: Время сборки
+      description: От распаковки до «пеленг в WebUI» (примерно).
+      placeholder: "например: 1 вечер / ~4 часа / 2 дня с печатью корпуса"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: firmware
+    attributes:
+      label: Какая прошивка
+      options:
+        - NEVOD DIY (датчик, nevod-diy-*)
+        - Открытый mic (RTSP / BirdNET)
+        - Обе по очереди
+        - Ещё не прошил / не уверен
+    validations:
+      required: true
+
+  - type: input
+    id: firmware_version
+    attributes:
+      label: Версия / тег релиза
+      placeholder: "например: nevod-diy-v0.16.x-ota"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: mount
+    attributes:
+      label: Куда повесили
+      options:
+        - Стена / фасад
+        - Столб / мачта
+        - Балкон / подоконник (временно)
+        - Пока на столе / в помещении
+        - Другое
+    validations:
+      required: false
+
+  - type: textarea
+    id: photos
+    attributes:
+      label: Фото
+      description: Вставьте картинки (drag-and-drop). Минимум одно: узел или WebUI.
+      placeholder: "(перетащите фото сюда)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: stuck
+    attributes:
+      label: Где споткнулись
+      placeholder: "например: Zadig, разъёмы DSP/ESP, Wi‑Fi…"
+    validations:
+      required: false
+
+  - type: textarea
+    id: improve
+    attributes:
+      label: Что можно улучшить
+      description: Документация, BOM, STL, прошивка, лендинг.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Ещё заметки
+      description: Без точных координат и персональных данных.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Перед публикацией
+      options:
+        - label: С фото сняты EXIF/GPS; в тексте нет точного адреса и координат установки
+          required: true

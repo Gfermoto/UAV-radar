@@ -1,0 +1,117 @@
+title: "[Build Report] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо, что собрали узел и делитесь опытом — следующий сборщик сэкономит выходные.
+
+        **Безопасность фото:** перед загрузкой снимите EXIF/GPS (метаданные). Не публикуйте точный адрес, координаты, номер дома, лица соседей, SSID с локацией. Достаточно корпуса, WebUI и крепления крупным планом.
+
+        Лендинг: https://gfermoto.github.io/UAV-radar/
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Сложность
+      description: Насколько тяжело было собрать и запустить (ваш субъективный опыт).
+      options:
+        - "1 — собрал почти без сюрпризов"
+        - "2 — мелочи, но справился"
+        - "3 — нормально, пришлось разбираться"
+        - "4 — тяжело (документация / железо / прошивка)"
+        - "5 — застрял, нужна помощь сообщества"
+    validations:
+      required: true
+
+  - type: input
+    id: build_time
+    attributes:
+      label: Время сборки
+      description: От распаковки до «пеленг в WebUI» (примерно).
+      placeholder: "например: 1 вечер / ~4 часа / 2 дня с печатью корпуса"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: firmware
+    attributes:
+      label: Какая прошивка
+      options:
+        - NEVOD DIY (датчик, nevod-diy-*)
+        - Открытый mic (RTSP / BirdNET)
+        - Обе по очереди
+        - Ещё не прошил / не уверен
+    validations:
+      required: true
+
+  - type: input
+    id: firmware_version
+    attributes:
+      label: Версия / тег релиза
+      description: Если знаете — укажите тег с Releases.
+      placeholder: "например: nevod-diy-v0.16.x-ota"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: mount
+    attributes:
+      label: Куда повесили
+      options:
+        - Стена / фасад
+        - Столб / мачта
+        - Балкон / подоконник (временно)
+        - Пока на столе / в помещении
+        - Другое
+    validations:
+      required: false
+
+  - type: textarea
+    id: photos
+    attributes:
+      label: Фото
+      description: Вставьте сюда картинки (drag-and-drop или Markdown). Минимум одно: собранный узел или WebUI с пеленгом.
+      placeholder: |
+        (перетащите фото сюда)
+
+        Что полезно снять:
+        - корпус / крепление
+        - два USB-C (DSP у 3.5 mm ≠ XIAO)
+        - экран WebUI после хлопка
+    validations:
+      required: true
+
+  - type: textarea
+    id: stuck
+    attributes:
+      label: Где споткнулись
+      description: Закупка, Zadig, DFU, Wi‑Fi, MQTT/HA, корпус, шум…
+      placeholder: "например: Zadig на Win11, перепутал разъёмы DSP/ESP…"
+    validations:
+      required: false
+
+  - type: textarea
+    id: improve
+    attributes:
+      label: Что можно улучшить
+      description: Документация, BOM, STL, прошивка, лендинг — любой конкретный совет.
+      placeholder: "например: в гайде непонятно про Mute+Reset перед DFU"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Ещё заметки
+      description: Опционально. Без точных координат и персональных данных.
+      placeholder: "погода, шум улицы, MQTT в HA — да/нет…"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Перед публикацией
+      options:
+        - label: С фото сняты EXIF/GPS; в тексте нет точного адреса и координат установки
+          required: true
