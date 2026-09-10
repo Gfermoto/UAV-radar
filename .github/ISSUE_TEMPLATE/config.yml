@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Build Report (Discussions)
-    url: https://github.com/Gfermoto/UAV-radar/discussions/new?category=build-report
+  - name: Build Report → Show and tell
+    url: https://github.com/Gfermoto/UAV-radar/discussions/new?category=show-and-tell
     about: Структурированный отчёт о сборке — фото, время, сложность, улучшения
   - name: Telegram @UAV_radar
     url: https://t.me/UAV_radar
