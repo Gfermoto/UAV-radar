@@ -11,6 +11,8 @@
 **Свой акустический узел. Раннее оповещение.**  
 DIY DePIN: железо у вас дома — акустика локально или в народном радаре.
 
+**DIY drone detection** · acoustic UAV sensor · ESP32-S3 beamforming · privacy-first home security · Home Assistant drone alert · DePIN acoustic network
+
 **[Landing](https://gfermoto.github.io/UAV-radar/)** ·
 **[DIY guide](docs/DIY_GUIDE.md)** ·
 **[BOM ≈ ₽9 800](docs/BOM.md)** ·
@@ -49,12 +51,12 @@ DIY DePIN: железо у вас дома — акустика локально
 
 ### Старт за вечер
 
-1. **Смета ядра ≈ ₽9 793** (снимок) — [docs/BOM.md](docs/BOM.md)
+1. **Смета ≈ ₽9 772** (снимок) — [docs/BOM.md](docs/BOM.md)
 2. **STL корпуса** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)
 3. **Прошить** — [лендинг](https://gfermoto.github.io/UAV-radar/) → **Прошить плату** → Wi‑Fi → хлопок · полный гайд: [DIY_GUIDE](docs/DIY_GUIDE.md)
 4. Собрали? Опишите опыт — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) или Issue [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose)
 
-Локально достаточно WebUI / MQTT / Home Assistant. Народный радар — когда готовы: [кабинет](https://nevod.endorphine.agency).
+Локально достаточно WebUI / MQTT / Home Assistant (drone alert у себя в доме). Народный радар — когда готовы: [личный кабинет](https://nevod.endorphine.agency).
 
 ### Визуализация
 
@@ -113,17 +115,23 @@ DIY DePIN: железо у вас дома — акустика локально
 | [SECURITY.md](SECURITY.md) | Уязвимости |
 | [tools/hil/README.md](tools/hil/README.md) | Проверки на устройстве |
 
+### Keywords
+
+Естественные запросы, по которым ищут этот узел: **DIY drone detection**, **acoustic UAV sensor**, **ESP32-S3 beamforming**, **privacy-first home security**, **Home Assistant drone alert**, **DePIN acoustic network**.
+
 ---
 
 <a id="english"></a>
 ## English
 
 **Your acoustic node. Early warning.**  
-DIY DePIN: hardware at home — acoustics locally or on the people’s radar.
+A DIY DePIN acoustic network: hardware at home, detection on the board, optional shared radar.
+
+This is **DIY drone detection** with an **acoustic UAV sensor** (Seeed XIAO **ESP32-S3** + XMOS XVF3800 **beamforming**). Alerts stay on your LAN — **privacy-first home security** via MQTT or a **Home Assistant drone alert**. When you opt in, the node can join a **DePIN acoustic network**.
 
 ### Why this is DePIN
 
-**NEVOD** is a physical distributed acoustic network: every node is owned by the person who built it. No subscription just to monitor your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; owners get preferences from the service.
+**NEVOD** is a physical distributed acoustic network: every node is owned by the person who built it. There is no subscription just to hear your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; node owners get service perks versus regular users.
 
 | Step | You do | You get |
 |------|--------|---------|
@@ -145,12 +153,12 @@ Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 
 ### Start tonight
 
-1. **Core BOM ≈ ₽9,793** (snapshot) — [docs/BOM.md](docs/BOM.md#english)  
+1. **BOM ≈ ₽9,772** (snapshot) — [docs/BOM.md](docs/BOM.md#english)  
 2. **Enclosure STL** — [enclosure release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1)  
 3. **Landing** — [flash DSP + ESP in browser](https://gfermoto.github.io/UAV-radar/): DSP 1.0.8 → ESP Install → Wi‑Fi → clap · full guide: [DIY_GUIDE](docs/DIY_GUIDE.md#english)  
 4. Built one? Tell the story — [Discussions](https://github.com/Gfermoto/UAV-radar/discussions) or a [`build-report`](https://github.com/Gfermoto/UAV-radar/issues/new/choose) issue  
 
-Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet](https://nevod.endorphine.agency).
+Local-only: WebUI / MQTT / Home Assistant. People’s radar when you are ready: [account](https://nevod.endorphine.agency).
 
 ### Gallery
 
@@ -182,7 +190,7 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when ready: [cabinet
 
 ### History
 
-Started as RTSP sky-listening for birds. Same board later for UAV acoustic monitoring. **UAV-radar** names the direction; **NEVOD** names the node network.
+Started as RTSP streaming of overhead sound for birdwatching. The same board later became an acoustic UAV monitor. **UAV-radar** names that direction; **NEVOD** names the node network.
 
 ### Related projects
 
@@ -205,6 +213,10 @@ Started as RTSP sky-listening for birds. Same board later for UAV acoustic monit
 | [docs/BOM.md](docs/BOM.md#english) | Parts list |
 | [docs/ENCLOSURE.md](docs/ENCLOSURE.md#english) | Enclosure |
 | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md#english) | Full DIY |
-| [docs/LED.md](docs/LED.md) | DoA ring / status LED |
+| [docs/LED.md](docs/LED.md#english) | DoA ring / status LED |
 | [SECURITY.md](SECURITY.md) | Vulnerability reporting |
-| [tools/hil/README.md](tools/hil/README.md) | On-device checks |
+| [tools/hil/README.md](tools/hil/README.md#english) | On-device checks |
+
+### Keywords
+
+Natural search phrases: **DIY drone detection**, **acoustic UAV sensor**, **ESP32-S3 beamforming**, **privacy-first home security**, **Home Assistant drone alert**, **DePIN acoustic network**.

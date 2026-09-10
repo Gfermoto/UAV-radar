@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NEVOD · акустический узел раннего оповещения о дронах</title>
-  <meta name="description" content="DIY-узел на ESP32-S3: сборка, прошивка DSP и ESP в браузере, пеленг в WebUI, MQTT / Home Assistant. Железо ≈ 9 800 ₽." />
+  <meta name="description" content="DIY drone detection: acoustic UAV sensor on ESP32-S3 with beamforming. Privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network. Железо ≈ 9 800 ₽." />
+  <meta name="keywords" content="DIY drone detection, acoustic UAV sensor, ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, DePIN acoustic network, NEVOD, UAV-radar" />
   <meta name="theme-color" content="#0a1210" />
   <link rel="icon" href="./assets/favicon.ico" sizes="any" />
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
@@ -12,6 +13,23 @@
   <link rel="alternate" type="text/plain" title="LLM policy" href="./llms.txt" />
   <meta name="nevod-canary" content="NEVOD-CANARY-2026-DIY-FUNNEL" />
   <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/" />
+  <link rel="alternate" hreflang="ru" href="https://gfermoto.github.io/UAV-radar/" />
+  <link rel="alternate" hreflang="en" href="https://gfermoto.github.io/UAV-radar/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://gfermoto.github.io/UAV-radar/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "NEVOD",
+    "alternateName": ["UAV-radar", "DIY drone detection", "acoustic UAV sensor"],
+    "url": "https://gfermoto.github.io/UAV-radar/",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "ESP32-S3",
+    "offers": { "@type": "Offer", "price": "9772", "priceCurrency": "RUB" },
+    "description": "DIY drone detection with an acoustic UAV sensor: ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network.",
+    "keywords": "DIY drone detection, acoustic UAV sensor, ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, DePIN acoustic network"
+  }
+  </script>
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/" />
   <meta property="og:title" content="NEVOD · акустический узел раннего оповещения о дронах" />
@@ -154,6 +172,19 @@
         <p data-i18n-html="net.p">Токен из <a href="https://nevod.endorphine.agency">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать заранее. Координаты нод сеть не публикует.</p>
       </section>
 
+      <section id="keywords" class="keywords">
+        <h2 data-i18n="kw.h">Ищут как</h2>
+        <p data-i18n="kw.p">Так ищут DIY-детектор дронов и акустический сенсор БПЛА. Фразы на английском — глобальные запросы.</p>
+        <ul>
+          <li>DIY drone detection</li>
+          <li>acoustic UAV sensor</li>
+          <li>ESP32-S3 beamforming</li>
+          <li>privacy-first home security</li>
+          <li>Home Assistant drone alert</li>
+          <li>DePIN acoustic network</li>
+        </ul>
+      </section>
+
       <p class="close" data-i18n="close">Раннее оповещение начинается с одного рабочего узла — своего или соседского.</p>
     </div>
   </main>
@@ -220,6 +251,8 @@
           "check.more": "Там же: корпус, калибровка микрофона, MQTT / Home Assistant и OTA.",
           "net.h": "Когда готовы — народный радар",
           "net.p": "Токен из <a href=\"https://nevod.endorphine.agency\">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать заранее. Координаты нод сеть не публикует.",
+          "kw.h": "Ищут как",
+          "kw.p": "Так ищут DIY-детектор дронов и акустический сенсор БПЛА. Фразы на английском — глобальные запросы.",
           "close": "Раннее оповещение начинается с одного рабочего узла — своего или соседского.",
           "foot": "NEVOD · DIY · MQTT · Home Assistant"
         },
@@ -229,13 +262,13 @@
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
           "hero.title": "Build an acoustic early-warning node",
-          "hero.lead": "An ESP32-S3 acoustic node hears drones over your property, shows bearing in the web UI, and alerts via MQTT or Home Assistant — no cloud required. Flash DSP and ESP from this page.",
+          "hero.lead": "DIY drone detection at home: an acoustic UAV sensor on ESP32-S3 with beamforming hears drones over your property, shows bearing in the web UI, and fires a Home Assistant drone alert or MQTT — privacy-first, no cloud required. Flash DSP and ESP from this page.",
           "hero.cta1": "Build",
           "hero.cta2": "Flash",
           "hero.hint": "Chrome or Edge. DSP first (USB by 3.5 mm), then ESP (cable on the XIAO).",
           "shot.cap": "The web UI shows where the sound is coming from.",
           "how.h": "How it works",
-          "how.p": "Four mics (XVF3800) plus an on-board neural net: props or ICE locally, audio stays off the wire. Bearing and spectrum in your browser.",
+          "how.p": "Four mics (XVF3800) do ESP32-S3 beamforming; an on-board neural net recognizes props or an ICE engine locally. Audio never leaves the node. Bearing and spectrum stay in your browser.",
           "yard.h": "Start with your own yard",
           "yard.p": "Flash, Wi‑Fi, MQTT or Home Assistant — you get a local alert and can act on it, including automatically. NEVOD cloud is optional. One node covers a sector; a neighbor’s second node expands coverage.",
           "kit.h": "Build",
@@ -268,7 +301,9 @@
           "guide.cta": "Full DIY guide",
           "check.more": "Same guide: enclosure, mic calibration, MQTT / Home Assistant, and OTA.",
           "net.h": "When ready — people’s radar",
-          "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on the shared early-warning network. More sensors — better chance to react in advance. Node coordinates are not published.",
+          "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on a DePIN acoustic network for shared early warning. More sensors — better chance to react in advance. Node coordinates are not published.",
+          "kw.h": "Also searched as",
+          "kw.p": "Natural queries for this kit. Keep the English phrases — they match how the global community searches.",
           "close": "Early warning starts with one working node — yours or a neighbor’s.",
           "foot": "NEVOD · DIY · MQTT · Home Assistant"
         }
@@ -276,12 +311,25 @@
 
       var titles = {
         ru: "NEVOD · акустический узел раннего оповещения о дронах",
-        en: "NEVOD · acoustic early-warning node for drones"
+        en: "NEVOD · DIY drone detection · acoustic UAV sensor"
+      };
+      var descriptions = {
+        ru: "DIY drone detection: acoustic UAV sensor on ESP32-S3 with beamforming. Privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network. Железо ≈ 9 800 ₽.",
+        en: "DIY drone detection with an acoustic UAV sensor: ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network. Hardware ≈ ₽9,800."
       };
       function apply(lang) {
         try {
           document.documentElement.lang = lang;
           if (titles[lang]) document.title = titles[lang];
+          var desc = descriptions[lang];
+          if (desc) {
+            var md = document.querySelector('meta[name="description"]');
+            if (md) md.setAttribute("content", desc);
+            var ogd = document.querySelector('meta[property="og:description"]');
+            if (ogd) ogd.setAttribute("content", desc);
+            var ogt = document.querySelector('meta[property="og:title"]');
+            if (ogt && titles[lang]) ogt.setAttribute("content", titles[lang]);
+          }
           document.querySelectorAll("[data-i18n]").forEach(function (el) {
             var k = el.getAttribute("data-i18n");
             if (dict[lang][k]) el.textContent = dict[lang][k];
@@ -306,6 +354,10 @@
       document.getElementById("lang-en").addEventListener("click", function () { apply("en"); });
       var saved = null;
       try { saved = localStorage.getItem("nevod-lang"); } catch (e) {}
+      try {
+        var q = new URLSearchParams(location.search).get("lang");
+        if (q === "en" || q === "ru") saved = q;
+      } catch (e) {}
       if (saved === "en" || saved === "ru") apply(saved);
 
       var header = document.querySelector(".top");

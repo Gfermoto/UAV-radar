@@ -422,6 +422,23 @@ code {
   line-height: 1.5;
 }
 
+.keywords ul {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.keywords li {
+  margin: 0;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
 .site-foot {
   padding: 1.5rem 1.15rem 2.25rem;
   color: var(--muted);

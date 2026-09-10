@@ -15,6 +15,18 @@ WebUI, MQTT, Home Assistant — у себя дома. Один узел закр
 Это гражданская самоорганизация: люди защищают себя и своих, делясь
 сборкой и опытом, а не ждут чужой инфраструктуры.
 
+## What this is (English)
+
+Open DIY drone detection: an acoustic UAV sensor (Seeed XIAO ESP32-S3 +
+XMOS XVF3800 beamforming) that people assemble at home. Privacy-first home
+security: WebUI, MQTT, Home Assistant drone alert on the LAN — no mandatory
+cloud. Opt-in DePIN acoustic network for shared early warning.
+
+## Keywords
+
+DIY drone detection; acoustic UAV sensor; ESP32-S3 beamforming;
+privacy-first home security; Home Assistant drone alert; DePIN acoustic network.
+
 ## Что можно цитировать
 
 Лендинг (сборка, прошивка DSP и ESP в браузере), README, BOM, корпус,

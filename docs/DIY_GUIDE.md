@@ -430,6 +430,27 @@ TPU‑прокладку (и резиновый уплотнитель / O‑rin
 <a id="english"></a>
 ## English
 
+Signed binary: OTA / USB channel **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (currently **0.17.2** · versioned [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota)).
+
+**Fast path:** [landing](https://gfermoto.github.io/UAV-radar/) — [#dsp](https://gfermoto.github.io/UAV-radar/#dsp) then [#esp](https://gfermoto.github.io/UAV-radar/#esp) (Chrome / Edge). Fallback file: [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) at [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · address **`0x0`**.  
+BOM: [BOM.md](BOM.md#english). Enclosure (STL): [ENCLOSURE.md](ENCLOSURE.md#english).
+
+This is the **full DIY guide** — XVF and ESP through enclosure, wind screen, and site mounting — not flash-only.
+
+Hardware: **Seeed XIAO ESP32-S3** + **ReSpeaker XVF3800** (four mics, beamforming). Three UAV classes are recognized **on the board** (the model is already inside the `.bin`). Diagram: [`img/tri_klassa.png`](../img/tri_klassa.png).
+
+Follow the steps in order. Skipping “for later” makes debugging harder.
+
+| Steps | What |
+|-------|------|
+| 1–2 | Flash XVF and ESP |
+| 3–4 | Wi‑Fi / portal (ring, RTSP), WebUI, calibration |
+| 5 | OTA |
+| 6 | Local (Home Assistant) and/or people’s radar (token + coordinates) |
+| 7 | Enclosure, build photos, wind screen, mounting |
+
+**Open / closed:** RTSP Mic sources are MIT in this repo. UAV detection ships in the signed `.bin` (model and logic are closed). SHA-256 is in step 2 and in the release `manifest.json`.
+
 ### Two firmwares — do not mix
 
 | Firmware | Purpose |
@@ -437,11 +458,11 @@ TPU‑прокладку (и резиновый уплотнитель / O‑rin
 | **RTSP Mic** ([v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0)) | Open MIT mic — birds / BirdNET |
 | **NEVOD DIY** (`nevod-diy-*`) | On-device UAV detection |
 
-NEVOD DIY **fully replaces** RTSP Mic.
+NEVOD DIY **fully replaces** RTSP Mic — do not flash both.
 
 ### Gear
 
-Kit from [BOM](BOM.md), data USB cable, **Chrome / Edge / Opera**, first flash from the [landing](https://gfermoto.github.io/UAV-radar/) (factory `.bin` on Pages), **2.4 GHz** Wi‑Fi, optional SPL meter.
+Kit from [BOM](BOM.md#english), data USB cable, **Chrome / Edge / Opera**, first flash from the [landing](https://gfermoto.github.io/UAV-radar/) (factory `.bin` on Pages), **2.4 GHz** Wi‑Fi, optional SPL meter.
 
 Two USB‑C ports: **3.5 mm side** = mic chip DFU; **XIAO** = power + ESP flash.
 
@@ -539,7 +560,7 @@ Default mode is **detection**. Mic-setup / RTSP is for bench tuning only, not 24
 
 ### 7. Enclosure build
 
-Finish steps 1–6 on the open board first. Parts: [ENCLOSURE.md](ENCLOSURE.md) · [STL release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1). Consumables: [BOM](BOM.md).
+Finish steps 1–6 on the open board first. Parts: [ENCLOSURE.md](ENCLOSURE.md#english) · [STL release](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-enclosure-v0.1.1). Consumables: [BOM](BOM.md#english).
 
 Assembled node (what you are aiming for):
 
