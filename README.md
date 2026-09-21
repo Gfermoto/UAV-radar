@@ -35,7 +35,7 @@ DIY DePIN: железо у вас дома — акустика локально
 |---------|-------------|----------------|
 | **1. Смотрите** | Landing + этот README | Понимание за 2 минуты |
 | **2. Пробуете железо** | Открытый **RTSP Mic** ([MIT](LICENSE)) | Opus / RTSP / WebUI — сад, птицы, [BirdNET](https://github.com/kahst/BirdNET-Analyzer) |
-| **3. Собираете узел** | [Смета](docs/BOM.md) + [корпус](docs/ENCLOSURE.md) + `nevod-diy-*.bin` | Детекция 3 классов БПЛА на плате, DoA, MQTT / Home Assistant |
+| **3. Собираете узел** | [Смета](docs/BOM.md) + [корпус](docs/ENCLOSURE.md) + `firmware-nevod_diy.bin` | Детекция 3 классов БПЛА на плате, DoA, MQTT / Home Assistant |
 | **4. Усиливаете сеть** | Cloud‑токен + координаты | Народный радар — больше узлов = меньше слепых зон |
 
 Новый узел — ещё один сектор покрытия. Сеть растёт от сборщиков, не из дата‑центра.
@@ -45,7 +45,7 @@ DIY DePIN: железо у вас дома — акустика локально
 | Часть | Что даёт |
 |-------|----------|
 | **Открытый mic** ([MIT](LICENSE), исходники здесь) | Звук → Opus → RTSP и WebUI. [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) · `rtsp-mic-0.3.0.bin` |
-| **NEVOD DIY (датчик)** | Подписанный `.bin` с распознанием **трёх классов БПЛА** на ESP32-S3. [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) · полная сборка [DIY_GUIDE.md](docs/DIY_GUIDE.md) |
+| **NEVOD DIY (датчик)** | Подписанный `.bin` с распознанием **трёх классов БПЛА** на ESP32-S3. [`v0.17.84-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.17.84-ota) · полная сборка [DIY_GUIDE.md](docs/DIY_GUIDE.md) |
 
 Железо одно (XIAO ESP32-S3 + XVF3800). Сценарий выбираете прошивкой.
 
@@ -81,7 +81,7 @@ DIY DePIN: железо у вас дома — акустика локально
 | Смета | [docs/BOM.md](docs/BOM.md) |
 | Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
 | Полная инструкция DIY | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
-| Бинарник датчика | [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) · [все `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
+| Бинарник датчика | [`v0.17.84-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.17.84-ota) · [канал `diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) |
 | Открытый mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Фото сборки | [`img/`](img/) |
 | Участие | [CONTRIBUTING.md](CONTRIBUTING.md) |
@@ -137,7 +137,7 @@ This is **DIY drone detection** with an **acoustic UAV sensor** (Seeed XIAO **ES
 |------|--------|---------|
 | **1. Browse** | Landing + this README | Clarity in two minutes |
 | **2. Try the board** | Open **RTSP Mic** ([MIT](LICENSE)) | Opus / RTSP / WebUI — garden, birds, [BirdNET](https://github.com/kahst/BirdNET-Analyzer) |
-| **3. Build a node** | [BOM](docs/BOM.md#english) + [enclosure](docs/ENCLOSURE.md#english) + `nevod-diy-*.bin` | On-device 3-class UAV detect, DoA, MQTT / Home Assistant |
+| **3. Build a node** | [BOM](docs/BOM.md#english) + [enclosure](docs/ENCLOSURE.md#english) + `firmware-nevod_diy.bin` | On-device 3-class UAV detect, DoA, MQTT / Home Assistant |
 | **4. Grow the network** | Cloud token + coordinates | People’s radar — more nodes, fewer blind spots |
 
 Each new node adds another coverage sector. The network grows from builders, not from a data center.
@@ -147,7 +147,7 @@ Each new node adds another coverage sector. The network grows from builders, not
 | Piece | What you get |
 |-------|----------------|
 | **Open mic** ([MIT](LICENSE), sources here) | Audio → Opus → RTSP + WebUI. [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) · `rtsp-mic-0.3.0.bin` |
-| **NEVOD DIY (sensor)** | Signed `.bin` with **three UAV classes** on ESP32-S3. [Releases `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) · full build [DIY_GUIDE.md](docs/DIY_GUIDE.md#english) |
+| **NEVOD DIY (sensor)** | Signed `.bin` with **three UAV classes** on ESP32-S3. [`v0.17.84-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.17.84-ota) · full build [DIY_GUIDE.md](docs/DIY_GUIDE.md#english) |
 
 Same hardware (XIAO ESP32-S3 + XVF3800). Firmware picks the job.
 
@@ -183,7 +183,7 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when you are ready: 
 | BOM | [docs/BOM.md](docs/BOM.md#english) |
 | Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md#english) |
 | Full DIY guide | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md#english) |
-| Sensor binary | [`nevod-diy-v0.17.2-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.17.2-ota) · [all `nevod-diy-*`](https://github.com/Gfermoto/UAV-radar/releases) |
+| Sensor binary | [`v0.17.84-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.17.84-ota) · [channel `diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) |
 | Open mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Build photos | [`img/`](img/) |
 | Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |

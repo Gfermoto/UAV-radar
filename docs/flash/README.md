@@ -11,7 +11,7 @@ Flash mode **DIO** — как у `pio run -t upload`. Не QIO: merge с QIO л�
 Пересобрать (после promote `diy-ota` это делает Actions `sync-web-flash.yml`):
 
 ```bash
-python3 tools/sync_web_flash.py --app /path/to/firmware-nevod_diy.bin --version 0.17.2
+python3 tools/sync_web_flash.py --app /path/to/firmware-nevod_diy.bin --version 0.17.84
 ```
 
 ## DSP (XVF3800)
