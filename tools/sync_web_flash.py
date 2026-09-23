@@ -87,6 +87,21 @@ def assert_factory_image(blob: bytes) -> None:
         )
 
 
+def _esptool_prefix() -> list[str]:
+    """Prefer pipx/CLI esptool; fall back to python -m esptool."""
+    import os
+    import shutil
+
+    for candidate in (
+        os.environ.get("ESPTOOL_BIN", ""),
+        shutil.which("esptool") or "",
+        str(Path.home() / ".local" / "bin" / "esptool"),
+    ):
+        if candidate and Path(candidate).is_file():
+            return [candidate]
+    return [sys.executable, "-m", "esptool"]
+
+
 def merge_factory(app: Path, out: Path) -> None:
     boot = PARTS / "bootloader.bin"
     parts = PARTS / "partitions.bin"
@@ -95,9 +110,7 @@ def merge_factory(app: Path, out: Path) -> None:
         if not p.is_file() or p.stat().st_size < 16:
             raise FlashSyncError(f"missing flash part: {p}")
     cmd = [
-        sys.executable,
-        "-m",
-        "esptool",
+        *_esptool_prefix(),
         "--chip",
         "esp32s3",
         "merge-bin",

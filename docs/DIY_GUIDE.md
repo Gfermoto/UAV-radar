@@ -2,7 +2,7 @@
 
 **[Русский](#русский)** · **[English](#english)**
 
-Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.17.84** · versioned [`v0.17.84-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.17.84-ota)).
+Готовый бинарник: канал OTA / USB **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (сейчас **0.18.5** · versioned [`v0.18.5-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.18.5-ota)).
 
 **Быстрый путь:** [лендинг](https://gfermoto.github.io/UAV-radar/) — [#dsp](https://gfermoto.github.io/UAV-radar/#dsp) затем [#esp](https://gfermoto.github.io/UAV-radar/#esp) (Chrome / Edge). Запасной файл: [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) на [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · адрес **`0x0`**.  
 Смета: [BOM.md](BOM.md). Корпус (STL): [ENCLOSURE.md](ENCLOSURE.md).
@@ -430,7 +430,7 @@ TPU‑прокладку (и резиновый уплотнитель / O‑rin
 <a id="english"></a>
 ## English
 
-Signed binary: OTA / USB channel **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (currently **0.17.84** · versioned [`v0.17.84-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.17.84-ota)).
+Signed binary: OTA / USB channel **[`diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota)** (currently **0.18.5** · versioned [`v0.18.5-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.18.5-ota)).
 
 **Fast path:** [landing](https://gfermoto.github.io/UAV-radar/) — [#dsp](https://gfermoto.github.io/UAV-radar/#dsp) then [#esp](https://gfermoto.github.io/UAV-radar/#esp) (Chrome / Edge). Fallback file: [firmware-nevod_diy.bin](https://gfermoto.github.io/UAV-radar/flash/firmware-nevod_diy.bin) at [esptool.spacehuhn.com](https://esptool.spacehuhn.com/) · address **`0x0`**.  
 BOM: [BOM.md](BOM.md#english). Enclosure (STL): [ENCLOSURE.md](ENCLOSURE.md#english).
