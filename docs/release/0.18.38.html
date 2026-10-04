@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.18.38-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.18.38-ota: lab close-out — tone-hold/Mel freeze, BPF kHarmMinRelPower, SoT floors honesty.">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.18.38.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.18.38-ota">
+  <meta property="og:description" content="Lab close-out DIY: wind_gated tone-hold, Mel status freeze, BPF pure-tone gate, SoT floors.">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.18.38.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.18.38-ota">
+    </div>
+    <h1>NEVOD DIY v0.18.38-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + Seeed XVF3800). Lab close-out, без field.</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li>S1 tone-hold freeze на <code>wind_gated</code>.</li>
+        <li>Mel status freeze: без Mel/HPS debug-копий; счётчик <code>mel_dropped_frames</code>.</li>
+        <li>BPF <code>kHarmMinRelPower</code> — чистый тон 400&nbsp;Hz не даёт <code>bpf.valid</code>.</li>
+        <li>SoT floors summary в <code>/status</code> + honesty <code>cloud_heal</code>.</li>
+        <li>nevod commit <code>e617d5ab</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>960770862f066f7fc5bd9296c4463b5af636824e1418a4826ad65d0fe4b47e62</code></li>
+        <li>Model sha256: <code>unknown</code> (веса в bin)</li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.18.38-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://gfermoto.github.io/UAV-radar/">Прошить с лендинга</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota">канал diy-ota</a></p>
+  </main>
+</body>
+</html>
