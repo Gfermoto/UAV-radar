@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.18.43-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.18.43-ota: UAV-first пеленг: Adaptive search, LED ring по энергии (tradeoff).">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.18.43.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.18.43-ota">
+  <meta property="og:description" content="UAV-first DoA + LED energy tradeoff; speech не пишет primary θ.">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.18.43.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.18.43-ota">
+    </div>
+    <h1>NEVOD DIY v0.18.43-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + Seeed XVF3800). UAV-first пеленг + LED tradeoff.</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li><strong>UAV-first DoA:</strong> Search = Adaptive <code>auto_select</code> / live AEC; chip speech не пишет primary <code>doa.azimuth</code>.</li>
+        <li><strong>LED ring tradeoff:</strong> best-effort по энергии лучей; кольцо ≈ speech DoA, не UAV θ.</li>
+        <li>nevod commit <code>14d51423</code>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>d657c7172681ed908f545a08306834885fa24ca08b33eeb3d9a00ceb6b615822</code></li>
+        <li>Model sha256: <code>5280662dd14869aa95fb637d954024bfcbf56a2ea12566711c810d95c1debd04</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.18.43-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://gfermoto.github.io/UAV-radar/">Прошить с лендинга</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota">канал diy-ota</a></p>
+  </main>
+</body>
+</html>
