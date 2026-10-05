@@ -15,6 +15,7 @@ DIY DePIN: железо у вас дома — акустика локально
 
 **[Landing](https://gfermoto.github.io/UAV-radar/)** ·
 **[DIY guide](docs/DIY_GUIDE.md)** ·
+**[User manual](docs/DIY_USER_MANUAL.md)** ·
 **[BOM ≈ ₽9 800](docs/BOM.md)** ·
 **[Releases](https://github.com/Gfermoto/UAV-radar/releases)** ·
 **[Discussions](https://github.com/Gfermoto/UAV-radar/discussions)** ·
@@ -81,6 +82,7 @@ DIY DePIN: железо у вас дома — акустика локально
 | Смета | [docs/BOM.md](docs/BOM.md) |
 | Корпус (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) |
 | Полная инструкция DIY | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) |
+| Руководство пользователя | [docs/DIY_USER_MANUAL.md](docs/DIY_USER_MANUAL.md) |
 | Бинарник датчика | [`nevod-diy-v0.20.1-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.20.1-ota) · [канал `diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) |
 | Открытый mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Фото сборки | [`img/`](img/) |
@@ -111,6 +113,7 @@ DIY DePIN: железо у вас дома — акустика локально
 | [docs/BOM.md](docs/BOM.md) | Смета узла |
 | [docs/ENCLOSURE.md](docs/ENCLOSURE.md) | Корпус |
 | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md) | Полный DIY |
+| [docs/DIY_USER_MANUAL.md](docs/DIY_USER_MANUAL.md) | Пользование узлом |
 | [docs/LED.md](docs/LED.md) | Кольцо DoA / статус |
 | [SECURITY.md](SECURITY.md) | Уязвимости |
 | [tools/hil/README.md](tools/hil/README.md) | Проверки на устройстве |
@@ -183,6 +186,7 @@ Local-only: WebUI / MQTT / Home Assistant. People’s radar when you are ready: 
 | BOM | [docs/BOM.md](docs/BOM.md#english) |
 | Enclosure (STL) | [docs/ENCLOSURE.md](docs/ENCLOSURE.md#english) |
 | Full DIY guide | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md#english) |
+| User manual | [docs/DIY_USER_MANUAL.md](docs/DIY_USER_MANUAL.md) |
 | Sensor binary | [`nevod-diy-v0.20.1-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.20.1-ota) · [channel `diy-ota`](https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota) |
 | Open mic | [v0.3.0](https://github.com/Gfermoto/UAV-radar/releases/tag/v0.3.0) |
 | Build photos | [`img/`](img/) |
@@ -213,6 +217,7 @@ Started as RTSP streaming of overhead sound for birdwatching. The same board lat
 | [docs/BOM.md](docs/BOM.md#english) | Parts list |
 | [docs/ENCLOSURE.md](docs/ENCLOSURE.md#english) | Enclosure |
 | [docs/DIY_GUIDE.md](docs/DIY_GUIDE.md#english) | Full DIY |
+| [docs/DIY_USER_MANUAL.md](docs/DIY_USER_MANUAL.md) | Day-to-day use |
 | [docs/LED.md](docs/LED.md#english) | DoA ring / status LED |
 | [SECURITY.md](SECURITY.md) | Vulnerability reporting |
 | [tools/hil/README.md](tools/hil/README.md#english) | On-device checks |
