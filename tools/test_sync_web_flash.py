@@ -25,7 +25,7 @@ class WebFlashManifestTests(unittest.TestCase):
         self.assertEqual(semver_from_ota_title("v0.17.2-ota"), "0.17.2")
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
         assert_cors_safe_manifest(man)
-        self.assertEqual(man["version"], "0.17.2")
+        self.assertEqual(man["version"], "0.20.7")
         self.assertEqual(man["new_install_improv_wait_time"], 0)
         self.assertIs(man["new_install_prompt_erase"], True)
 
