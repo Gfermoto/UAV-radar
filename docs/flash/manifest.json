@@ -1,6 +1,6 @@
 {
   "name": "NEVOD DIY",
-  "version": "0.20.9",
+  "version": "0.20.10",
   "new_install_prompt_erase": true,
   "new_install_improv_wait_time": 0,
   "builds": [
