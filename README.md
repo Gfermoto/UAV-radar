@@ -8,6 +8,8 @@
 [![Pages](https://img.shields.io/badge/site-landing-c8e84a?labelColor=0a1210)](https://gfermoto.github.io/UAV-radar/)
 [![Release](https://img.shields.io/github/v/release/Gfermoto/UAV-radar?include_prereleases&label=latest&labelColor=0a1210&color=c8e84a)](https://github.com/Gfermoto/UAV-radar/releases)
 
+**N.E.V.O.D.** — Net of Early Vigilance and Observation of Drones.
+
 **Свой акустический узел. Раннее оповещение.**  
 DIY DePIN: железо у вас дома — акустика локально или в народном радаре.
 
@@ -30,7 +32,7 @@ DIY DePIN: железо у вас дома — акустика локально
 
 ### Зачем это DePIN
 
-**NEVOD** — физическая распределённая акустическая сеть: каждый узел принадлежит человеку, который его собрал. Нет подписки «чтобы слышать свой двор». Облако — **opt-in** для общего раннего оповещения; координаты нод **не публикуются**; владельцам — преференции от сервиса.
+**N.E.V.O.D.** (Net of Early Vigilance and Observation of Drones) — физическая распределённая акустическая сеть: каждый узел принадлежит человеку, который его собрал. Нет подписки «чтобы слышать свой двор». Облако — **opt-in** для общего раннего оповещения; координаты нод **не публикуются**; владельцам — преференции от сервиса.
 
 | Ступень | Что делаете | Что получаете |
 |---------|-------------|----------------|
@@ -134,7 +136,7 @@ This is **DIY drone detection** with an **acoustic UAV sensor** (Seeed XIAO **ES
 
 ### Why this is DePIN
 
-**NEVOD** is a physical distributed acoustic network: every node is owned by the person who built it. There is no subscription just to hear your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; node owners get service perks versus regular users.
+**N.E.V.O.D.** (Net of Early Vigilance and Observation of Drones) is a physical distributed acoustic network: every node is owned by the person who built it. There is no subscription just to hear your own yard. The cloud is **opt-in** for shared early warning; node coordinates are **not published**; node owners get service perks versus regular users.
 
 | Step | You do | You get |
 |------|--------|---------|
