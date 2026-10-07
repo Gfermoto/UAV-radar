@@ -19,6 +19,8 @@ PARTS = FLASH / "parts"
 MANIFEST = FLASH / "manifest.json"
 FACTORY = FLASH / "firmware-nevod_diy.bin"
 FACTORY_REL = "firmware-nevod_diy.bin"
+INDEX = ROOT / "docs" / "index.html"
+ESP_BTN_RE = re.compile(r"((?:Прошить|Flash) ESP )\d+\.\d+\.\d+")
 SEMVER_RE = re.compile(
     r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
 )
@@ -154,6 +156,14 @@ def write_manifest(version: str) -> None:
     MANIFEST.write_text(json.dumps(man, indent=2) + "\n", encoding="utf-8")
 
 
+def write_landing_label(version: str) -> None:
+    html = INDEX.read_text(encoding="utf-8")
+    new, n = ESP_BTN_RE.subn(lambda m: m.group(1) + version, html)
+    if n == 0:
+        raise FlashSyncError("docs/index.html: нет кнопки «Прошить ESP X.Y.Z»")
+    INDEX.write_text(new, encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--app", type=Path, required=True, help="OTA app .bin")
@@ -161,6 +171,7 @@ def main() -> int:
     args = parser.parse_args()
     merge_factory(args.app.expanduser().resolve(), FACTORY)
     write_manifest(args.version.strip())
+    write_landing_label(args.version.strip())
     print(f"wrote {FACTORY} ({FACTORY.stat().st_size} bytes) version={args.version}")
     return 0
 

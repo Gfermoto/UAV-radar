@@ -10,7 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from sync_web_flash import (  # noqa: E402
+    ESP_BTN_RE,
     FACTORY,
+    INDEX,
     MANIFEST,
     FlashSyncError,
     assert_cors_safe_manifest,
@@ -25,7 +27,9 @@ class WebFlashManifestTests(unittest.TestCase):
         self.assertEqual(semver_from_ota_title("v0.17.2-ota"), "0.17.2")
         man = json.loads(MANIFEST.read_text(encoding="utf-8"))
         assert_cors_safe_manifest(man)
-        self.assertEqual(man["version"], "0.20.7")
+        self.assertRegex(man["version"], r"^\d+\.\d+\.\d+$")
+        labels = {m.group(0).split()[-1] for m in ESP_BTN_RE.finditer(INDEX.read_text(encoding="utf-8"))}
+        self.assertEqual(labels, {man["version"]})
         self.assertEqual(man["new_install_improv_wait_time"], 0)
         self.assertIs(man["new_install_prompt_erase"], True)
 

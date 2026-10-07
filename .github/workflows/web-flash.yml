@@ -4,12 +4,14 @@ on:
   push:
     paths:
       - "docs/flash/**"
+      - "docs/index.html"
       - "tools/sync_web_flash.py"
       - "tools/test_sync_web_flash.py"
       - ".github/workflows/web-flash.yml"
   pull_request:
     paths:
       - "docs/flash/**"
+      - "docs/index.html"
       - "tools/sync_web_flash.py"
       - "tools/test_sync_web_flash.py"
       - ".github/workflows/web-flash.yml"
