@@ -44,13 +44,23 @@ jobs:
           PY
           )
           python3 tools/sync_web_flash.py --app /tmp/diy-ota/firmware-nevod_diy.bin --version "$VER"
+          echo "VER=$VER" >> "$GITHUB_ENV"
+      - name: Release page + README links
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "nevod-diy-v${VER}-ota" --repo "${{ github.repository }}" \
+            --json body --jq .body > /tmp/release-body.md
+          python3 tools/release_page.py --version "$VER" --body-file /tmp/release-body.md
+      - name: Landing consistency
+        run: python3 tools/test_sync_web_flash.py
       - name: Commit factory if changed
         env:
           OTA_TITLE: ${{ env.OTA_TITLE }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/flash/firmware-nevod_diy.bin docs/flash/manifest.json docs/index.html
+          git add docs/flash/firmware-nevod_diy.bin docs/flash/manifest.json docs/index.html docs/release README.md docs/DIY_GUIDE.md
           if git diff --cached --quiet; then
             echo "landing factory already current"
             exit 0

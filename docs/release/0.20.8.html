@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.20.8-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.20.8-ota: Диагностика памяти: в /status → system новые поля free_heap_min_mode и free_heap_min_mode_age_s — минимум heap с последней смены режима DETECT↔LISTEN. Провал…">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.20.8.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.20.8-ota">
+  <meta property="og:description" content="NEVOD DIY 0.20.8-ota: Диагностика памяти: в /status → system новые поля free_heap_min_mode и free_heap_min_mode_age_s — минимум heap с последней смены режима DETECT↔LISTEN. Провал…">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.20.8.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.20.8-ota">
+    </div>
+    <h1>NEVOD DIY v0.20.8-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + Seeed XVF3800).</p>
+    <p class="lead"><strong>Заменён на <a href="https://gfermoto.github.io/UAV-radar/release/0.20.9.html">v0.20.9-ota</a>.</strong> 0.20.8 не продвигался в канал <code>diy-ota</code>: гейт надёжности поймал INT_WDT, а локальная сборка тега не совпадала с bin релиза. Ставьте 0.20.9 или новее.</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li><strong>Диагностика памяти:</strong> в <code>/status</code> → <code>system</code> новые поля <code>free_heap_min_mode</code> и <code>free_heap_min_mode_age_s</code> — минимум heap с последней смены режима DETECT↔LISTEN. Провал после Mel или LISTEN больше не прячет запас памяти в текущем режиме.</li>
+        <li><strong>Нейросеть:</strong> убран код пробных профилей. Штатная сборка та же: ESP-NN, арена 256 КиБ (сначала PSRAM).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>b9d044253e811026e6f05b28022988c797f1325b700b92ede50df58127ac60cc</code></li>
+        <li>Model sha256: <code>5280662dd14869aa95fb637d954024bfcbf56a2ea12566711c810d95c1debd04</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.20.8-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://gfermoto.github.io/UAV-radar/">Прошить с лендинга</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota">канал diy-ota</a></p>
+  </main>
+</body>
+</html>

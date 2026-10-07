@@ -19,6 +19,16 @@ from sync_web_flash import (  # noqa: E402
     assert_factory_image,
     semver_from_ota_title,
 )
+from release_page import (  # noqa: E402
+    DIY_GUIDE,
+    GUIDE_RE,
+    README,
+    README_TAG_RE,
+    RELEASE_DIR,
+    ReleasePageError,
+    render,
+    tag_for,
+)
 
 
 class WebFlashManifestTests(unittest.TestCase):
@@ -68,6 +78,49 @@ class WebFlashManifestTests(unittest.TestCase):
         self.assertEqual(blob[2], 0x02)
         self.assertEqual(blob[0x10002], 0x02)
         self.assertGreater(len(blob), 0x10000)
+
+
+class LandingVersionTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.version = json.loads(MANIFEST.read_text(encoding="utf-8"))["version"]
+
+    def test_release_page_exists_for_manifest(self) -> None:
+        page = RELEASE_DIR / f"{self.version}.html"
+        self.assertTrue(page.is_file(), f"нет {page.relative_to(ROOT)}")
+        self.assertIn(f"releases/tag/{tag_for(self.version)}", page.read_text(encoding="utf-8"))
+
+    def test_readme_and_guide_point_to_manifest(self) -> None:
+        tags = set(README_TAG_RE.findall(README.read_text(encoding="utf-8")))
+        self.assertEqual(tags, {tag_for(self.version)})
+        guide = DIY_GUIDE.read_text(encoding="utf-8")
+        found = GUIDE_RE.findall(guide)
+        self.assertEqual(len(found), 2)
+        self.assertEqual(guide.count(f"**{self.version}** · versioned [`{tag_for(self.version)}`]"), 2)
+
+    def test_no_stale_ota_assets_in_pages(self) -> None:
+        for name in ("firmware-nevod_diy.manifest.json", "firmware-nevod_diy.bin.sig"):
+            self.assertFalse((FACTORY.parent / name).exists(), f"docs/flash/{name}: копия OTA-ассета не для factory")
+
+
+class ReleasePageRenderTests(unittest.TestCase):
+    BODY = (
+        "> **Заменён на [v1.2.4](https://example.org/x)**\n\n## OTA\n"
+        "- firmware-nevod_diy.bin sha256 " + "a" * 64 + "\n"
+        "- model sha256 " + "b" * 64 + "\n"
+        "- **Сборка:** `x<y` & пр.\n"
+    )
+
+    def test_render_parses_body(self) -> None:
+        out = render("1.2.3", self.BODY)
+        self.assertIn("a" * 64, out)
+        self.assertIn("b" * 64, out)
+        self.assertIn("<strong>Сборка:</strong> <code>x&lt;y</code> &amp; пр.", out)
+        self.assertIn('<a href="https://example.org/x">v1.2.4</a>', out)
+        self.assertIn("releases/tag/nevod-diy-v1.2.3-ota", out)
+
+    def test_render_rejects_body_without_sha(self) -> None:
+        with self.assertRaises(ReleasePageError):
+            render("1.2.3", "- что-то\n")
 
 
 if __name__ == "__main__":

@@ -5,6 +5,10 @@ on:
     paths:
       - "docs/flash/**"
       - "docs/index.html"
+      - "docs/release/**"
+      - "docs/DIY_GUIDE.md"
+      - "README.md"
+      - "tools/release_page.py"
       - "tools/sync_web_flash.py"
       - "tools/test_sync_web_flash.py"
       - ".github/workflows/web-flash.yml"
@@ -12,6 +16,10 @@ on:
     paths:
       - "docs/flash/**"
       - "docs/index.html"
+      - "docs/release/**"
+      - "docs/DIY_GUIDE.md"
+      - "README.md"
+      - "tools/release_page.py"
       - "tools/sync_web_flash.py"
       - "tools/test_sync_web_flash.py"
       - ".github/workflows/web-flash.yml"
