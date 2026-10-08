@@ -60,15 +60,13 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Пакет публичный
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Образ скачивается без логина
         run: |
-          for name in hub "uav-radar%2Fhub"; do
-            if gh api -X PUT "/user/packages/container/${name}/visibility" -f visibility=public; then
-              echo "public: ${name}"
-              exit 0
-            fi
-          done
-          echo "пакет запушен, видимость не переключилась — проверьте Packages вручную" >&2
-          exit 1
+          tok=$(curl -fsS "https://ghcr.io/token?service=ghcr.io&scope=repository:gfermoto/uav-radar/hub:pull" \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["token"])')
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${tok}" \
+            -H "Accept: application/vnd.oci.image.index.v1+json" \
+            "https://ghcr.io/v2/gfermoto/uav-radar/hub/manifests/${{ steps.ver.outputs.version }}")
+          echo "manifest ${code}"
+          test "$code" = "200"
