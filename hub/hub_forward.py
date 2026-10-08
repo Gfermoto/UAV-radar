@@ -187,6 +187,16 @@ class HubForwarder:
         self._origin_block = ""
         self._cabinet_error = ""
         self._cabinet_missing_logged = False
+        base_stats: dict[str, Any] = {}
+        if store is not None:
+            try:
+                raw = store.forward_stats()
+                if isinstance(raw, dict):
+                    base_stats = raw
+            except Exception:  # noqa: BLE001
+                base_stats = {}
+        self._drop_base = int(base_stats.get("dropped_total") or 0)
+        self._abandon_base = int(base_stats.get("abandoned_total") or 0)
         self._last_err_log = 0.0
         self._lock = threading.Lock()
         self._start_lock = threading.Lock()
@@ -295,6 +305,8 @@ class HubForwarder:
         last_error = str(st.get("last_error", "") or "")
         if self._cabinet_error and src == "none":
             last_error = self._cabinet_error
+        dropped = int(st.get("dropped_total") or 0)
+        abandoned = int(st.get("abandoned_total") or 0)
         out: dict[str, Any] = {
             "enabled": self.enabled,
             "has_token": src == "user",
@@ -309,8 +321,10 @@ class HubForwarder:
             "mel_lan_only": mel_lan,
             "queue_depth": st.get("queue_depth", 0),
             "queue_max": self.queue_max,
-            "dropped_total": st.get("dropped_total", 0),
-            "abandoned_total": st.get("abandoned_total", 0),
+            "dropped_total": dropped,
+            "abandoned_total": abandoned,
+            "dropped_boot": max(0, dropped - int(getattr(self, "_drop_base", 0) or 0)),
+            "abandoned_boot": max(0, abandoned - int(getattr(self, "_abandon_base", 0) or 0)),
             "nodes": st.get("nodes") or {},
             "last_error": last_error,
             "last_ok_at": self.last_ok_at,

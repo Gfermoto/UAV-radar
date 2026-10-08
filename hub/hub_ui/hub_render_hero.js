@@ -19,10 +19,10 @@ function renderHero(s) {
   if (nodesEl) {
     nodesEl.title = ids.length ? ("online: " + ids.join(", ")) : "нет online";
   }
-  const readyTxt = s.ready_core_pb ? "READY" : "WAIT";
+  const readyTxt = s.ready_core_pb ? "принял Hub" : "ждём набор";
   const readyTitle = s.ready_core_pb
-    ? "DET + Heartbeat + Mel (PB) приняты"
-    : "Ждём полный набор PB: DET, Heartbeat и Mel";
+    ? "Hub принял DET, пульс и Mel. Это не ответ облака."
+    : "Hub ещё не принял полный набор: DET, пульс и Mel";
   ["sReady", "sReadyLab"].forEach(id => {
     const el = $(id);
     if (!el) return;
@@ -31,6 +31,20 @@ function renderHero(s) {
     const base = id === "sReadyLab" ? "x" : "v";
     el.className = base + " " + (s.ready_core_pb ? "ok" : "warn");
   });
+  const failEl = $("sFwdFail");
+  if (failEl) {
+    const nodes = (s.hub && s.hub.forward && s.hub.forward.nodes) || {};
+    let failed = 0;
+    Object.keys(nodes).forEach(function (k) {
+      const rec = nodes[k];
+      if (rec && rec.last_error) failed += 1;
+    });
+    failEl.textContent = String(failed);
+    failEl.className = "v " + (failed ? "bad" : "ok");
+    failEl.title = failed
+      ? "Узлов с отказом последней пересылки: " + failed
+      : "Отказов пересылки по узлам нет";
+  }
   if ($("sBytes")) $("sBytes").textContent = fmtBytes(s.total_bytes || 0);
   const mq = $("sMqtt");
   if (mq) {

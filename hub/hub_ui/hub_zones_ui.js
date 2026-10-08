@@ -466,8 +466,14 @@ function paintFwdMeter(fwd) {
     $("fwdQueueBar").classList.toggle("hot", depth > max * 0.6);
   }
   if ($("fwdQueueHint")) {
+    const dropBoot = Number(fwd.dropped_boot || 0);
+    const abandonBoot = Number(fwd.abandoned_boot || 0);
+    const live = "с загрузки: отброшено " + dropBoot + ", отказ " + abandonBoot;
     $("fwdQueueHint").textContent = depth
-      ? "есть события — уйдут, когда облако снова на связи"
-      : "буфер пуст";
+      ? (live + " · в буфере " + depth)
+      : live;
+    $("fwdQueueHint").title =
+      "За всё время базы: отброшено " + Number(fwd.dropped_total || 0) +
+      ", отказ " + Number(fwd.abandoned_total || 0);
   }
 }
