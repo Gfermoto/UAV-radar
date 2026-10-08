@@ -1,0 +1,80 @@
+[
+  {
+    "args": {
+      "t_c": 20,
+      "rh_pct": 70,
+      "p_kpa": 101.325,
+      "f_hz": 500,
+      "forest_path_m": 0,
+      "g": 1,
+      "barrier_z_m": 0
+    },
+    "r_m": 500.0,
+    "extra_db": 0.0
+  },
+  {
+    "args": {
+      "t_c": 20,
+      "rh_pct": 70,
+      "p_kpa": 101.325,
+      "f_hz": 500,
+      "forest_path_m": 100,
+      "g": 1,
+      "barrier_z_m": 0
+    },
+    "r_m": 299.849,
+    "extra_db": 5.0
+  },
+  {
+    "args": {
+      "t_c": 0,
+      "rh_pct": 50,
+      "p_kpa": 101.325,
+      "f_hz": 500,
+      "forest_path_m": 0,
+      "g": 1,
+      "barrier_z_m": 0
+    },
+    "r_m": 518.753,
+    "extra_db": 0.0
+  },
+  {
+    "args": {
+      "t_c": 20,
+      "rh_pct": 70,
+      "p_kpa": 101.325,
+      "f_hz": 500,
+      "forest_path_m": 0,
+      "g": 0,
+      "barrier_z_m": 0
+    },
+    "r_m": 713.956,
+    "extra_db": -3.6912
+  },
+  {
+    "args": {
+      "t_c": 20,
+      "rh_pct": 70,
+      "p_kpa": 101.325,
+      "f_hz": 500,
+      "forest_path_m": 0,
+      "g": 1,
+      "barrier_z_m": 0.1
+    },
+    "r_m": 331.242,
+    "extra_db": 4.0475
+  },
+  {
+    "args": {
+      "t_c": 20,
+      "rh_pct": 50,
+      "p_kpa": 101.325,
+      "f_hz": 1000,
+      "forest_path_m": 0,
+      "g": 1,
+      "barrier_z_m": 0
+    },
+    "r_m": 507.143,
+    "extra_db": 0.0
+  }
+]

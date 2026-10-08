@@ -1,0 +1,33 @@
+{
+  "schema": "nevod.adsb.snapshot.v1",
+  "site_id": "lab",
+  "ts": "2026-08-12T12:30:00Z",
+  "count": 1,
+  "aircraft": [
+    {
+      "schema": "nevod.adsb.ac.v1",
+      "site_id": "lab",
+      "ts": "2026-08-12T12:30:00Z",
+      "source": "aircraft.json",
+      "hex": "4B9E4A",
+      "dist_m": 18240.5,
+      "in_radius": true,
+      "aircraft": {
+        "hex": "4b9e4a",
+        "flight": "STW086",
+        "alt_baro": 5575,
+        "gs": 238.0,
+        "track": 254.4,
+        "squawk": "2111",
+        "category": "A3",
+        "lat": 55.75,
+        "lon": 37.62,
+        "seen": 0.1,
+        "rssi": -15.8,
+        "messages": 125,
+        "mlat": [],
+        "tisb": []
+      }
+    }
+  ]
+}

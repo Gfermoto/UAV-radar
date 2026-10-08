@@ -1,0 +1,79 @@
+# NEVOD Hub — установка из публичного образа.
+# Инструкция: docs/HUB.md
+#
+#   cp .env.example .env
+#   docker compose pull
+#   docker compose up -d
+#
+# Обновить: docker compose pull && docker compose up -d
+# LoRa-шлюз (MQTT): docker compose --profile mqtt up -d
+# Сессии панели в Redis: docker compose --profile redis up -d
+
+name: nevod-hub
+
+services:
+  hub:
+    image: ghcr.io/gfermoto/uav-radar/hub:${HUB_IMAGE_TAG:-0.2.4}
+    pull_policy: always
+    container_name: nevod-hub
+    restart: unless-stopped
+    environment:
+      INGEST_TOKEN: ${INGEST_TOKEN:?set INGEST_TOKEN in .env}
+      HUB_CN: ${HUB_CN:?set HUB_CN to the LAN IP nodes dial}
+      MOCK_CN: ${HUB_CN}
+      HUB_PORT: ${HUB_PORT:-9443}
+      MOCK_PORT: ${HUB_PORT:-9443}
+      HUB_CERT_DIR: /data/certs
+      HUB_DATA_DIR: /data/hub
+      MEL_DIR: /data/mel
+      MEL_SAVE: ${MEL_SAVE:-1}
+      MEL_MAX_FILES: ${MEL_MAX_FILES:-500}
+      HUB_MEL_LAN_ONLY: ${HUB_MEL_LAN_ONLY:-0}
+      HTTP_CLEARTEXT: ${HTTP_CLEARTEXT:-0}
+      PRINT_DIY_CONFIG: "1"
+      HUB_REDIS_URL: ${HUB_REDIS_URL:-}
+      HUB_REDIS_REQUIRED: ${HUB_REDIS_REQUIRED:-0}
+      MESH_MQTT_HOST: ${MESH_MQTT_HOST:-}
+      MESH_MQTT_PORT: ${MESH_MQTT_PORT:-1883}
+      MESH_MQTT_USER: ${MESH_MQTT_USER:-}
+      MESH_MQTT_PASSWORD: ${MESH_MQTT_PASSWORD:-}
+      HUB_MSH_ROOT: ${HUB_MSH_ROOT:-NEVOD}
+      HUB_FORWARD_URL: ${HUB_FORWARD_URL:-https://nevod.endorphine.agency}
+      HUB_FORWARD_TOKEN: ${HUB_FORWARD_TOKEN:-}
+      CLOUD_INGEST_TOKEN_DEFAULT: ${CLOUD_INGEST_TOKEN_DEFAULT:-}
+      HUB_FORWARD_MEL: ${HUB_FORWARD_MEL:-1}
+      HUB_LAB_DEFAULT_UNLOCK: "0"
+      HUB_DASHBOARD_OPEN: "0"
+    ports:
+      - "${HUB_PORT:-9443}:${HUB_PORT:-9443}"
+    volumes:
+      - hub_certs:/data/certs
+      - hub_mel:/data/mel
+      - hub_data:/data/hub
+
+  redis:
+    profiles: ["redis"]
+    image: redis:7-alpine
+    container_name: nevod-hub-redis
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    volumes:
+      - hub_redis:/data
+
+  mosquitto:
+    profiles: ["mqtt"]
+    image: eclipse-mosquitto:2
+    container_name: nevod-hub-mqtt
+    restart: unless-stopped
+    ports:
+      - "${MQTT_PORT:-1883}:1883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto_data:/mosquitto/data
+
+volumes:
+  hub_certs:
+  hub_mel:
+  hub_data:
+  hub_redis:
+  mosquitto_data:

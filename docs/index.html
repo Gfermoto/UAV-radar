@@ -53,6 +53,7 @@
       <a href="#dsp" data-i18n="nav.dsp">DSP</a>
       <a href="#esp" data-i18n="nav.esp">ESP</a>
       <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_USER_MANUAL.md" data-i18n="nav.manual">Пользование</a>
+      <a href="#hub" data-i18n="nav.hub">Hub</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
       <a href="https://t.me/UAV_radar" rel="noopener noreferrer">Telegram</a>
     </nav>
@@ -175,6 +176,14 @@
         <p data-i18n-html="net.p">Токен из <a href="https://nevod.endorphine.agency">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать заранее. Координаты нод сеть не публикует.</p>
       </section>
 
+      <section id="hub">
+        <h2 data-i18n="hub.h">Hub на участке</h2>
+        <p data-i18n="hub.p">Несколько узлов или LoRa: панель у себя дома принимает события и пересылает их в кабинет. Аудио наружу не уходит. Один узел без Hub обходится WebUI и MQTT.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/HUB.md" data-href-ru="https://github.com/Gfermoto/UAV-radar/blob/main/docs/HUB.md" data-href-en="https://github.com/Gfermoto/UAV-radar/blob/main/docs/HUB.md#english" data-i18n="hub.cta">Установка и настройка</a>
+        </div>
+      </section>
+
       <section id="keywords" class="keywords">
         <h2 data-i18n="kw.h">Ищут как</h2>
         <p data-i18n="kw.p">Так ищут DIY-детектор дронов и акустический сенсор БПЛА. Фразы на английском — глобальные запросы.</p>
@@ -214,6 +223,7 @@
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
           "nav.manual": "Пользование",
+          "nav.hub": "Hub",
           "hero.expand": "Net of Early Vigilance and Observation of Drones",
           "hero.title": "Соберите акустический узел раннего оповещения",
           "hero.lead": "Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака. DSP и ESP прошиваются прямо с этой страницы.",
@@ -257,6 +267,9 @@
           "check.more": "Руководство — повседневная работа. Полная инструкция — сборка и корпус.",
           "net.h": "Когда готовы — народный радар",
           "net.p": "Токен из <a href=\"https://nevod.endorphine.agency\">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать заранее. Координаты нод сеть не публикует.",
+          "hub.h": "Hub на участке",
+          "hub.p": "Несколько узлов или LoRa: панель у себя дома принимает события и пересылает их в кабинет. Аудио наружу не уходит. Один узел без Hub обходится WebUI и MQTT.",
+          "hub.cta": "Установка и настройка",
           "kw.h": "Ищут как",
           "kw.p": "Так ищут DIY-детектор дронов и акустический сенсор БПЛА. Фразы на английском — глобальные запросы.",
           "close": "Раннее оповещение начинается с одного рабочего узла — своего или соседского.",
@@ -268,6 +281,7 @@
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
           "nav.manual": "Manual",
+          "nav.hub": "Hub",
           "hero.expand": "Net of Early Vigilance and Observation of Drones",
           "hero.title": "Build an acoustic early-warning node",
           "hero.lead": "DIY drone detection at home: an acoustic UAV sensor on ESP32-S3 with beamforming hears drones over your property, shows bearing in the web UI, and fires a Home Assistant drone alert or MQTT — privacy-first, no cloud required. Flash DSP and ESP from this page.",
@@ -311,6 +325,9 @@
           "check.more": "The manual is day-to-day use. The full guide is build and enclosure.",
           "net.h": "When ready — people’s radar",
           "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on a DePIN acoustic network for shared early warning. More sensors — better chance to react in advance. Node coordinates are not published.",
+          "hub.h": "A Hub on your site",
+          "hub.p": "Several nodes, or LoRa: a panel at home takes the events and forwards them to your account. Audio stays local. A single node can stay on the web UI and MQTT.",
+          "hub.cta": "Install and setup",
           "kw.h": "Also searched as",
           "kw.p": "Natural queries for this kit. Keep the English phrases — they match how the global community searches.",
           "close": "Early warning starts with one working node — yours or a neighbor’s.",
