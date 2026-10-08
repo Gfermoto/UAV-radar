@@ -321,6 +321,7 @@ function renderDetail(s) {
             <span class="dot ${n.online ? "on" : "off"}"></span>
             <span>${n.online ? "online" : "offline"}</span>
             ${transportChips(n.transports)}
+            ${cabinetChip(n, s)}
           </div>
           <div style="font-family:var(--mono);font-size:0.95rem;margin-top:10px">
             ${uptimeStr

@@ -1,4 +1,78 @@
 /* Hub render — nodes / checklist (Wave E) */
+function forwardRecForNode(n, s) {
+  const fwd = (s && s.hub && s.hub.forward) || {};
+  const map = fwd.nodes || {};
+  const raw = String((n && n.node_id) || "");
+  const want = typeof canonNodeId === "function" ? canonNodeId(raw) : raw;
+  if (want && map[want]) return { fwd: fwd, rec: map[want] };
+  if (raw && map[raw]) return { fwd: fwd, rec: map[raw] };
+  const hit = Object.keys(map).find(function (k) {
+    return (typeof canonNodeId === "function" ? canonNodeId(k) : k) === want;
+  });
+  return { fwd: fwd, rec: hit ? map[hit] : null };
+}
+
+function partialLoraMel(n) {
+  const mel = n && n.lora_mel_rx;
+  if (!mel || typeof mel !== "object") return null;
+  const got = Number(mel.got || 0);
+  const total = Number(mel.n || 0);
+  if (!total || got >= total) return null;
+  return { got: got, n: total };
+}
+
+/** Три состояния кабинета на карточке. READY и проба ключа сюда не входят. */
+function cabinetStatus(n, s) {
+  const found = forwardRecForNode(n, s);
+  const fwd = found.fwd;
+  const rec = found.rec;
+  const err = rec && rec.last_error ? String(rec.last_error) : "";
+  const okAt = rec && rec.last_ok_at;
+  const mel = partialLoraMel(n);
+  const melTxt = mel ? ("спектр LoRa " + mel.got + "/" + mel.n) : "";
+  if (err) {
+    return { text: "облако отказало", tip: err, color: "var(--bad)" };
+  }
+  if (mel && !okAt) {
+    return {
+      text: melTxt,
+      tip: "Кадр ещё не собран и в кабинет не отправлен",
+      color: "var(--warn)",
+    };
+  }
+  if (okAt && mel) {
+    return {
+      text: "кабинет принял · " + melTxt,
+      tip: "Последняя пересылка прошла. Новый спектр LoRa ещё собирается и в кабинет не ушёл",
+      color: "var(--ok)",
+    };
+  }
+  if (okAt) {
+    return {
+      text: "кабинет принял",
+      tip: "Последняя пересылка этого узла в кабинет прошла",
+      color: "var(--ok)",
+    };
+  }
+  if (fwd && fwd.last_error === "cabinet_key_missing") {
+    return {
+      text: "ключа кабинета нет",
+      tip: "LoRa без ключа в кабинет не уходит",
+      color: "var(--bad)",
+    };
+  }
+  return {
+    text: "в кабинет ещё не уходило",
+    tip: "Hub видит узел. Успешной пересылки этого узла ещё не было",
+    color: "var(--muted)",
+  };
+}
+
+function cabinetChip(n, s) {
+  const st = cabinetStatus(n, s);
+  return `<span title="${escapeHtml(st.tip)}" style="color:${st.color}">${escapeHtml(st.text)}</span>`;
+}
+
 function visibleNodes(s) {
   const showStale = $("showStale") && $("showStale").checked;
   const nodes = [...(s.nodes || [])];
@@ -51,6 +125,7 @@ function renderNodes(s) {
         ${fw ? `<span title="прошивка ESP">fw ${escapeHtml(fw)}</span>` : "<span>fw —</span>"}
         ${n.xvf_firmware_version ? `<span title="XVF Seeed">xvf ${escapeHtml(String(n.xvf_firmware_version))}</span>` : ""}
         ${n.nn_model_version ? `<span title="NN модель">nn ${escapeHtml(String(n.nn_model_version))}</span>` : ""}
+        ${cabinetChip(n, s)}
         ${hbVia ? `<span title="последний пульс">HB ${escapeHtml(hbVia)}</span>` : ""}
         ${detVia ? `<span title="последняя детекция">DET ${escapeHtml(detVia)}</span>` : ""}
         ${(() => {
