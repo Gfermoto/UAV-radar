@@ -2,7 +2,7 @@
 
 Панель участка. Узлы шлют события на Hub, Hub пересылает их в ваш кабинет [nevod.endorphine.agency](https://nevod.endorphine.agency). Аудио с узлов наружу не уходит. Один двор без нескольких узлов обходится и без Hub: хватает WebUI, MQTT и Home Assistant. Hub нужен, когда узлов несколько или события приходят по LoRa и сами до кабинета не доходят.
 
-Образ публичный: `ghcr.io/gfermoto/uav-radar/hub`. Логин в реестр не нужен.
+Образ публичный: `ghcr.io/gfermoto/uav-radar/hub`. Логин в реестр не нужен. В каталоге `hub/` этого репозитория только файлы запуска (compose, `.env`, брокер). Исходников панели здесь нет.
 
 **[English](#english)**
 
@@ -100,7 +100,7 @@ print('ok')
 
 A site panel. Nodes send events to the Hub, and the Hub forwards them to your account at [nevod.endorphine.agency](https://nevod.endorphine.agency). Audio never leaves the nodes. One yard with a single node does not need a Hub: the web UI, MQTT, and Home Assistant are enough. Use the Hub when you have several nodes, or when events arrive over LoRa and cannot reach the account on their own.
 
-The image is public: `ghcr.io/gfermoto/uav-radar/hub`. No registry login.
+The image is public: `ghcr.io/gfermoto/uav-radar/hub`. No registry login. The `hub/` directory in this repo is only the run files (compose, `.env`, broker). The panel source is not here.
 
 ### What you need
 
