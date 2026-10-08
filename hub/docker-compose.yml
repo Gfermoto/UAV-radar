@@ -13,7 +13,7 @@ name: nevod-hub
 
 services:
   hub:
-    image: ghcr.io/gfermoto/uav-radar/hub:${HUB_IMAGE_TAG:-0.2.4}
+    image: ghcr.io/gfermoto/uav-radar/hub:${HUB_IMAGE_TAG:-latest}
     pull_policy: always
     container_name: nevod-hub
     restart: unless-stopped
