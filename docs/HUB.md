@@ -22,7 +22,7 @@
 
 Узел по Wi-Fi или Ethernet прикладывает этот ключ к событию сам. Hub его не подменяет. Кадр LoRa ключа не несёт: для таких узлов впишите тот же токен в `HUB_FORWARD_TOKEN`. Пустое `HUB_FORWARD_TOKEN` ключом приёма не заполняется.
 
-Не оставляйте узлы на ключе из свежей прошивки, если кабинет уже ваш. Иначе облако может закрепить узел не за вашей учётной записью, и чужой ключ получит отказ. Свой токен на узле и на Hub это снимает.
+Ключ из свежей прошивки общий. Облако может принять такой узел и всё равно не показать его в кабинете: прибор остаётся ничей. Чужой личный токен узел закрепляет, и ваш ключ потом получает отказ, пока узел не отвяжут в кабинете. На узле и на Hub ставьте токен своей учётной записи.
 
 ### Установка
 
@@ -63,7 +63,14 @@ docker compose --profile mqtt up -d
 Если забыли его на своей машине:
 
 ```bash
-docker exec -it nevod-hub python3 -c "import hub_auth; hub_auth._ui_set('admin', 'новый-пароль-8')"
+docker exec nevod-hub python3 -c "
+from pathlib import Path
+import hub_store, hub_auth
+s = hub_store.HubStore(Path('/data/hub/hub.sqlite'))
+hub_auth.bind_store(s)
+hub_auth._ui_set('admin', 'новый-пароль-8')
+print('ok')
+"
 ```
 
 Сменили `HUB_CN` — старый сертификат останется на прежний адрес. Остановите контейнер, удалите том `hub_certs` и запустите снова. Том с базой (`hub_data`) не удаляйте.
@@ -109,7 +116,7 @@ One key per account, from the cabinet. Every node of yours uses it.
 
 A Wi-Fi or Ethernet node attaches this key to the event itself. The Hub does not replace it. A LoRa frame carries no key: set the same token as `HUB_FORWARD_TOKEN`. An empty `HUB_FORWARD_TOKEN` is not filled from `INGEST_TOKEN`.
 
-Do not leave nodes on the key baked into a fresh flash once the account is yours. The cloud can bind the node to the wrong account, and another key is then refused. Your own token on the node and on the Hub avoids that.
+The key baked into a fresh flash is shared. The cloud may accept that node and still leave it out of the account. Someone else's personal token does bind the node, and yours is then refused until the node is unbound in the account. Put your own account token on the node and on the Hub.
 
 ### Install
 
@@ -148,7 +155,14 @@ Open `https://HUB_CN:9443`. The browser will warn about the certificate: the pan
 If you forgot it on your own machine:
 
 ```bash
-docker exec -it nevod-hub python3 -c "import hub_auth; hub_auth._ui_set('admin', 'new-password-8')"
+docker exec nevod-hub python3 -c "
+from pathlib import Path
+import hub_store, hub_auth
+s = hub_store.HubStore(Path('/data/hub/hub.sqlite'))
+hub_auth.bind_store(s)
+hub_auth._ui_set('admin', 'new-password-8')
+print('ok')
+"
 ```
 
 If you change `HUB_CN`, the old certificate still names the previous address. Stop the container, remove the `hub_certs` volume, and start again. Do not remove `hub_data`.

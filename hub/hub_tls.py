@@ -103,7 +103,7 @@ def print_diy_config(
         print(f"ingest_url:     {base}")
         for h in hosts[1:]:
             print(f"  (альтернатива) {scheme}://{h}:{port}")
-        print(f"ingest_token:   {token}")
+        print(f"ingest_token:   {'задан' if (token or '').strip() else 'не задан'}")
         print("api_enabled:    ON   (Cloud PB via ingest_url + token)")
         print("mel_upload:     1 (on detect) или 2 (lab ~0.1 Hz / 10s)")
         print("grpc_host:      можно оставить пустым — PB берёт origin из ingest_url")
@@ -119,7 +119,7 @@ def print_diy_config(
         print("  grpc_port=80   → прошивка шлёт http://{host}/api/v1/pb/*")
         print("  (порт слушателя mock должен быть 80, нужен root/cap)")
         print(f"  либо проксируйте {port}→80 и слушайте :80")
-        print(f"ingest_token: {token}")
+        print(f"ingest_token: {'задан' if (token or '').strip() else 'не задан'}")
         print("ingest_url:  ОСТАВИТЬ ПУСТЫМ (иначе WebUI потребует https)")
         print("api_enabled: OFF (Cloud PB off без https ingest_url)")
     print(f"\nЧеклист: {base}/")
