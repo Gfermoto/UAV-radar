@@ -10,7 +10,7 @@
 
 ### Что поставить
 
-На компьютере в той же сети, что и узлы: Docker и Docker Compose. Открытый порт **9443**. Если есть шлюз LoRa — ещё **1883**.
+На компьютере в той же сети, что и узлы: Docker и Docker Compose. Открытый порт **9443**. Если брокер MQTT ставится вместе с Hub — ещё **1883**.
 
 ### Ключ
 
@@ -46,13 +46,37 @@ docker compose pull
 docker compose up -d
 ```
 
-Шлюз LoRa на этой же машине:
+### Брокер MQTT
+
+Нужен, если узлы шлют события по MQTT (`nevod/+/detection`, `nevod/+/heartbeat`) или есть шлюз LoRa (`msh/NEVOD/2/e/`). Узлам, которые идут на Hub по HTTPS, брокер не нужен. Выберите один из двух вариантов.
+
+**Брокер уже есть** (Mosquitto, Home Assistant и т. п.). В `.env` впишите его адрес, профиль `mqtt` не включайте:
+
+```ini
+NODE_MQTT_HOST=192.168.1.20
+NODE_MQTT_USER=...
+NODE_MQTT_PASSWORD=...
+MESH_MQTT_HOST=192.168.1.20   # если есть шлюз LoRa
+```
+
+```bash
+docker compose up -d
+```
+
+**Брокер вместе с Hub.** В `.env`:
+
+```ini
+NODE_MQTT_HOST=mosquitto
+MESH_MQTT_HOST=mosquitto      # если есть шлюз LoRa
+```
 
 ```bash
 docker compose --profile mqtt up -d
 ```
 
-Шлюз публикует в брокер `HUB_CN:1883`, корень топика `msh/NEVOD/`. Карточка Hub читает `msh/NEVOD/2/e/`. Брокер в этой конфигурации без пароля: не открывайте 1883 в интернет.
+Узлы и шлюз LoRa публикуют в `HUB_CN:1883` (порт меняется полем `MQTT_PORT`), корень топика LoRa `msh/NEVOD/`. Этот брокер без пароля: не открывайте 1883 в интернет.
+
+Адрес брокера из `.env` применяется при первом запуске. Потом его можно поменять в панели, блок «Брокер MQTT»: сохранённое в панели важнее `.env`.
 
 Обновление: `docker compose pull && docker compose up -d`. Данные панели, сертификат и спектры лежат в томах и при обновлении не стираются.
 
@@ -104,7 +128,7 @@ The image is public: `ghcr.io/gfermoto/uav-radar/hub:latest`. No registry login.
 
 ### What you need
 
-A computer on the same LAN as the nodes, with Docker and Docker Compose. Open port **9443**. A LoRa gateway also needs **1883**.
+A computer on the same LAN as the nodes, with Docker and Docker Compose. Open port **9443**. A broker bundled with the Hub also needs **1883**.
 
 ### The key
 
@@ -138,13 +162,37 @@ docker compose pull
 docker compose up -d
 ```
 
-LoRa gateway on the same machine:
+### MQTT broker
+
+Needed when nodes publish events over MQTT (`nevod/+/detection`, `nevod/+/heartbeat`) or you have a LoRa gateway (`msh/NEVOD/2/e/`). Nodes that reach the Hub over HTTPS do not need it. Pick one of two options.
+
+**You already run a broker** (Mosquitto, Home Assistant, etc.). Put its address in `.env` and leave the `mqtt` profile off:
+
+```ini
+NODE_MQTT_HOST=192.168.1.20
+NODE_MQTT_USER=...
+NODE_MQTT_PASSWORD=...
+MESH_MQTT_HOST=192.168.1.20   # if you have a LoRa gateway
+```
+
+```bash
+docker compose up -d
+```
+
+**Broker bundled with the Hub.** In `.env`:
+
+```ini
+NODE_MQTT_HOST=mosquitto
+MESH_MQTT_HOST=mosquitto      # if you have a LoRa gateway
+```
 
 ```bash
 docker compose --profile mqtt up -d
 ```
 
-Point the gateway at `HUB_CN:1883`, topic root `msh/NEVOD/`. The Hub card reads `msh/NEVOD/2/e/`. This broker has no password: do not expose 1883 to the internet.
+Nodes and the LoRa gateway publish to `HUB_CN:1883` (change the port with `MQTT_PORT`), LoRa topic root `msh/NEVOD/`. This broker has no password: do not expose 1883 to the internet.
+
+The broker address from `.env` is applied on first start. After that you can change it in the panel, «Брокер MQTT» block; the panel setting wins over `.env`.
 
 Update with `docker compose pull && docker compose up -d`. The panel database, certificate, and spectra stay in volumes.
 

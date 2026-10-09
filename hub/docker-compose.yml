@@ -6,7 +6,8 @@
 #   docker compose up -d
 #
 # Обновить: docker compose pull && docker compose up -d
-# LoRa-шлюз (MQTT): docker compose --profile mqtt up -d
+# MQTT: свой брокер — адрес в .env (NODE_MQTT_HOST, MESH_MQTT_HOST), профиль не нужен.
+# Брокер вместе с Hub: docker compose --profile mqtt up -d
 # Сессии панели в Redis: docker compose --profile redis up -d
 
 name: nevod-hub
@@ -33,6 +34,10 @@ services:
       PRINT_DIY_CONFIG: "0"
       HUB_REDIS_URL: ${HUB_REDIS_URL:-}
       HUB_REDIS_REQUIRED: ${HUB_REDIS_REQUIRED:-0}
+      MQTT_HOST: ${NODE_MQTT_HOST:-}
+      MQTT_PORT: ${NODE_MQTT_PORT:-1883}
+      MQTT_USER: ${NODE_MQTT_USER:-}
+      MQTT_PASSWORD: ${NODE_MQTT_PASSWORD:-}
       MESH_MQTT_HOST: ${MESH_MQTT_HOST:-}
       MESH_MQTT_PORT: ${MESH_MQTT_PORT:-1883}
       MESH_MQTT_USER: ${MESH_MQTT_USER:-}
