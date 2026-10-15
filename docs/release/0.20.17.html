@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.20.17-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.20.17-ota: Меньше ложных тревог в тишине. Авто-порог контраста LAeq (режим по умолчанию) — узел сам учит разброс фона и ставит порог; сохраняется в NVS и действует сраз…">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.20.17.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.20.17-ota">
+  <meta property="og:description" content="NEVOD DIY 0.20.17-ota: Меньше ложных тревог в тишине. Авто-порог контраста LAeq (режим по умолчанию) — узел сам учит разброс фона и ставит порог; сохраняется в NVS и действует сраз…">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.20.17.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.20.17-ota">
+    </div>
+    <h1>NEVOD DIY v0.20.17-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + Seeed XVF3800).</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li><strong>Меньше ложных тревог в тишине.</strong> Авто-порог контраста LAeq (режим по умолчанию) — узел сам учит разброс фона и ставит порог; сохраняется в NVS и действует сразу после перезагрузки; до обучения фона публикация без тона винта удерживается (до 90 с). Ручной режим остался, 0 = гейт выкл (сбор данных).</li>
+        <li><strong>Гейт ТРД-БПЛА:</strong> jet больше не подтверждается по одному таймауту, если пеленг XVF доступен.</li>
+        <li><strong>Надёжность:</strong> настройки сети сохраняются единым путём (правки WebUI/MQTT/LED не затирают друг друга); ошибки записи NVS видны (<code>system.nvs_save_pending</code>); устранены гонки кэша паролей, буфера CA и статуса CA.</li>
+        <li><strong>Безопасность:</strong> загрузку OTA/модели может продолжить только её инициатор; во время блокировки входа верный пароль тоже получает 429; GitHub-токен не уходит при редиректе; JSON из нескольких TCP-пакетов принимается.</li>
+        <li><strong>WebUI:</strong> одинаковое инженерное меню на DIY и Light; переключатель Авто/Ручной для порога контраста.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>b13276c485eb5cf19b18a1769369c7ad7bc3785a874e02912161ff9b6e73cf95</code></li>
+        <li>Model sha256: <code>5280662dd14869aa95fb637d954024bfcbf56a2ea12566711c810d95c1debd04</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.20.17-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://gfermoto.github.io/UAV-radar/">Прошить с лендинга</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota">канал diy-ota</a></p>
+  </main>
+</body>
+</html>
