@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.20.23-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.20.23-ota: OTA из LISTEN. GitHub OTA больше не откатывается и не блокируется из‑за mic-setup: на время reclaim LISTEN паркуется в DETECT (NVS sticky сохраняется).">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.20.23.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.20.23-ota">
+  <meta property="og:description" content="NEVOD DIY 0.20.23-ota: OTA из LISTEN. GitHub OTA больше не откатывается и не блокируется из‑за mic-setup: на время reclaim LISTEN паркуется в DETECT (NVS sticky сохраняется).">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.20.23.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.20.23-ota">
+    </div>
+    <h1>NEVOD DIY v0.20.23-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + Seeed XVF3800).</p>
+    <p class="lead">Полный список — CHANGELOG 0.20.23. Прошивка в лаборатории: только <code>safe_upload.py</code>, без стирания NVS.</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li><strong>OTA из LISTEN.</strong> GitHub OTA больше не откатывается и не блокируется из‑за mic-setup: на время reclaim LISTEN паркуется в DETECT (NVS sticky сохраняется).</li>
+        <li><strong>Boot health.</strong> Подтверждение OTA не требует DETECT — sticky LISTEN больше не даёт rollback <code>listen</code>.</li>
+        <li><strong>WebUI.</strong> Ошибка <code>listen_plane</code> = сбой park Opus, не запрет OTA в LISTEN.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>1dcb04f9efbd18c17143aae41b6694bdb6a2e36be9052a520f360c2a13b6b69b</code></li>
+        <li>Model sha256: <code>5280662dd14869aa95fb637d954024bfcbf56a2ea12566711c810d95c1debd04</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.20.23-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://gfermoto.github.io/UAV-radar/">Прошить с лендинга</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota">канал diy-ota</a></p>
+  </main>
+</body>
+</html>
