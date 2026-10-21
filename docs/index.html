@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NEVOD · акустический узел раннего оповещения о дронах</title>
-  <meta name="description" content="DIY drone detection: acoustic UAV sensor on ESP32-S3 with beamforming. Privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network. Железо ≈ 9 800 ₽." />
-  <meta name="keywords" content="DIY drone detection, acoustic UAV sensor, ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, DePIN acoustic network, NEVOD, UAV-radar" />
+  <title>NEVOD · дрон над двором</title>
+  <meta name="description" content="Узел во дворе слышит дрон. В браузере — направление. Прошейте DSP и ESP на этой странице. Сообщение уходит в MQTT или Home Assistant. Железо ≈ 9 800 ₽." />
+  <meta name="keywords" content="дрон, двор, направление, прошивка, MQTT, Home Assistant, NEVOD" />
   <meta name="theme-color" content="#0a1210" />
   <link rel="icon" href="./assets/favicon.ico" sizes="any" />
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
@@ -21,19 +21,19 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "NEVOD",
-    "alternateName": ["UAV-radar", "DIY drone detection", "acoustic UAV sensor"],
+    "alternateName": ["UAV-radar"],
     "url": "https://gfermoto.github.io/UAV-radar/",
     "applicationCategory": "SecurityApplication",
     "operatingSystem": "ESP32-S3",
     "offers": { "@type": "Offer", "price": "9772", "priceCurrency": "RUB" },
-    "description": "DIY drone detection with an acoustic UAV sensor: ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network.",
-    "keywords": "DIY drone detection, acoustic UAV sensor, ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, DePIN acoustic network"
+    "description": "Узел во дворе слышит дрон. В браузере — направление. Прошейте DSP и ESP на этой странице. Сообщение уходит в MQTT или Home Assistant. Железо ≈ 9 800 ₽.",
+    "keywords": "дрон, двор, направление, прошивка, MQTT, Home Assistant"
   }
   </script>
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/" />
-  <meta property="og:title" content="NEVOD · акустический узел раннего оповещения о дронах" />
-  <meta property="og:description" content="Сборка и прошивка DSP + ESP с сайта. Пеленг в WebUI, MQTT / HA без облака." />
+  <meta property="og:title" content="NEVOD · дрон над двором" />
+  <meta property="og:description" content="Узел во дворе слышит дрон. В браузере — направление. Прошейте DSP и ESP на этой странице. Сообщение уходит в MQTT или Home Assistant. Железо ≈ 9 800 ₽." />
   <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/gui.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,7 +52,7 @@
       <a href="#kit" data-i18n="nav.kit">Сборка</a>
       <a href="#dsp" data-i18n="nav.dsp">DSP</a>
       <a href="#esp" data-i18n="nav.esp">ESP</a>
-      <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_USER_MANUAL.md" data-i18n="nav.manual">Пользование</a>
+      <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_USER_MANUAL.md" data-i18n="nav.manual">Как пользоваться</a>
       <a href="#hub" data-i18n="nav.hub">Hub</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
       <a href="https://t.me/UAV_radar" rel="noopener noreferrer">Telegram</a>
@@ -72,9 +72,9 @@
   <main id="main">
     <header class="mast">
       <p class="eyebrow">N.E.V.O.D.</p>
-      <p class="expand" data-i18n="hero.expand">Net of Early Vigilance and Observation of Drones</p>
-      <h1 data-i18n="hero.title">Соберите акустический узел раннего оповещения</h1>
-      <p class="lead" data-i18n="hero.lead">Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака. DSP и ESP прошиваются прямо с этой страницы.</p>
+      <p class="expand" data-i18n="hero.expand">Слушает ваш двор.</p>
+      <h1 data-i18n="hero.title">Дрон над двором</h1>
+      <p class="lead" data-i18n="hero.lead">Соберите узел и прошейте его на этой странице. В браузере появится направление, сообщение уйдёт в MQTT или Home Assistant.</p>
       <div class="cta-row" id="flash-hero">
         <a class="btn btn-primary" href="#kit" data-i18n="hero.cta1">Собрать</a>
         <a class="btn btn-primary" href="#dsp" data-i18n="hero.cta2">Прошить</a>
@@ -84,18 +84,18 @@
 
     <figure class="shot">
       <img src="assets/gui.jpg" alt="" width="1280" height="763" fetchpriority="high" />
-      <figcaption data-i18n="shot.cap">В WebUI сразу видно направление, откуда идёт звук.</figcaption>
+      <figcaption data-i18n="shot.cap">В браузере видно, откуда звук.</figcaption>
     </figure>
 
     <div class="prose">
       <section id="how">
         <h2 data-i18n="how.h">Как это работает</h2>
-        <p data-i18n="how.p">Четыре микрофона (XVF3800) + нейросеть на плате: распознаёт пропеллер или ДВС локально, без отправки аудио. Пеленг и спектр — в браузере у вас дома.</p>
+        <p data-i18n="how.p">На плате четыре микрофона XVF3800. Узел отличает пропеллер от двигателя и находит направление. Запись никуда не уходит: направление и спектр смотрите в браузере дома.</p>
       </section>
 
       <section id="yard" class="nv-yard-sector">
-        <h2 data-i18n="yard.h">Сначала — свой двор</h2>
-        <p data-i18n="yard.p">Прошили, Wi‑Fi, MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Облако NEVOD не обязательно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.</p>
+        <h2 data-i18n="yard.h">Сначала свой двор</h2>
+        <p data-i18n="yard.p">Поставьте узел у себя: он слышит дрон над двором. Дальше Wi‑Fi, и сообщение придёт в MQTT или Home Assistant. Автоматику включаете сами. Кабинет NEVOD для этого не нужен. Второй узел — у соседа, на его двор.</p>
       </section>
 
       <section id="kit">
@@ -168,42 +168,29 @@
           <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_USER_MANUAL.md" data-i18n="manual.cta">Руководство пользователя</a>
           <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-href-ru="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md" data-href-en="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_GUIDE.md#english" data-i18n="guide.cta">Полная инструкция DIY</a>
         </div>
-        <p class="flash-note" data-i18n="check.more">Руководство — повседневная работа. Полная инструкция — сборка и корпус.</p>
+        <p class="flash-note" data-i18n="check.more">В руководстве — каждый день: браузер, MQTT, сообщение. В полной инструкции — сборка и корпус.</p>
       </section>
 
       <section id="net">
-        <h2 data-i18n="net.h">Когда готовы — народный радар</h2>
-        <p data-i18n-html="net.p">Токен из <a href="https://nevod.endorphine.agency">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать заранее. Координаты нод сеть не публикует.</p>
+        <h2 data-i18n="net.h">Потом общая сеть</h2>
+        <p data-i18n-html="net.p">Свой двор уже работает. Общая сеть слышит дальше вашего забора. Токен берёте в <a href="https://nevod.endorphine.agency">кабинете</a>, рядом указываете координаты. Где стоят узлы, сеть не показывает.</p>
       </section>
 
       <section id="hub">
-        <h2 data-i18n="hub.h">Hub на участке</h2>
-        <p data-i18n="hub.p">Несколько узлов или LoRa: панель у себя дома принимает события и пересылает их в кабинет. Аудио наружу не уходит. Один узел без Hub обходится WebUI и MQTT.</p>
+        <h2 data-i18n="hub.h">Hub дома</h2>
+        <p data-i18n="hub.p">Узлов несколько или есть LoRa — поставьте Hub дома. Панель собирает события и может переслать их в кабинет. Звук с микрофонов наружу не уходит. Одному узлу Hub не нужен: хватает браузера и MQTT.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/HUB.md" data-href-ru="https://github.com/Gfermoto/UAV-radar/blob/main/docs/HUB.md" data-href-en="https://github.com/Gfermoto/UAV-radar/blob/main/docs/HUB.md#english" data-i18n="hub.cta">Установка и настройка</a>
         </div>
       </section>
 
-      <section id="keywords" class="keywords">
-        <h2 data-i18n="kw.h">Ищут как</h2>
-        <p data-i18n="kw.p">Так ищут DIY-детектор дронов и акустический сенсор БПЛА. Фразы на английском — глобальные запросы.</p>
-        <ul>
-          <li>DIY drone detection</li>
-          <li>acoustic UAV sensor</li>
-          <li>ESP32-S3 beamforming</li>
-          <li>privacy-first home security</li>
-          <li>Home Assistant drone alert</li>
-          <li>DePIN acoustic network</li>
-        </ul>
-      </section>
-
-      <p class="close" data-i18n="close">Раннее оповещение начинается с одного рабочего узла — своего или соседского.</p>
+      <p class="close" data-i18n="close">Начните с одного узла во дворе. Своего или соседского.</p>
     </div>
   </main>
 
   <footer class="site-foot">
     <div class="inner">
-      <p data-i18n="foot">NEVOD · DIY · MQTT · Home Assistant</p>
+      <p data-i18n="foot">NEVOD — узел во дворе.</p>
       <p>
         <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
         ·
@@ -222,19 +209,19 @@
           "nav.kit": "Сборка",
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
-          "nav.manual": "Пользование",
+          "nav.manual": "Как пользоваться",
           "nav.hub": "Hub",
-          "hero.expand": "Net of Early Vigilance and Observation of Drones",
-          "hero.title": "Соберите акустический узел раннего оповещения",
-          "hero.lead": "Акустический узел на ESP32-S3 слышит дроны над участком, показывает направление в WebUI и шлёт алерты в MQTT / Home Assistant — без облака. DSP и ESP прошиваются прямо с этой страницы.",
+          "hero.expand": "Слушает ваш двор.",
+          "hero.title": "Дрон над двором",
+          "hero.lead": "Соберите узел и прошейте его на этой странице. В браузере появится направление, сообщение уйдёт в MQTT или Home Assistant.",
           "hero.cta1": "Собрать",
           "hero.cta2": "Прошить",
           "hero.hint": "Chrome или Edge. Сначала DSP (USB у 3.5 mm), затем ESP (кабель в XIAO).",
-          "shot.cap": "В WebUI сразу видно направление, откуда идёт звук.",
+          "shot.cap": "В браузере видно, откуда звук.",
           "how.h": "Как это работает",
-          "how.p": "Четыре микрофона (XVF3800) + нейросеть на плате: распознаёт пропеллер или ДВС локально, без отправки аудио. Пеленг и спектр — в браузере у вас дома.",
-          "yard.h": "Сначала — свой двор",
-          "yard.p": "Прошили, Wi‑Fi, MQTT или Home Assistant — вы проинформированы и можете реагировать, в том числе автоматически. Облако NEVOD не обязательно. Один узел закрывает сектор участка; второй у соседей расширяет зону покрытия.",
+          "how.p": "На плате четыре микрофона XVF3800. Узел отличает пропеллер от двигателя и находит направление. Запись никуда не уходит: направление и спектр смотрите в браузере дома.",
+          "yard.h": "Сначала свой двор",
+          "yard.p": "Поставьте узел у себя: он слышит дрон над двором. Дальше Wi‑Fi, и сообщение придёт в MQTT или Home Assistant. Автоматику включаете сами. Кабинет NEVOD для этого не нужен. Второй узел — у соседа, на его двор.",
           "kit.h": "Сборка",
           "kit.p": "Железо ≈ <strong>9 800 ₽</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md\">Смета</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/ENCLOSURE.md\">корпус</a>.",
           "ports.th.port": "USB‑C",
@@ -264,35 +251,33 @@
           "check.3": "После домашней Wi‑Fi смените пароль WebUI.",
           "guide.cta": "Полная инструкция DIY",
           "manual.cta": "Руководство пользователя",
-          "check.more": "Руководство — повседневная работа. Полная инструкция — сборка и корпус.",
-          "net.h": "Когда готовы — народный радар",
-          "net.p": "Токен из <a href=\"https://nevod.endorphine.agency\">кабинета</a> и координаты — узел в общей сети раннего оповещения. Больше датчиков — выше шанс среагировать заранее. Координаты нод сеть не публикует.",
-          "hub.h": "Hub на участке",
-          "hub.p": "Несколько узлов или LoRa: панель у себя дома принимает события и пересылает их в кабинет. Аудио наружу не уходит. Один узел без Hub обходится WebUI и MQTT.",
+          "check.more": "В руководстве — каждый день: браузер, MQTT, сообщение. В полной инструкции — сборка и корпус.",
+          "net.h": "Потом общая сеть",
+          "net.p": "Свой двор уже работает. Общая сеть слышит дальше вашего забора. Токен берёте в <a href=\"https://nevod.endorphine.agency\">кабинете</a>, рядом указываете координаты. Где стоят узлы, сеть не показывает.",
+          "hub.h": "Hub дома",
+          "hub.p": "Узлов несколько или есть LoRa — поставьте Hub дома. Панель собирает события и может переслать их в кабинет. Звук с микрофонов наружу не уходит. Одному узлу Hub не нужен: хватает браузера и MQTT.",
           "hub.cta": "Установка и настройка",
-          "kw.h": "Ищут как",
-          "kw.p": "Так ищут DIY-детектор дронов и акустический сенсор БПЛА. Фразы на английском — глобальные запросы.",
-          "close": "Раннее оповещение начинается с одного рабочего узла — своего или соседского.",
-          "foot": "NEVOD · DIY · MQTT · Home Assistant"
+          "close": "Начните с одного узла во дворе. Своего или соседского.",
+          "foot": "NEVOD — узел во дворе."
         },
         en: {
           "nav.menu": "Menu",
           "nav.kit": "Build",
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
-          "nav.manual": "Manual",
+          "nav.manual": "How to use",
           "nav.hub": "Hub",
-          "hero.expand": "Net of Early Vigilance and Observation of Drones",
-          "hero.title": "Build an acoustic early-warning node",
-          "hero.lead": "DIY drone detection at home: an acoustic UAV sensor on ESP32-S3 with beamforming hears drones over your property, shows bearing in the web UI, and fires a Home Assistant drone alert or MQTT — privacy-first, no cloud required. Flash DSP and ESP from this page.",
+          "hero.expand": "Listens to your yard.",
+          "hero.title": "A drone over the yard",
+          "hero.lead": "Build the node and flash it on this page. The browser shows the direction, and the alert goes to MQTT or Home Assistant.",
           "hero.cta1": "Build",
           "hero.cta2": "Flash",
           "hero.hint": "Chrome or Edge. DSP first (USB by 3.5 mm), then ESP (cable on the XIAO).",
-          "shot.cap": "The web UI shows where the sound is coming from.",
+          "shot.cap": "The browser shows where the sound is coming from.",
           "how.h": "How it works",
-          "how.p": "Four mics (XVF3800) do ESP32-S3 beamforming; an on-board neural net recognizes props or an ICE engine locally. Audio never leaves the node. Bearing and spectrum stay in your browser.",
-          "yard.h": "Start with your own yard",
-          "yard.p": "Flash, Wi‑Fi, MQTT or Home Assistant — you get a local alert and can act on it, including automatically. NEVOD cloud is optional. One node covers a sector; a neighbor’s second node expands coverage.",
+          "how.p": "Four XVF3800 mics sit on the board. The node tells a propeller from an engine and finds the direction. The recording stays put: direction and spectrum are in the browser at home.",
+          "yard.h": "Your yard first",
+          "yard.p": "Put a node at your place. It hears a drone over the yard. Then join Wi‑Fi, and the alert comes to MQTT or Home Assistant. Automation is up to you. You don't need a NEVOD account for that. A second node goes next door, for their yard.",
           "kit.h": "Build",
           "kit.p": "Hardware ≈ <strong>₽9,800</strong> (XIAO ESP32-S3 + XVF3800). <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/BOM.md#english\">BOM</a> · <a href=\"https://github.com/Gfermoto/UAV-radar/blob/main/docs/ENCLOSURE.md#english\">enclosure</a>.",
           "ports.th.port": "USB‑C",
@@ -322,26 +307,24 @@
           "check.3": "After joining home Wi‑Fi, change the WebUI password.",
           "guide.cta": "Full DIY guide",
           "manual.cta": "User manual",
-          "check.more": "The manual is day-to-day use. The full guide is build and enclosure.",
-          "net.h": "When ready — people’s radar",
-          "net.p": "A token from your <a href=\"https://nevod.endorphine.agency\">account</a> plus coordinates puts the node on a DePIN acoustic network for shared early warning. More sensors — better chance to react in advance. Node coordinates are not published.",
-          "hub.h": "A Hub on your site",
-          "hub.p": "Several nodes, or LoRa: a panel at home takes the events and forwards them to your account. Audio stays local. A single node can stay on the web UI and MQTT.",
-          "hub.cta": "Install and setup",
-          "kw.h": "Also searched as",
-          "kw.p": "Natural queries for this kit. Keep the English phrases — they match how the global community searches.",
-          "close": "Early warning starts with one working node — yours or a neighbor’s.",
-          "foot": "NEVOD · DIY · MQTT · Home Assistant"
+          "check.more": "The manual is the everyday stuff: browser, MQTT, the alert. The full guide is the build and the enclosure.",
+          "net.h": "Then the shared network",
+          "net.p": "Your yard already works. The shared network hears past your fence. Get the token from the <a href=\"https://nevod.endorphine.agency\">account</a>. Add your coordinates there. The network does not show where the nodes are.",
+          "hub.h": "Hub at home",
+          "hub.p": "Several nodes, or LoRa: put a Hub at home. The panel collects events and can send them to your account. Mic audio stays in the house. One node does not need a Hub — the browser and MQTT are enough.",
+          "hub.cta": "Set it up",
+          "close": "Start with one node in the yard. Yours, or the neighbor’s.",
+          "foot": "NEVOD — a node in the yard."
         }
       };
 
       var titles = {
-        ru: "NEVOD · акустический узел раннего оповещения о дронах",
-        en: "NEVOD · DIY drone detection · acoustic UAV sensor"
+        ru: "NEVOD · дрон над двором",
+        en: "NEVOD · a drone over the yard"
       };
       var descriptions = {
-        ru: "DIY drone detection: acoustic UAV sensor on ESP32-S3 with beamforming. Privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network. Железо ≈ 9 800 ₽.",
-        en: "DIY drone detection with an acoustic UAV sensor: ESP32-S3 beamforming, privacy-first home security, Home Assistant drone alert, optional DePIN acoustic network. Hardware ≈ ₽9,800."
+        ru: "Узел во дворе слышит дрон. В браузере — направление. Прошейте DSP и ESP на этой странице. Сообщение уходит в MQTT или Home Assistant. Железо ≈ 9 800 ₽.",
+        en: "A node in the yard hears a drone. The browser shows the direction. Flash the DSP and the ESP on this page. The alert goes to MQTT or Home Assistant. Hardware ≈ ₽9,800."
       };
       function apply(lang) {
         try {
