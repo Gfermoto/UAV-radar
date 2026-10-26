@@ -48,7 +48,7 @@ a {
 }
 
 a:hover {
-  color: #e4ff7a;
+  color: #e7c15a;
 }
 
 code {
@@ -83,7 +83,7 @@ code {
   gap: 0.75rem;
   min-height: 3.25rem;
   padding: 0.5rem 1rem;
-  background: rgba(10, 18, 16, 0.94);
+  background: rgba(12, 18, 16, 0.94);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
 }
@@ -332,7 +332,7 @@ code {
   color: var(--ink);
 }
 .btn:hover {
-  background: #d8f45c;
+  background: #e7c15a;
   color: var(--ink);
 }
 .btn-primary {
@@ -566,10 +566,10 @@ code {
 .ports td {
   text-align: left;
   padding: 0.45rem 0.6rem;
-  border-bottom: 1px solid rgba(200, 232, 74, 0.15);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.22);
 }
 .ports th {
-  color: #8fa094;
+  color: var(--muted);
   font-weight: 600;
 }
 .dfu-progress {
@@ -592,7 +592,7 @@ code {
 #dfu-status {
   min-height: 1.4em;
   font-size: 0.9rem;
-  color: #8fa094;
+  color: var(--muted);
 }
 code.cmd {
   display: block;
@@ -603,5 +603,5 @@ code.cmd {
 .flash-section + .flash-section {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(200, 232, 74, 0.12);
+  border-top: 1px solid rgba(212, 160, 23, 0.18);
 }
