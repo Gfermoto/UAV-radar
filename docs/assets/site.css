@@ -1,12 +1,12 @@
 /* NEVOD public docs — readable first, especially on a phone */
 :root {
-  --ink: #0a1210;
-  --ink-soft: #121c18;
-  --fog: #e8efe8;
-  --muted: #c5d0c6;
-  --signal: #c8e84a;
+  --ink: #0c1210;
+  --ink-soft: #121a17;
+  --fog: #e7f0ea;
+  --muted: #8aa396;
+  --signal: #d4a017;
   --line: rgba(230, 238, 230, 0.14);
-  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --measure: 40rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
@@ -584,7 +584,7 @@ code {
   display: block;
   height: 100%;
   width: 0%;
-  background: #c8e84a;
+  background: #d4a017;
   transition: width 0.15s ease;
   font-size: 0;
   color: transparent;
