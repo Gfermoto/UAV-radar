@@ -26,9 +26,27 @@
 
 ### Установка
 
+Мастер задаёт вопросы по-русски и сам записывает `.env`.
+
 ```bash
 git clone https://github.com/Gfermoto/UAV-radar.git
 cd UAV-radar/hub
+bash install.sh
+```
+
+Дальше откройте адрес, который мастер напечатает в конце. Браузер предупредит о сертификате: он выписан на адрес этой машины. На первом экране задайте свой логин и пароль.
+
+Тот же запуск без вопросов, для того, кто ставит много площадок:
+
+```bash
+HUB_ASSUME_YES=1 HUB_CN=192.168.1.10 INGEST_TOKEN='токен-кабинета' \
+  HUB_WITH_REDIS=1 HUB_MQTT_MODE=off HUB_LORA=0 HUB_FORWARD=1 \
+  bash install.sh
+```
+
+Ручной путь, если мастер не нужен:
+
+```bash
 cp .env.example .env
 ```
 
@@ -144,9 +162,27 @@ The key baked into a fresh flash is shared. The cloud may accept that node and s
 
 ### Install
 
+The setup wizard asks the questions and writes `.env`.
+
 ```bash
 git clone https://github.com/Gfermoto/UAV-radar.git
 cd UAV-radar/hub
+bash install.sh
+```
+
+Then open the address it prints. The browser will warn about the certificate: the panel issued it for this machine. On the first screen choose your own username and a password.
+
+The same run without questions:
+
+```bash
+HUB_ASSUME_YES=1 HUB_CN=192.168.1.10 INGEST_TOKEN='account-token' \
+  HUB_WITH_REDIS=1 HUB_MQTT_MODE=off HUB_LORA=0 HUB_FORWARD=1 \
+  bash install.sh
+```
+
+By hand, if you do not want the wizard:
+
+```bash
 cp .env.example .env
 ```
 
