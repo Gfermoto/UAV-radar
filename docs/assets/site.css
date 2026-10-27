@@ -396,6 +396,15 @@ code {
 .shot {
   margin: 1.75rem 0 0.5rem;
 }
+.shot-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.shot-link:focus-visible {
+  outline: 2px solid var(--accent, #3dd68c);
+  outline-offset: 3px;
+}
 .shot img {
   width: 100%;
   border-radius: 2px;

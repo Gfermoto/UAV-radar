@@ -54,6 +54,7 @@
       <a href="#kit" data-i18n="nav.kit">Сборка</a>
       <a href="#dsp" data-i18n="nav.dsp">DSP</a>
       <a href="#esp" data-i18n="nav.esp">ESP</a>
+      <a href="./demo/" data-i18n="nav.demo">Демо</a>
       <a href="https://github.com/Gfermoto/UAV-radar/blob/main/docs/DIY_USER_MANUAL.md" data-i18n="nav.manual">Как пользоваться</a>
       <a href="#hub" data-i18n="nav.hub">Hub</a>
       <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a>
@@ -81,13 +82,16 @@
       <div class="cta-row" id="flash-hero">
         <a class="btn" href="#kit" data-i18n="hero.cta1">Собрать</a>
         <a class="btn btn-primary" href="#dsp" data-i18n="hero.cta2">Прошить</a>
+        <a class="btn" href="./demo/" data-i18n="hero.cta3">Демо</a>
       </div>
       <p class="flash-note mast-note" data-i18n="hero.hint">Chrome или Edge. Сначала DSP (USB у 3.5 mm), затем ESP (кабель в XIAO).</p>
     </header>
 
     <figure class="shot">
-      <img class="shot-dark" src="assets/gui.jpg?v=pair3" alt="" width="1280" height="778" fetchpriority="high" />
-      <img class="shot-light" src="assets/gui-light.jpg?v=pair3" alt="" width="1280" height="778" decoding="async" />
+      <a href="./demo/" class="shot-link" data-i18n-aria="shot.link" aria-label="Открыть демо WebUI">
+        <img class="shot-dark" src="assets/gui.jpg?v=pair3" alt="" width="1280" height="778" fetchpriority="high" />
+        <img class="shot-light" src="assets/gui-light.jpg?v=pair3" alt="" width="1280" height="778" decoding="async" />
+      </a>
       <figcaption data-i18n="shot.cap">В браузере видно, откуда звук.</figcaption>
     </figure>
 
@@ -213,6 +217,7 @@
           "nav.kit": "Сборка",
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
+          "nav.demo": "Демо",
           "nav.manual": "Как пользоваться",
           "nav.hub": "Hub",
           "hero.expand": "Слушает ваш двор.",
@@ -220,8 +225,10 @@
           "hero.lead": "Соберите узел и прошейте его на этой странице. В браузере появится направление, сообщение уйдёт в MQTT или Home Assistant.",
           "hero.cta1": "Собрать",
           "hero.cta2": "Прошить",
+          "hero.cta3": "Демо",
           "hero.hint": "Chrome или Edge. Сначала DSP (USB у 3.5 mm), затем ESP (кабель в XIAO).",
           "shot.cap": "В браузере видно, откуда звук.",
+          "shot.link": "Открыть демо WebUI",
           "how.h": "Как это работает",
           "how.p": "На плате четыре микрофона XVF3800. Узел отличает пропеллер от двигателя и находит направление. Запись никуда не уходит: направление и спектр смотрите в браузере дома.",
           "yard.h": "Сначала свой двор",
@@ -269,6 +276,7 @@
           "nav.kit": "Build",
           "nav.dsp": "DSP",
           "nav.esp": "ESP",
+          "nav.demo": "Demo",
           "nav.manual": "How to use",
           "nav.hub": "Hub",
           "hero.expand": "Listens to your yard.",
@@ -276,8 +284,10 @@
           "hero.lead": "Build the node and flash it on this page. The browser shows the direction, and the alert goes to MQTT or Home Assistant.",
           "hero.cta1": "Build",
           "hero.cta2": "Flash",
+          "hero.cta3": "Demo",
           "hero.hint": "Chrome or Edge. DSP first (USB by 3.5 mm), then ESP (cable on the XIAO).",
           "shot.cap": "The browser shows where the sound is coming from.",
+          "shot.link": "Open WebUI demo",
           "how.h": "How it works",
           "how.p": "Four XVF3800 mics sit on the board. The node tells a propeller from an engine and finds the direction. The recording stays put: direction and spectrum are in the browser at home.",
           "yard.h": "Your yard first",
@@ -350,6 +360,10 @@
           document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
             var k = el.getAttribute("data-i18n-html");
             if (dict[lang][k]) el.innerHTML = dict[lang][k];
+          });
+          document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+            var k = el.getAttribute("data-i18n-aria");
+            if (dict[lang][k]) el.setAttribute("aria-label", dict[lang][k]);
           });
           document.querySelectorAll("[data-href-ru][data-href-en]").forEach(function (el) {
             var href = lang === "en" ? el.getAttribute("data-href-en") : el.getAttribute("data-href-ru");
