@@ -1,16 +1,64 @@
-/* NEVOD public docs — readable first, especially on a phone */
-:root {
+/* NEVOD public docs — paired day/night instrument theme */
+:root, :root[data-theme="dark"] {
   --ink: #0c1210;
   --ink-soft: #121a17;
+  --panel2: #1a2621;
   --fog: #e7f0ea;
   --muted: #8aa396;
-  --signal: #d4a017;
+  --signal: #b8953a;
+  --signal-hover: #a08232;
+  --on-signal: #14110a;
+  --signal-soft: rgba(184, 149, 58, 0.14);
   --line: rgba(230, 238, 230, 0.14);
+  --ok: #2f9d4a;
+  --warn: #8c6230;
+  --bad: #e35d5d;
   --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --measure: 40rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
 }
+:root[data-theme="light"] {
+  --ink: #eef1ef;
+  --ink-soft: #f7f8f6;
+  --panel2: #e4e8e5;
+  --fog: #1a2420;
+  --muted: #5a6a62;
+  --signal: #8f7428;
+  --signal-hover: #7a6322;
+  --on-signal: #f7f8f6;
+  --signal-soft: rgba(143, 116, 40, 0.12);
+  --line: rgba(26, 36, 32, 0.14);
+  --ok: #2a7a40;
+  --warn: #7a5a28;
+  --bad: #b54545;
+  color-scheme: light;
+}
+.hdr-theme {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--muted);
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.hdr-theme:hover { color: var(--signal); border-color: var(--signal); }
+.hdr-theme:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.hdr-theme[data-theme-state="light"] { color: var(--signal); }
+.lang {
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.lang button:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 
 *,
 *::before,
@@ -48,7 +96,7 @@ a {
 }
 
 a:hover {
-  color: #c49212;
+  color: var(--signal-hover);
 }
 
 code {
@@ -83,7 +131,7 @@ code {
   gap: 0.75rem;
   min-height: 3.25rem;
   padding: 0.5rem 1rem;
-  background: #0c1210;
+  background: var(--ink);
   border-bottom: 1px solid var(--line);
 }
 
@@ -337,12 +385,12 @@ code {
 .btn-primary {
   background: var(--signal);
   border-color: var(--signal);
-  color: #1a140c;
+  color: var(--on-signal);
 }
 .btn-primary:hover {
-  background: #c49212;
-  border-color: #c49212;
-  color: #1a140c;
+  background: var(--signal-hover);
+  border-color: var(--signal-hover);
+  color: var(--on-signal);
 }
 
 .shot {
@@ -559,7 +607,7 @@ code {
 .ports td {
   text-align: left;
   padding: 0.45rem 0.6rem;
-  border-bottom: 1px solid rgba(212, 160, 23, 0.22);
+  border-bottom: 1px solid rgba(184, 149, 58, 0.22);
 }
 .ports th {
   color: var(--muted);
@@ -577,7 +625,7 @@ code {
   display: block;
   height: 100%;
   width: 0%;
-  background: #d4a017;
+  background: var(--signal);
   transition: width 0.15s ease;
   font-size: 0;
   color: transparent;
@@ -596,5 +644,5 @@ code.cmd {
 .flash-section + .flash-section {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(212, 160, 23, 0.18);
+  border-top: 1px solid rgba(184, 149, 58, 0.18);
 }

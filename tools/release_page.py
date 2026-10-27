@@ -101,9 +101,17 @@ def render(version: str, body: str) -> str:
   <meta property="og:url" content="{url}">
   <meta property="og:image" content="{SITE}/assets/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../assets/site.css">
+  <script>(function(){{try{{var t=localStorage.getItem('nevod-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.setAttribute('data-theme',t);}}catch(e){{document.documentElement.setAttribute('data-theme','dark');}}}})();</script>
+  <link rel="stylesheet" href="../assets/site.css?v=theme">
+  <script src="../assets/theme.js"></script>
 </head>
 <body>
+  <header class="top" style="position:static">
+    <a class="brand" href="../">NEVOD<span>.</span></a>
+    <div class="top-tools">
+      <button type="button" class="hdr-theme" data-nevod-theme-toggle aria-pressed="false" data-label-dark="Ночь" data-label-light="День" aria-label="Ночь" title="Ночь"><span data-ico="sun" aria-hidden="true">☀</span><span data-ico="moon" aria-hidden="true" hidden>☾</span></button>
+    </div>
+  </header>
   <main class="wrap">
     <div class="hero">
       <img src="../assets/og-default.png" width="807" height="450" alt="{title}">

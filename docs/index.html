@@ -7,6 +7,7 @@
   <meta name="description" content="Узел во дворе слышит дрон. В браузере — направление. Прошейте DSP и ESP на этой странице. Сообщение уходит в MQTT или Home Assistant. Железо ≈ 9 800 ₽." />
   <meta name="keywords" content="дрон, двор, направление, прошивка, MQTT, Home Assistant, NEVOD" />
   <meta name="theme-color" content="#0c1210" />
+  <script>(function(){try{var t=localStorage.getItem('nevod-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
   <link rel="icon" href="./assets/favicon.ico" sizes="any" />
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
@@ -39,7 +40,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=grid" />
+  <link rel="stylesheet" href="assets/site.css?v=theme" />
+  <script src="assets/theme.js"></script>
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 </head>
 <body class="home">
@@ -62,6 +64,7 @@
         <button type="button" id="lang-ru" aria-pressed="true">RU</button>
         <button type="button" id="lang-en" aria-pressed="false">EN</button>
       </div>
+      <button type="button" class="hdr-theme" data-nevod-theme-toggle aria-pressed="false" data-label-dark="Ночь" data-label-light="День" aria-label="Ночь" title="Ночь"><span data-ico="sun" aria-hidden="true">☀</span><span data-ico="moon" aria-hidden="true" hidden>☾</span></button>
       <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-bars" aria-hidden="true"></span>
         <span class="nav-toggle-label" data-i18n="nav.menu">Меню</span>
