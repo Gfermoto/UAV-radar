@@ -102,7 +102,7 @@ def render(version: str, body: str) -> str:
   <meta property="og:image" content="{SITE}/assets/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
   <script>(function(){{try{{var t=localStorage.getItem('nevod-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.setAttribute('data-theme',t);}}catch(e){{document.documentElement.setAttribute('data-theme','dark');}}}})();</script>
-  <link rel="stylesheet" href="../assets/site.css?v=theme">
+  <link rel="stylesheet" href="../assets/site.css?v=theme2">
   <script src="../assets/theme.js"></script>
 </head>
 <body>
