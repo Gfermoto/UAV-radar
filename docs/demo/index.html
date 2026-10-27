@@ -255,7 +255,6 @@ body.demo .demo-banner{display:block;}
 <button type="button" role="menuitem" data-page="system" data-i18n="TAB_SYS">Система</button>
 <button type="button" role="menuitem" data-page="integrations" data-i18n="TAB_INT">Интеграции</button>
 <button type="button" role="menuitem" data-page="ota" data-i18n="TAB_OTA">OTA</button>
-<button type="button" role="menuitem" data-page="engineer" id="btnEng" class="danger eng-secret" data-i18n="TAB_ENG">Инженерное</button>
 </div>
 </nav>
 
@@ -626,114 +625,7 @@ body.demo .demo-banner{display:block;}
 </div></div>
 </div></div>
 
-<div id="page-engineer" class="page" role="tabpanel" aria-labelledby="tab-engineer" hidden>
-<div class="grid">
 
-<div id="ghSecretBlock" class="nb-slot">
-<div class="panel wide gh-fw gh-ota-hidden" id="ghUnlockPanel" style="border:1px solid var(--accent)">
-<h2 data-i18n="GH_UNLOCK_TITLE">Разблокировка</h2>
-<p class="hint" data-i18n="GH_UNLOCK_HINT">Отдельный пароль (не логин WebUI).</p>
-<form id="ghUnlockFirst" class="settings-form" onsubmit="return false">
-<p class="hint" style="color:var(--warning)" data-i18n="GH_UNLOCK_FIRST">Сначала задайте unlock-пароль (≥8 символов, без «:»). После сохранения сессия откроется автоматически.</p>
-<input type="text" id="ghOtaSetUser" autocomplete="username" value="cloud" readonly hidden>
-<label for="ghOtaSetPw" data-i18n="GH_OTA_SET_PW">Задать / сменить unlock пароль</label>
-<input type="password" id="ghOtaSetPw" autocomplete="new-password" minlength="8" placeholder="••••••••">
-<button type="button" class="full" onclick="cloudUnlockSetPassword()" data-i18n="GH_OTA_SET_PW_BTN">Сохранить unlock пароль</button>
-</form>
-<form id="ghUnlockGate" class="settings-form" style="display:none" onsubmit="return false">
-<input type="text" id="ghOtaUnlockUser" autocomplete="username" value="cloud" readonly hidden>
-<label for="ghOtaUnlockPw" data-i18n="GH_OTA_UNLOCK">Unlock пароль</label>
-<input type="password" id="ghOtaUnlockPw" autocomplete="current-password" placeholder="••••••••">
-<button type="button" class="full" onclick="cloudUnlock()" data-i18n="GH_OTA_UNLOCK_BTN">Разблокировать</button>
-<p class="hint" id="ghOtaLockHint" style="margin-top:8px"></p>
-</form>
-<div id="ghUnlockOpen" class="settings-form" style="display:none">
-<p class="hint" id="ghOtaSessionHint" style="color:var(--success)" data-i18n="GH_OTA_UNLOCKED">Разблокировано</p>
-<div class="panel" style="border:1px dashed var(--accent);padding:10px;margin-top:8px">
-<h3 style="margin:0 0 6px" data-i18n="ENG_MODEL_TITLE">Модель TFLite (unsigned)</h3>
-<p class="hint" style="margin:0 0 8px" data-i18n="ENG_MODEL_HINT">Загрузка unsigned `.tflite` только после unlock. ABI (schema + формы [1,64,401,1]/4) проверяется на устройстве; подпись не требуется. Запись в inactive A/B слот, активация — после ручной перезагрузки.</p>
-<label for="engModelFile" data-i18n="ENG_MODEL_FILE">Файл .tflite</label>
-<input type="file" id="engModelFile" accept=".tflite">
-<button type="button" class="full" onclick="uploadEngineerModel()" id="engModelBtn" data-i18n="ENG_MODEL_GO">Загрузить модель</button>
-<div id="engModelStatus" style="margin-top:6px;font-size:13px;color:var(--muted);"></div>
-</div>
-<button type="button" class="full" onclick="cloudLock()" data-i18n="GH_OTA_LOCK">Заблокировать</button>
-</div>
-</div>
-<div class="panel wide gh-fw gh-ota-hidden" id="ghOtaPanel" style="border:1px solid var(--accent)">
-<h2 data-i18n="GH_OTA_TITLE">GitHub OTA</h2>
-<p class="hint" id="ghOtaPathSummary" style="word-break:break-all">—</p>
-<form id="ghOtaUnlocked" class="settings-form" style="display:none" onsubmit="return false">
-<input type="text" id="ghOtaPatUser" autocomplete="username" value="github" readonly hidden>
-<label for="ghOtaRepo" data-i18n="GH_OTA_REPO">Репозиторий (owner/repo)</label>
-<input type="text" id="ghOtaRepo" autocomplete="off" value="" placeholder="">
-<div id="ghOtaPatFields" class="nb-slot">
-<label for="ghOtaPat" data-i18n="GH_OTA_PAT">GitHub Personal Access Token</label>
-<input type="password" id="ghOtaPat" autocomplete="off" data-lpignore="true" data-1p-ignore data-bwignore data-form-type="other" placeholder="ghp_… / github_pat_…">
-<p class="hint" data-i18n="GH_OTA_PAT_HINT">Fine-grained: доступ к нужному repo → Permissions: Contents Read + Metadata Read (хватит для Releases API). Classic (private repo): scope «repo». Создать: GitHub → Settings → Developer settings → Personal access tokens. Токен в /status не показывается.</p>
-</div>
-<label class="check-row"><input type="checkbox" id="ghOtaAuto" checked> <span data-i18n="GH_OTA_AUTO">Авто-обновление новой прошивки</span></label>
-<p class="hint" data-i18n="GH_OTA_AUTO_HINT">Если включено: раз в сутки, через 30 минут после настроенного времени перезагрузки, узел проверит плавающий релиз diy-ota или light-ota и сам поставит более новую прошивку (даже если ежедневный reboot выключен).</p>
-<p class="hint" data-i18n="GH_OTA_CHECK_NOTE">Проверка и обновление — на вкладке OTA (без ввода пароля). Сюда вводится только токен/репозиторий.</p>
-<button type="button" class="full" onclick="saveGithubOta()" data-i18n="GH_OTA_SAVE">Сохранить OTA</button>
-</form>
-<p class="hint" id="ghOtaLocked" data-i18n="GH_OTA_LOCKED_MSG">Секция закрыта — разблокируйте в блоке выше</p>
-</div>
-</div>
-<div class="panel wide cloud-uplink" id="cloudCfgPanel" style="border:1px solid var(--warning)">
- <h2 data-i18n="INT_CLOUD">Облако (Cloud)</h2>
- <p class="hint" id="cloudPathSummary" style="word-break:break-all">https://185.218.111.196:9444/</p>
- <p class="hint" data-i18n="INT_CLOUD_HINT">Адрес сервера Cloud и отправка спектрограмм. Токен — во вкладке «Интеграции».</p>
- <div id="cloudCfgBody" class="settings-form" style="display:none">
- <label class="check-row"><input type="checkbox" id="intApiEn" data-i18n="INT_API_EN">Включить Cloud</label>
- <div class="form-row">
- <div><label for="intGrpcHost" data-i18n="INT_GRPC_HOST">Сервер NEVOD Cloud</label><input type="text" id="intGrpcHost" autocomplete="off" placeholder="185.218.111.196"></div>
- <div><label for="intGrpcPort" data-i18n="INT_GRPC_PORT">Порт (HTTPS)</label><input type="number" id="intGrpcPort" min="1" max="65535" placeholder="9444"></div>
- </div>
-<button type="button" class="full" onclick="saveCloudUrlOnly()" data-i18n="INT_SAVE">Сохранить</button>
-</div>
-<p class="hint" id="cloudCfgLockedHint" data-i18n="GH_OTA_LOCKED_MSG">Секция закрыта — разблокируйте в блоке выше</p>
-</div>
-<div class="panel wide" id="engMelPanel">
-<h2 data-i18n="INT_MEL_MODE">Спектрограммы в Cloud</h2>
-<p class="hint" data-i18n="INT_MEL_HINT">Спектрограмма отправляется вместе с событием — она нужна для разбора и дообучения. «При детекции» — только подтверждённые события. Тестовый режим шлёт раз в 120 с независимо от событий.</p>
-<div class="settings-form">
-     <label for="intMelUp" data-i18n="INT_MEL_MODE">Спектрограммы в Cloud</label>
-     <select id="intMelUp">
-     <option value="0" data-i18n="INT_MEL_OFF">выкл</option>
-     <option value="1" data-i18n="INT_MEL_DET">при детекции</option>
-     <option value="2" data-i18n="INT_MEL_1HZ">Тестовый режим (каждые 120 с)</option>
-     </select>
-     <p class="hint" id="melLabLoraHint" style="display:none" data-i18n="LORA_MEL_LAB">В режиме LoRa спектрограммы выключены. Здесь можно снова включить «при детекции». На Wi‑Fi и Ethernet они включаются сами.</p>
-     <button type="button" class="full" onclick="saveIntegrations()" data-i18n="INT_SAVE">Сохранить</button>
-</div></div>
-<div class="panel wide eng-only" id="engListenHoldPanel">
-<h2 data-i18n="ENG_LISTEN_TITLE">Возврат в детекцию</h2>
-<p class="hint" data-i18n="ENG_LISTEN_HINT">После включения микрофона узел сам вернётся в детекцию. Снимите галку — микрофон останется.</p>
-<div class="settings-form">
-<label class="check-row"><input type="checkbox" id="engListenAuto" data-i18n="ENG_LISTEN_AUTO">Автовозврат в детекцию</label>
-<label for="engListenHoldMin" data-i18n="ENG_LISTEN_HOLD">Через, мин</label>
-<input type="number" id="engListenHoldMin" min="1" max="1440" value="30">
-<button type="button" class="full" onclick="saveListenHold()" data-i18n="INT_SAVE">Сохранить</button>
-</div></div>
-<div class="panel wide eng-only" id="engJetGatePanel">
-<h2 data-i18n="ENG_JET_TITLE">Гейт ТРД-БПЛА</h2>
-<p class="hint" data-i18n="ENG_JET_HINT">jet_uav подтверждается, только если направление устойчиво: N отсчётов DoA с концентрацией R держатся заданное время. Пока XVF отвечает, без набранного направления jet не подтверждается. Запасной путь по времени — только когда DoA недоступен (XVF не отвечает); 0 = выкл.</p>
-<div class="settings-form">
-<label for="engJetHoldMs" data-i18n="ENG_JET_HOLD">Удержание, мс (0–10000)</label>
-<input type="number" id="engJetHoldMs" min="0" max="10000" step="100" value="1000">
-<label for="engJetDoaN" data-i18n="ENG_JET_DOA_N">Мин. отсчётов DoA (2–30)</label>
-<input type="number" id="engJetDoaN" min="2" max="30" value="5">
-<label for="engJetDoaR" data-i18n="ENG_JET_DOA_R">Мин. концентрация R (0–1)</label>
-<input type="number" id="engJetDoaR" min="0" max="1" step="0.05" value="0.70">
-<label for="engJetFbMs" data-i18n="ENG_JET_FB">Запасной путь, если XVF DoA недоступен, мс (0 = выкл, до 15000)</label>
-<input type="number" id="engJetFbMs" min="0" max="15000" step="500" value="3000">
-<label for="engJetCmin"><span data-i18n="ENG_JET_CMIN">Мин. контраст jet без tonal, дБ (0 = выкл пол)</span> <span id="engJetCminVal" class="range-val">3.0</span></label>
-<input type="range" id="engJetCmin" min="0" max="12" step="0.5" value="3" oninput="document.getElementById('engJetCminVal').textContent=Number(this.value).toFixed(1)">
-<p class="hint" data-i18n="ENG_JET_CMIN_HINT">Даже при mel_cmin=0 (сбор) jet без tonal-согласия не публикуется ниже этого contrast. Тихая дача: 3 дБ.</p>
-<button type="button" class="full" onclick="saveJetGate()" data-i18n="INT_SAVE">Сохранить</button>
-</div></div>
-</div></div>
 
 <div id="page-ota" class="page" role="tabpanel" aria-labelledby="tab-ota" hidden>
 <div class="grid">
@@ -4777,23 +4669,7 @@ function checkGithubOta(){
     });
     },function(){toast(I18N.err,true);});
   }
-(function(){
-  let verClicks=0,verTimer=null;
-  var ver=document.getElementById('sysVer');
-  if(!ver)return;
-  ver.addEventListener('click',function(){
-    verClicks++;clearTimeout(verTimer);
-    if(verClicks>=5){
-      verClicks=0;
-      document.body.classList.add('eng-unlocked');
-      var b=document.getElementById('btnEng');
-      if(b)b.classList.add('on');
-      toast(I18N.engEnabled||'Открыто',false);
-      if(typeof showTab==='function') showTab('engineer');
-    }
-    verTimer=setTimeout(function(){verClicks=0;},2000);
-  });
-})();
+/* public demo: engineer unlock removed */
 function syncAgcOverride(persist){
   var box=document.getElementById('engAgcOverride');
   var on=!!(box&&box.checked);
@@ -4867,5 +4743,6 @@ function loadEngineerSettings(j){
 }
 try{applyDomI18n();}catch(e){}
 </script>
+<script>/* public-demo-no-eng */(function(){var _s=window.showTab;if(typeof _s==='function')window.showTab=function(n){if(n==='engineer')return;return _s.apply(this,arguments);};document.body&&document.body.classList.remove('eng-unlocked');})();</script>
 </body>
 </html>
