@@ -22,7 +22,7 @@
     root.style.colorScheme = theme;
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
-      meta.setAttribute("content", theme === "light" ? "#eef1ef" : "#0c1210");
+      meta.setAttribute("content", theme === "light" ? "#eef1ef" : "#070b09");
     }
     if (persist) {
       try {
