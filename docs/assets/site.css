@@ -401,6 +401,10 @@ code {
   border-radius: 2px;
   border: 1px solid var(--line);
 }
+/* Скрин WebUI следует теме страницы (День/Ночь), не prefers-color-scheme. */
+.shot .shot-light { display: none; }
+:root[data-theme="light"] .shot .shot-dark { display: none; }
+:root[data-theme="light"] .shot .shot-light { display: block; }
 .shot figcaption {
   margin: 0.55rem 0 0;
   color: var(--muted);
