@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEVOD DIY v0.22.9-ota · UAV-radar</title>
+  <meta name="description" content="NEVOD DIY 0.22.9-ota: HA MQTT Discovery шаблоны под nevod.heartbeat.v2 / detection.v2 (acoustic.levels., bearing, tones)">
+  <link rel="canonical" href="https://gfermoto.github.io/UAV-radar/release/0.22.9.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="UAV-radar">
+  <meta property="og:title" content="NEVOD DIY v0.22.9-ota">
+  <meta property="og:description" content="NEVOD DIY 0.22.9-ota: HA MQTT Discovery шаблоны под nevod.heartbeat.v2 / detection.v2 (acoustic.levels., bearing, tones)">
+  <meta property="og:url" content="https://gfermoto.github.io/UAV-radar/release/0.22.9.html">
+  <meta property="og:image" content="https://gfermoto.github.io/UAV-radar/assets/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>(function(){try{var t=localStorage.getItem('nevod-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+  <link rel="stylesheet" href="../assets/site.css?v=theme2">
+  <script src="../assets/theme.js"></script>
+</head>
+<body>
+  <header class="top" style="position:static">
+    <a class="brand" href="../">NEVOD<span>.</span></a>
+    <div class="top-tools">
+      <button type="button" class="hdr-theme" data-nevod-theme-toggle aria-pressed="false" data-label-dark="Ночь" data-label-light="День" aria-label="Ночь" title="Ночь"><span data-ico="sun" aria-hidden="true">☀</span><span data-ico="moon" aria-hidden="true" hidden>☾</span></button>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="hero">
+      <img src="../assets/og-default.png" width="807" height="450" alt="NEVOD DIY v0.22.9-ota">
+    </div>
+    <h1>NEVOD DIY v0.22.9-ota</h1>
+    <p class="lead">Подписанный бинарник для USB-прошивки (XIAO ESP32-S3 + Seeed XVF3800).</p>
+    <p class="lead">Подписанный бинарник для USB-прошивки и OTA. HA Discovery читает heartbeat/detection v2.</p>
+
+    <div class="card">
+      <h2>Что нового</h2>
+      <ul>
+        <li>HA MQTT Discovery шаблоны под <code>nevod.heartbeat.v2</code> / <code>detection.v2</code> (<code>acoustic.levels.*</code>, bearing, tones)</li>
+        <li>Sensor <code>laeq</code>; <code>health.*</code> без ERROR в listen без lazy-блока</li>
+        <li>doa/tone читаются из HB, не из DET</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Скачать</h2>
+      <ul>
+        <li>Bin sha256: <code>6dea8b1c63a259418507443308f122ea912563b4c7fbdc47547f4327760babb0</code></li>
+        <li>Model sha256: <code>10cc4b32e1bb1452a4ca5d3bd0dd586540dba662a33a01926480e0e46bbbc386</code></li>
+        <li>Файлы: <code>firmware-nevod_diy.bin</code>, <code>.sig</code>, <code>.manifest.json</code></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Gfermoto/UAV-radar/releases/tag/nevod-diy-v0.22.9-ota">Скачать на GitHub</a>
+        <a class="btn secondary" href="https://gfermoto.github.io/UAV-radar/">Прошить с лендинга</a>
+      </div>
+    </div>
+
+    <p class="footer"><a href="../">← UAV-radar</a> · <a href="https://github.com/Gfermoto/UAV-radar">GitHub</a> · <a href="https://github.com/Gfermoto/UAV-radar/releases/tag/diy-ota">канал diy-ota</a></p>
+  </main>
+</body>
+</html>
